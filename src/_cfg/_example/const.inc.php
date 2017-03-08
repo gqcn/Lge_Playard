@@ -13,7 +13,7 @@ define('DEPLOYMENT',                  'dev');
 // 项目根目录
 define('ROOT_PATH',                   __DIR__.'/../');
 // 指向使用的框架目录
-define('FRAME_PATH',                  __DIR__.'/../_frm/');
+define('FRAME_PATH',                  '指向Lge框架_frm目录');
 // SESSION的存储方式，支持两种 file 和 memcache，默认是 file
 define('SESSION_STORAGE',             'memcache');
 // 当 SESSION_STORAGE 值为 memache 时有效，设置config中用于session存储的memcache配置项名称

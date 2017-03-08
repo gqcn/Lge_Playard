@@ -1,7 +1,7 @@
 <?php
 include __DIR__.'/../../../../_cfg/const.inc.php';
 include FRAME_PATH.'common.inc.php';
-if (!sessionStarted()) {
+if (!\Lge\sessionStarted()) {
     session_start();
 }
 

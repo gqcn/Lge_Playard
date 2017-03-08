@@ -46,7 +46,7 @@ return array(
             'charset'  => 'utf8',             //数据库编码
     		'database' => 'smiling_goat',     //数据库名称
         ),
-        */
+
         'sqlite_demo' => array(
             'host'     => '',
             'user'     => '',
@@ -57,7 +57,7 @@ return array(
             'charset'  => 'utf8',
     		'database' => ROOT_PATH.'cache/data/test.sqlite3',
         ),
-
+        */
         /**
          * 天然支持主从复制模式，当配置项中包含master和slave字段时，数据库操作自动切换为主从模式，不会读取该配置项内的其他配置.
          * 程序在执行数据库操作时会判断优先级，优先级计算方式：配置项值/总配置项值.

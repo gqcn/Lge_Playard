@@ -6,7 +6,7 @@ if(!defined('LGE')){
 }
 
 /**
- * 生成对应数据库的数据字典.
+ * 生成对应数据库的数据字典，需要当前链接的数据库用户能访问 information_schema 数据库.
  */
 class Controller_DbDoc extends Controller_Base
 {
