@@ -8,7 +8,7 @@ if(!defined('LGE')){
 /**
  * 后台首页
  */
-class Controller_Default extends BaseControllerAdminAuth
+class Controller_Default extends AceAdmin_BaseControllerAuth
 {
     /**
      * 首页展示

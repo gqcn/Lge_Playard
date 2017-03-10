@@ -8,7 +8,7 @@ if(!defined('LGE')){
 /**
  * 支付管理
  */
-class Controller_Pay extends BaseControllerAdminAuth
+class Controller_Pay extends AceAdmin_BaseControllerAuth
 {
     /**
      * 支付类型

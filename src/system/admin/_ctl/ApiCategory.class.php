@@ -7,7 +7,7 @@ if(!defined('LGE')){
 /**
  * 云服务 - 分类管理
  */
-class Controller_ApiCategory extends BaseControllerAdminAuth
+class Controller_ApiCategory extends AceAdmin_BaseControllerAuth
 {
     public $bindTableName  = 'api_app_cat';
 

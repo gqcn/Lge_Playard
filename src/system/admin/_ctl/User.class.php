@@ -8,7 +8,7 @@ if(!defined('LGE')){
 /**
  * 用户管理
  */
-class Controller_User extends BaseControllerAdminAuth
+class Controller_User extends AceAdmin_BaseControllerAuth
 {
     /**
      * 列表管理.

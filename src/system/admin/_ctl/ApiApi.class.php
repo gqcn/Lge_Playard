@@ -7,7 +7,7 @@ if(!defined('LGE')){
 /**
  * 云服务 - 接口管理
  */
-class Controller_ApiApi extends BaseControllerAdminAuth
+class Controller_ApiApi extends AceAdmin_BaseControllerAuth
 {
     public $bindTableName = 'api_app_api';
 

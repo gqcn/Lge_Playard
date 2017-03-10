@@ -7,7 +7,7 @@ if(!defined('LGE')){
 /**
  * 云服务 - 应用管理
  */
-class Controller_ApiApp extends BaseControllerAdminAuth
+class Controller_ApiApp extends AceAdmin_BaseControllerAuth
 {
 
     /**

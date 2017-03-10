@@ -5,14 +5,15 @@ if(!defined('LGE')){
 	exit('Include Permission Denied!');
 }
 
-class BaseControllerAdmin extends BaseController
+class AceAdmin_BaseController extends BaseController
 {
     public $menus          = array(); // 菜单列表
     public $startSession   = true;    // 是否开启session
     public $sessionID      = null;    // 设置session id
     public $breadCrumbs    = array(); // 面包屑列表
     public $currentMenu    = array(); // 当前菜单，可设置
-    public $bindTableName  = '';      // 当前控制器绑定的数据库表名称
+    public $bindTableName     = '';   // 当前控制器绑定的数据库表名称
+    public $bindTablePrimary  = 'id'; // 当前控制器绑定的数据库表主键
 
     /**
      * 初始化函数.

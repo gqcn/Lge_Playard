@@ -8,7 +8,7 @@ if(!defined('LGE')){
 /**
  * 系统设置
  */
-class Controller_Setting extends BaseControllerAdminAuth
+class Controller_Setting extends AceAdmin_BaseControllerAuth
 {
 
     /**

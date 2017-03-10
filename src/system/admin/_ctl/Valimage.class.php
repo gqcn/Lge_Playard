@@ -9,7 +9,7 @@ if(!defined('LGE')){
  * 验证码管理.
  *
  */
-class Controller_Valimage extends BaseControllerAdmin
+class Controller_Valimage extends AceAdmin_BaseControllerAuth
 {
     /**
      * 显示验证码

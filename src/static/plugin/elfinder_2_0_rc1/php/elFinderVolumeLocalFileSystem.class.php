@@ -472,7 +472,7 @@ class elFinderVolumeLocalFileSystem extends elFinderVolumeDriver {
 	 * @author Dmitry (dio) Levashov
 	 **/
 	protected function _copy($source, $targetDir, $name) {
-	    $userModule = Module_User::instance();
+	    $userModule = \Lge\Module_User::instance();
 	    $size      = filesize($source);
 	    if ($userModule->checkQuota($size)) {
 	        if (@copy($source, $targetDir.DIRECTORY_SEPARATOR.$name)) {
@@ -508,7 +508,7 @@ class elFinderVolumeLocalFileSystem extends elFinderVolumeDriver {
 	 **/
 	protected function _unlink($path) {
 	    $this->_clearThumb($path);
-	    $userModule = Module_User::instance();
+	    $userModule = \Lge\Module_User::instance();
 	    $size      = filesize($path);
 		if (@unlink($path)) {
 		    $userModule->useQuota(-$size);
@@ -540,7 +540,7 @@ class elFinderVolumeLocalFileSystem extends elFinderVolumeDriver {
 	 **/
 	protected function _save($fp, $dir, $name, $mime, $w, $h) {
 		$path      = $dir.DIRECTORY_SEPARATOR.$name;
-		$userModule = Module_User::instance();
+		$userModule = \Lge\Module_User::instance();
 		if (!($target = @fopen($path, 'wb'))) {
 			return false;
 		}
@@ -586,7 +586,7 @@ class elFinderVolumeLocalFileSystem extends elFinderVolumeDriver {
 	protected function _filePutContents($path, $content) {
 		$oldSize   = file_exists($path) ? filesize($path) : 0;
 		$newSize   = strlen($content);
-	    $userModule = Module_User::instance();
+	    $userModule = \Lge\Module_User::instance();
 	    $size      = $newSize - $oldSize;
 	    if ($userModule->checkQuota($size)) {
     	    if (@file_put_contents($path, $content, LOCK_EX) !== false) {
@@ -873,7 +873,7 @@ class elFinderVolumeLocalFileSystem extends elFinderVolumeDriver {
 	 */
 	protected function _clearThumb($filePath)
 	{
-	    if (Lib_FileSys::isImage($filePath)) {
+	    if (\Lge\Lib_FileSys::isImage($filePath)) {
 	        $dirPath = dirname($filePath);
 	        $files   = scandir($dirPath);
 	        $preg    = preg_quote($filePath, '/');

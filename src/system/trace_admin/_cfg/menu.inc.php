@@ -17,7 +17,7 @@
  */
 return array(
     array(
-        'name' => '后台首页',
+        'name' => '系统首页',
         'icon' => 'menu-icon fa fa-home',
         'acts' => array('default', 'index'),
         'url'  => '/default',
@@ -39,106 +39,25 @@ return array(
             ),
         ),
     ),
-    array(
-        'name' => '服务管理',
-        'icon' => 'menu-icon fa fa-cloud',
-        'subs' => array(
-            array(
-                'name' => '应用管理',
-                'acts' => array('api-app', 'index'),
-                'url'  => '/api-app/index',
-            ),
-            array(
-                'name' => '接口管理',
-                'acts' => array('api-api', 'index'),
-                'url'  => '/api-api/index',
-            ),
-            array(
-                'name' => '接口测试',
-                'acts' => array('api-test', 'index'),
-                'url'  => '/api-test/index',
-            ),
-            /*
-            array(
-                'name' => '本地服务',
-                'acts' => array('api-api', 'local'),
-                'url'  => '/api-api/local',
-            ),
-            */
-        ),
-    ),
 
     array(
-        'name' => '微信管理',
-        'icon' => 'menu-icon fa fa-wechat',
+        'name' => '产品管理',
+        'icon' => 'menu-icon fa fa-cubes',
         'subs' => array(
             array(
-                'name' => '菜单管理',
-                'subs'  => array(
-                    array(
-                        'name' => '自定义菜单',
-                        'icon' => 'fa fa-th',
-                        'acts' => array('wechat-menu', 'index'),
-                        'url'  => '/wechat-menu',
-                    ),
-                ),
+                'name' => '产品分类',
+                'acts' => array('trace.category', 'index'),
+                'url'  => '/trace.category/index',
             ),
-
             array(
-                'name' => '消息管理',
-                'icon' => 'comments',
-                'subs'  => array(
-                    array(
-                        'name' => '自动回复',
-                        'icon' => 'fa fa-comments',
-                        'acts' => array('wechat-reply', 'index'),
-                        'url'  => '/wechat-reply',
-                    ),
-                ),
+                'name' => '产品流程',
+                'acts' => array('trace.flow', 'index'),
+                'url'  => '/trace.flow/index',
             ),
-
             array(
-                'name' => '素材管理',
-                'subs'  => array(
-                    array(
-                        'name' => '图片素材',
-                        'icon' => 'fa fa-image',
-                        'acts' => array('wechat-material', 'image'),
-                        'url'  => '/wechat-material/image',
-                    ),
-                    /*
-                    array(
-                        'name' => '视频素材',
-                        'icon' => 'fa fa-video-camera',
-                        'acts' => array('wechat-material', 'video'),
-                        'url'  => '/wechat-material/video',
-                    ),
-                    array(
-                        'name' => '语音素材',
-                        'icon' => 'fa fa-headphones',
-                        'acts' => array('wechat-material', 'voice'),
-                        'url'  => '/wechat-material/voice',
-                    ),
-                    */
-                    array(
-                        'name' => '图文素材',
-                        'icon' => 'fa fa-pencil-square-o',
-                        'acts' => array('wechat-material', 'news'),
-                        'url'  => '/wechat-material/news',
-                    ),
-                ),
-            ),
-        ),
-    ),
-
-    array(
-        'name' => '支付管理',
-        'icon' => 'menu-icon fa fa-money',
-        'subs' => array(
-            array(
-                'name' => '支付查询',
-                'acts' => array('pay', 'index'),
-                'url'  => '/pay/index',
+                'name' => '产品管理',
+                'acts' => array('trace.product', 'index'),
+                'url'  => '/trace.product/index',
             ),
         ),
     ),
@@ -168,28 +87,6 @@ return array(
                 'name' => '用户组管理',
                 'acts' => array('user-group', 'index'),
                 'url'  => '/user-group',
-            ),
-        ),
-    ),
-
-    array(
-        'name' => '第三方平台',
-        'icon' => 'menu-icon fa fa-external-link',
-        'subs'  => array(
-            array(
-                'name' => '微信公众平台',
-                'acts' => array('wechat-thirdparty', 'wechat'),
-                'url'  => '/wechat-thirdparty/wechat',
-            ),
-            array(
-                'name' => '微信商家平台',
-                'acts' => array('wechat-thirdparty', 'wechatPay'),
-                'url'  => '/wechat-thirdparty/wechatPay',
-            ),
-            array(
-                'name' => '微信测试平台',
-                'acts' => array('wechat-thirdparty', 'wechatTest'),
-                'url'  => '/wechat-thirdparty/wechatTest',
             ),
         ),
     ),

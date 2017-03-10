@@ -8,7 +8,7 @@ if(!defined('LGE')){
 /**
  * 操作日志管理.
  */
-class Controller_OperationLog extends BaseControllerAdminAuth
+class Controller_OperationLog extends AceAdmin_BaseControllerAuth
 {
     /**
      * 日志列表.

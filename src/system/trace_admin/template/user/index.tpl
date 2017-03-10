@@ -12,7 +12,6 @@
 <div class="row">
     <div class="col-xs-12">
 
-
         <form class="form-horizontal" action="?" method="get">
             <div class="row" style="margin-bottom:10px;">
                 <div class="input-group col-xs-1"  style="width:80px;" title="分页大小" data-rel="tooltip" >

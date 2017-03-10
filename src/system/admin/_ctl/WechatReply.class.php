@@ -7,7 +7,7 @@ if(!defined('LGE')){
 /**
  * 微信公众号 - 自动回复管理
  */
-class Controller_WechatReply extends BaseControllerAdminAuth
+class Controller_WechatReply extends AceAdmin_BaseControllerAuth
 {
     public $types = array(
         'text'  => '文本消息',

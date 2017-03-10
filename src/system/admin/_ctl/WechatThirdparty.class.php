@@ -8,7 +8,7 @@ if(!defined('LGE')){
 /**
  * 微信公众号 - 第三方平台
  */
-class Controller_WechatThirdparty extends BaseControllerAdminAuth
+class Controller_WechatThirdparty extends AceAdmin_BaseControllerAuth
 {
     /**
      * 微信公众平台展示

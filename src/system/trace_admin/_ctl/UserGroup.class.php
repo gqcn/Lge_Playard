@@ -10,7 +10,7 @@ if(!defined('LGE')){
  * @author john
  *
  */
-class Controller_UserGroup extends BaseControllerAdminAuth
+class Controller_UserGroup extends AceAdmin_BaseControllerAuth
 {
     /**
      * 列表管理.
@@ -102,6 +102,9 @@ class Controller_UserGroup extends BaseControllerAdminAuth
          */
         $customAuths        = array();
         $definedCustomAuths = Config::get('auth');
+        if (empty($definedCustomAuths)) {
+            $definedCustomAuths = array();
+        }
         foreach ($definedCustomAuths as $v) {
             $checked = ($id !== '') ? $userAuth->checkAuthByGid($v[0], $id)    : false;
             $value   = ($id !== '') ? $userAuth->getAuthValueByGid($v[0], $id) : null;

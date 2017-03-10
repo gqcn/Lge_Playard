@@ -8,7 +8,7 @@ if(!defined('LGE')){
 /**
  * 带权限判断的后台控制器基类(主要是登录状态控制).
  */
-class BaseControllerAdminAuth extends BaseControllerAdmin
+class AceAdmin_BaseControllerAuth extends AceAdmin_BaseController
 {
     public $startSession   = true;    // 是否开启session
     public $sessionID      = null;    // 设置session id
@@ -52,7 +52,7 @@ class BaseControllerAdminAuth extends BaseControllerAdmin
          * 菜单最多三级，因此这里遍历的时候也只遍历三级
          */
         if (empty($this->menus)) {
-            $menus = include(ROOT_PATH_EX.'/_cfg/menu.inc.php');
+            $menus = include(Core::$sysDir.'/_cfg/menu.inc.php');
         } else {
             $menus = $this->menus;
         }
@@ -123,7 +123,7 @@ class BaseControllerAdminAuth extends BaseControllerAdmin
     public function display($tpl = 'index')
     {
         $this->assigns(array(
-            'menus'             => $this->_getMenus(),
+            'menus' => $this->_getMenus(),
         ));
         parent::display($tpl);
     }
@@ -138,10 +138,10 @@ class BaseControllerAdminAuth extends BaseControllerAdmin
         if (empty($this->bindTableName)) {
             $this->addMessage('请先设置控制器绑定的数据库表名', 'error');
         } else {
-            $id = Lib_Request::getGet('id', 0);
+            $id = Lib_Request::getGet($this->bindTablePrimary, 0);
             if (!empty($id)) {
-                Instance::table($this->bindTableName)->delete(array('id' => $id));
-                $this->addMessage('数据删除成功', 'success');
+                Instance::table($this->bindTableName)->delete(array($this->bindTablePrimary => $id));
+                $this->addMessage('数据删除完成', 'success');
             }
         }
         Lib_Redirecter::redirectExit();

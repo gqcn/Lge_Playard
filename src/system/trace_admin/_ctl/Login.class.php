@@ -7,7 +7,7 @@ if(!defined('LGE')){
 /**
  * 登录管理.
  */
-class Controller_Login extends BaseControllerAdmin
+class Controller_Login extends AceAdmin_BaseController
 {
 
     /**

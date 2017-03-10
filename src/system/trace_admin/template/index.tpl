@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>{$config['System']['admin']['name']}</title>
+    <title>{$config['System']['trace_admin']['name']}</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="/static/resource/images/favicon.ico" type="image/x-icon" />
@@ -59,7 +59,7 @@
                 <div class="navbar-brand">
                     <img style="height:30px;" src="/static/resource/images/logo_white2.png" />
                 </div><!-- /.brand -->
-                <div class="navbar-brand-text">服务管理平台</div>
+                <div class="navbar-brand-text">防伪溯源管理系统</div>
             </a>
         </div><!-- /.navbar-header -->
 
