@@ -383,7 +383,7 @@
         <label class="control-label col-xs-12 col-sm-2 no-padding-right">详细介绍:</label>
         <div class="col-xs-12 col-sm-10">
             <div style="margin:0 0 5px 0;">
-                <button class="btn btn-sm btn-info" onclick="showMediaSelection()" type="button">
+                <button class="btn btn-sm btn-info" onclick="showMediaSelection('editor')"flow-validation-form type="button">
                     <i class="ace-icon fa fa-inbox"></i> 添加媒体 </button>
                 格式支持：图片(png、jpg、jpeg、gif), 音频(mp3、wav、ogg等), 视频(flv、mp4、mov、f4v等)
             </div>

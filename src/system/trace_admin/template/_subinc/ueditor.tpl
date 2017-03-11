@@ -2,10 +2,10 @@
 
 <script type="application/javascript">
     //显示添加媒体文件对话框
-    function showMediaSelection()
+    function showMediaSelection(editorId)
     {
         showFileManager("添加/选择多媒体文件", function(files){
-            addMediaToUEditor(files);
+            addMediaToUEditor(files, editorId);
         });
     }
 </script>

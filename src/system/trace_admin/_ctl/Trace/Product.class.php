@@ -17,6 +17,7 @@ class Controller_Trace_Product extends AceAdmin_BaseControllerAuth
      */
     public function index()
     {
+        $key       = Lib_Request::get('key');
         $catid     = Lib_Request::get('catid');
         $catid     = intval($catid);
         $tables    = array(
@@ -24,8 +25,12 @@ class Controller_Trace_Product extends AceAdmin_BaseControllerAuth
             'left join plugin_trace_category c on(c.id=p.cat_id)',
         );
         $fields    = 'p.*, c.name as cat_name';
-        $condition = empty($catid) ? array() : array('p.cat_id' => $catid);
         $orderby   = '`order` asc, id desc';
+        $condition = empty($catid) ? array() : array('p.cat_id' => $catid);
+        if (!empty($key)) {
+            $batchNo               = substr($key, 0, 10);
+            $condition['batch_no'] = $batchNo;
+        }
         $list      = Instance::table($tables)->getAll($fields, $condition, null, $orderby);
 
         $this->assigns(array(
@@ -75,6 +80,85 @@ class Controller_Trace_Product extends AceAdmin_BaseControllerAuth
             ));
             $this->display();
         }
+    }
+
+    /**
+     * 溯源管理.
+     */
+    public function flow()
+    {
+        if (Lib_Request::isRequestMethodPost()) {
+            $this->_handleFlowSave();
+        } else {
+            $batchNo = Lib_Request::get('batch_no');
+            if (empty($batchNo)) {
+                $this->addMessage('请选择需要进行溯源管理的产品', 'error');
+                Lib_Redirecter::redirectExit();
+            }
+            $this->setCurrentMenu('trace.product', 'index');
+            $this->setBreadCrumbs(array(
+                array(
+                    'icon' => 'fa fa-cubes',
+                    'name' => '产品管理',
+                    'url'  => '/trace.product',
+                ),
+                array(
+                    'icon' => '',
+                    'name' => '溯源管理',
+                    'url'  => '',
+                ),
+            ));
+            if (!empty($batchNo)) {
+                $data = Instance::table($this->bindTableName)->getOne("*", array('batch_no' => $batchNo));
+                if (!empty($data)) {
+                    $contentFlow          = empty($data['content_flow']) ? $data['content_flow'] : json_decode($data['content_flow'], true);
+                    $data['content_flow'] = array();
+                    $data['product_flow'] = Instance::table('plugin_trace_flow')->getAll(
+                        "*", array('cat_id' => $data['cat_id']), null, "`order`,id asc", 0, 0, 'id'
+                    );
+                    if (!empty($data['product_flow'])) {
+                        foreach ($data['product_flow'] as $flowId => $item) {
+                            $data['content_flow'][$flowId] = array(
+                                'name'    => $item['name'],
+                                'content' => '',
+                            );
+                            if (isset($contentFlow[$flowId])) {
+                                $data['content_flow'][$flowId]['content'] = $contentFlow[$flowId]['content'];
+                            }
+                        }
+                    } else {
+                        $this->addMessage('当前产品分类下无溯源流程，如需溯源管理请为该分类下添加流程后继续', 'error');
+                        Lib_Redirecter::redirectExit();
+                    }
+                } else {
+                    $this->addMessage('您查询的产品不存在', 'error');
+                    Lib_Redirecter::redirectExit();
+                }
+            }
+            $this->assigns(array(
+                'data'     => $data,
+                'mainTpl'  => 'trace/product/flow',
+            ));
+            $this->display();
+        }
+    }
+
+    private function _handleFlowSave()
+    {
+        $batchNo     = Lib_Request::getPost('batch_no');
+        $contentFlow = Lib_Request::getPost('content_flow');
+        $data        = array(
+            'batch_no'     => $batchNo,
+            'content_flow' => json_encode($contentFlow),
+            'update_time'  => time(),
+        );
+        $result = Instance::table($this->bindTableName)->mysqlFiltSave($data);
+        if ($result === false) {
+            $this->addMessage('产品溯源信息保存失败', 'error');
+        } else {
+            $this->addMessage('产品溯源信息保存成功', 'success');
+        }
+        Lib_Redirecter::redirectExit();
     }
 
     private function _handleSave()

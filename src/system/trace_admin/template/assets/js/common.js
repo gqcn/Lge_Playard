@@ -135,7 +135,7 @@ function showFileManager(title, getFileCallback, onlyMimes)
 
 // 添加多媒体文件到编辑器
 // 多媒体格式支持: 图片(png、jpg、jpeg、gif、bmp), 音频(mp3、aac、wav、ogg、ogv、m4a), 视频(flv、mp4、mov、f4v、3gp、3g2) 
-function addMediaToUEditor(file)
+function addMediaToUEditor(file, editorId)
 {
     var type = file.substr(file.lastIndexOf('.') + 1).toLowerCase();
     switch (type) {
@@ -172,6 +172,6 @@ function addMediaToUEditor(file)
     		content = '<a href="'+ file +'" target="_blank">' + file + '</a>';
     		break;
     }
-    UE.getEditor('editor').execCommand('insertHtml', content);
+    UE.getEditor(editorId).execCommand('insertHtml', content);
 }
 
