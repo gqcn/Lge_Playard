@@ -60,6 +60,7 @@
             <thead>
             <tr>
                 <th style="width:80px;" class="center">批次编号</th>
+                <th class="center">随机产品二维码</th>
                 <th>产品数量</th>
                 <th>产品名称</th>
                 <th>所属分类</th>
@@ -71,6 +72,7 @@
             {foreach from=$list index=$index key=$key item=$item}
                 <tr>
                     <td {if $_Get->data['key']}class="red"{/if}>{$item['batch_no']}</td>
+                    <td class="center"><img src="{$item['qrcode']}" /></td>
                     <td>{$item['number']}</td>
                     <td>{$item['name']}</td>
                     <td>{$item['cat_name']}</td>
@@ -80,11 +82,15 @@
                             <a href="/trace.product/flow?batch_no={$item['batch_no']}" class="blue" title="溯源管理" data-rel="tooltip">
                                 <i class="ace-icon fa fa-truck bigger-130"></i>
                             </a>
-                            &nbsp;
+
+                            <a href="/trace.product/export?batch_no={$item['batch_no']}" class="orange" title="导出链接" data-rel="tooltip">
+                                <i class="ace-icon fa fa-share bigger-130"></i>
+                            </a>
+
                             <a href="/trace.product/item?batch_no={$item['batch_no']}" class="green" title="修改产品" data-rel="tooltip">
                                 <i class="ace-icon fa fa-pencil bigger-130"></i>
                             </a>
-                            &nbsp;
+
                             <a href="javascript:deleteItem('/trace.product/delete?batch_no={$item['batch_no']}');" class="red ButtonDelete" title="删除产品" data-rel="tooltip">
                                 <i class="ace-icon fa fa-trash-o bigger-130"></i>
                             </a>

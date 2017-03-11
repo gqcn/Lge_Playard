@@ -1,61 +1,73 @@
 <section id="section-default" data-role="section" class="active">
     {* 产品详情 *}
-    <article data-role="article" id="product-detail" class="default-article active">
+    <header>
+        <div class="titlebar">
+            <h1 class="text-center">{$data['name']}</h1>
+        </div>
+    </header>
+
+    <article data-role="article" id="product-detail" class="active" style="top:44px;bottom:50px;">
         <div class="scroller">
-            <div id="product-detail-content">
-                {$data['content']}
+            <div id="product-detail-content" style="padding:5px;">
+                <div>产品名称：{$data['name']}</div>
+                <div>产品编号：{$productNo}</div>
+                <div>产品介绍：{$data['content']}</div>
             </div>
         </div>
     </article>
 
     {* 溯源详情 *}
-    <article data-role="article" id="trace-detail">
+    <article data-role="article" id="trace-detail" style="top:44px;bottom:50px;">
         <div class="scroller">
-            <div class="card">
-                <ul class="table-view">
-                    <li class="table-view-cell table-view-divider">Base</li>
-                    <li class="table-view-cell"><a class="navigate-right" data-toggle="section" href="#ratchet_layout_section">基本布局</a></li>
-                    <li class="table-view-cell"><a class="navigate-right" data-toggle="section" href="#ratchet_button_section">按钮组件</a></li>
-                    <li class="table-view-cell"><a class="navigate-right" data-toggle="section" href="#ratchet_list_section">列表组件</a></li>
-                    <li class="table-view-cell table-view-divider">Others</li>
-                    <li class="table-view-cell"><a class="navigate-right" data-toggle="section" href="#ratchet_form_section">表单样式</a></li>
-                    <li class="table-view-cell"><a class="navigate-right" data-toggle="section" href="#ratchet_icon_section">字体图</a></li>
-                </ul>
-            </div>
+            <ul class="list">
+                {foreach from=$data['content_flow'] index=$index key=$key item=$item}
+                    <li>
+                        <div class="justify-content">
+                            <div style="padding:0 0 5px 0;font-size:18px;color:#C0392B;">
+                                {$index + 1}、{$item['name']}：
+                            </div>
+                            <p>{$item['content']}</p>
+                        </div>
+                    </li>
+                {/foreach}
+
+            </ul>
         </div>
     </article>
 
 
-    <nav class="bar bar-tab">
-        <a class="tab-item active" data-role="tab" data-toggle="article" href="#product-detail">
-            <span class="icon icon-pages"></span>
-            <span class="tab-label">产品信息</span>
-        </a>
-        <a class="tab-item" data-role="tab" data-toggle="article" href="#trace-detail">
-            <span class="icon icon-person"></span>
-            <span class="tab-label">溯源详情</span>
-        </a>
-    </nav>
+    <footer>
+        <ul class="menubar">
+            <li class="tab active" data-role="tab" href="#product-detail" data-toggle="article">
+                <i class="icon icon-earth-fill"></i>
+                <label class="tab-label">产品信息</label>
+            </li>
+            <li class="tab" data-role="tab" href="#trace-detail" data-toggle="article">
+                <i class="icon icon-lorry-fill"></i>
+                <label class="tab-label">溯源详情</label>
+            </li>
+        </ul>
+    </footer>
 </section>
 
 <script type="application/javascript">
 (function(){
-    $('article').on('articleload', function(){
-        $('#end-study-button').on(A.options.clickEvent, function(e){
-            A.confirm('您确定结束学习么？', function(){
-                window.location.href="/study/showEnd";
-            });
-            return false;
+    function autoCheckImgWidth() {
+        $('img').each(function(){
+            if ($(this).width() > 300) {
+                $(this).attr('width', '100%');
+            }
         });
+    }
+    setInterval(function(){
+        autoCheckImgWidth();
+    }, 500);
 
-        var scroll = A.Scroll(this, {probeType:2});
-        setTimeout(function(){
-            A.Scroll('article').refresh();
-        }, 1000);
-
-        setTimeout(function(){
-            checkStatus();
-        }, 5000);
+    /*
+    // 切换顶部标题
+    $('footer ul.menubar li').click(function(){
+        $('div.titlebar h1').text($(this).text().trim());
     });
+    */
 })();
 </script>

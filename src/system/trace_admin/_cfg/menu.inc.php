@@ -28,14 +28,19 @@ return array(
         'icon' => 'menu-icon fa fa-cogs',
         'subs' => array(
             array(
-                'name' => '操作日志',
-                'acts' => array('operation-log', 'index'),
-                'url'  => '/operation-log/index',
+                'name' => '系统设置',
+                'acts' => array('setting', 'system'),
+                'url'  => '/setting/system',
             ),
             array(
                 'name' => '文件管理',
                 'acts' => array('setting', 'filemanager'),
                 'url'  => '/setting/filemanager',
+            ),
+            array(
+                'name' => '操作日志',
+                'acts' => array('operation-log', 'index'),
+                'url'  => '/operation-log/index',
             ),
         ),
     ),

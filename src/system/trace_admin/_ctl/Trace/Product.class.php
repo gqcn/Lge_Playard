@@ -32,13 +32,50 @@ class Controller_Trace_Product extends AceAdmin_BaseControllerAuth
             $condition['batch_no'] = $batchNo;
         }
         $list      = Instance::table($tables)->getAll($fields, $condition, null, $orderby);
-
+        $siteUrl   = Module_Setting::instance()->get('trace.site_url');
+        $siteUrl   = rtrim($siteUrl, '/');
+        if (!empty($list)) {
+            foreach ($list as $k => $v) {
+                $url = urlencode("{$siteUrl}/?no={$v['batch_no']}".base_convert(rand(1, $v['number']), 10, 36));
+                $list[$k]['qrcode'] = "{$siteUrl}/qrcode?v={$url}";
+            }
+        }
         $this->assigns(array(
             'list'     => $list,
             'catList'  => Model_Trace_Category::instance()->getCatTree(),
             'mainTpl'  => 'trace/product/index',
         ));
         $this->display();
+    }
+
+    /**
+     * 导出链接.
+     */
+    public function export()
+    {
+        $batchNo = Lib_Request::get('batch_no');
+        if (empty($batchNo)) {
+            $this->addMessage('请选择需要导出链接的产品', 'error');
+            Lib_Redirecter::redirectExit();
+        }
+        $data    = Instance::table($this->bindTableName)->getOne("*", array('batch_no' => $batchNo));
+        if (empty($data)) {
+            $this->addMessage('请选择需要导出链接的产品', 'error');
+            Lib_Redirecter::redirectExit();
+        }
+        $siteUrl = Module_Setting::instance()->get('trace.site_url');
+        $siteUrl = rtrim($siteUrl, '/');
+        $content = '';
+        for ($i = 1; $i <= $data['number']; $i++) {
+            $content .= "{$siteUrl}/?no={$data['batch_no']}".base_convert($i, 10, 36).PHP_EOL;
+        }
+        if (ob_get_level()) {
+            ob_end_clean();
+        }
+        header('Content-Type: application/vnd.ms-excel;charset=utf-8');
+        header('Content-Disposition: attachment;filename="产品链接.csv"');
+        header('Cache-Control: max-age=0');
+        echo $content;
     }
 
     /**

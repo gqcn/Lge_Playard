@@ -290,8 +290,9 @@ var $native = (function(){
 		}
 	
 	};
-	
-	return A.util.readyAlarm(_native, '$native', 'plusready');
+	try {
+        return A.util.readyAlarm(_native, '$native', 'plusready');
+    } catch (e) {}
 })();
 
 var $util = (function(){
@@ -432,7 +433,9 @@ var $util = (function(){
 			
 		return arr;
 	};
+	try {
+        return A.util.readyAlarm(_util, '$util', 'plusready');
+    } catch (e) {
 
-	return A.util.readyAlarm(_util, '$util', 'plusready');
-	
+	}
 })();
