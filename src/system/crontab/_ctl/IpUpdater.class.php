@@ -12,7 +12,7 @@ class Controller_IpUpdater extends Controller_Base
 {
     public $logCategory     = 'crontab/ip-updater';
     public $accessKeyId     = 'GdXUNhfUzSEdVEpE';
-    public $accessKeySecret = 'RvTVnnRKJKuutobcZv2b74vpOQNKg3';
+    public $accessKeySecret = '';
     public $domains         = array('johnx.cn', 'johng.cn');
 
     /**

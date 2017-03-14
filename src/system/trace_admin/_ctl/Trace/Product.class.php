@@ -155,13 +155,10 @@ class Controller_Trace_Product extends AceAdmin_BaseControllerAuth
                     );
                     if (!empty($data['product_flow'])) {
                         foreach ($data['product_flow'] as $flowId => $item) {
-                            $data['content_flow'][$flowId] = array(
-                                'name'    => $item['name'],
-                                'content' => '',
-                            );
                             if (isset($contentFlow[$flowId])) {
-                                $data['content_flow'][$flowId]['content'] = $contentFlow[$flowId]['content'];
+                                $data['content_flow'][$flowId] = $contentFlow[$flowId];
                             }
+                            $data['content_flow'][$flowId]['name'] = $item['name'];
                         }
                     } else {
                         $this->addMessage('当前产品分类下无溯源流程，如需溯源管理请为该分类下添加流程后继续', 'error');

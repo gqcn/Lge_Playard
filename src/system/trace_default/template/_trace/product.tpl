@@ -26,6 +26,12 @@
                             <div style="padding:0 0 5px 0;font-size:18px;color:#C0392B;">
                                 {$index + 1}、{$item['name']}：
                             </div>
+                            {if $item['date']}
+                                <p>操作日期：{$item['date']} {if $item['time']}{$item['time']}{/if}</p>
+                            {/if}
+                            {if $item['author']}
+                                <p>责任人/企业：{$item['author']}</p>
+                            {/if}
                             <p>{$item['content']}</p>
                         </div>
                     </li>

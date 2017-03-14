@@ -123,7 +123,7 @@
   font-size: 18px;
 }
 .bootstrap-timepicker-widget table td input {
-  width: 25px;
+  /*width: 25px;*/
   margin: 0;
   text-align: center;
 }

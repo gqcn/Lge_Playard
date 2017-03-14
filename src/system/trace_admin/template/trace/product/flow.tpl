@@ -1,3 +1,8 @@
+<style type="text/css">
+    .datepicker, .bootstrap-timepicker-widget {
+        z-index: 99999 !important;
+    }
+</style>
 <div class="row">
     <div class="col-xs-12">
         <form class="form-horizontal" id="validation-form" action="/trace.product/flow" method="post" enctype="multipart/form-data">
@@ -35,7 +40,28 @@
                                 <div class="tab-content" style="min-height: 300px;">
                                     {foreach from=$data['content_flow'] index=$index key=$key item=$item}
                                         <div id="tab_{$key}" class="tab-pane fade {if $index == 0}active in{/if}">
-                                            <div style="margin:0 0 5px 0;">
+                                            <div>
+                                                <div class="input-group" style="width:150px;float:left;">
+                                                    <input placeholder="该操作日期" value="{$item['date']}"  name="content_flow[{$key}][date]" class="form-control date-picker" id="id-date-picker" type="text" data-date-format="yyyy-mm-dd" />
+                                                    <span class="input-group-addon">
+                                                    <i class="ace-icon fa fa-calendar bigger-110"></i>
+                                                </span>
+                                                </div>
+
+                                                <div class="input-group bootstrap-timepicker" style="width:150px;float:left;margin:0 0 0 5px;">
+                                                    <input placeholder="该操作时间" value="{$item['time']}" name="content_flow[{$key}][time]" type="text" class="timepicker form-control"/>
+                                                    <span class="input-group-addon">
+                                                    <i class="fa fa-clock-o bigger-110"></i>
+                                                </span>
+                                                </div>
+
+                                                <div class="input-group" style="width:350px;float:left;margin:0 0 0 5px;">
+                                                    <input placeholder="该操作流程的责任人/企业" value="{$item['author']}" name="content_flow[{$key}][author]" type="text" class="form-control"/>
+                                                </span>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <div style="margin:5px 0 5px 0;">
                                                 <button class="btn btn-sm btn-info" onclick="showMediaSelection('editor_{$key}')" type="button">
                                                     <i class="ace-icon fa fa-inbox"></i> 添加媒体 </button>
                                                 格式支持：图片(png、jpg、jpeg、gif), 音频(mp3、wav、ogg等), 视频(flv、mp4、mov、f4v等)
@@ -81,6 +107,15 @@ jQuery(function($) {
     {foreach from=$data['content_flow'] index=$index key=$key item=$item}
         UE.getEditor('editor_{$key}');
     {/foreach}
+
+    $('.timepicker').timepicker({
+        minuteStep:   1,
+        showSeconds:  true,
+        defaultTime:  false,
+        showMeridian: false
+    }).next().on(ace.click_event, function(){
+        $(this).prev().focus();
+    });
 
     $('#validation-form').validate({
         errorElement: 'div',

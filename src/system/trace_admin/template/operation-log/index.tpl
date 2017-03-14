@@ -43,7 +43,7 @@
                 <th style="width:80px;" class="center">用户ID</th>
                 <th style="width:100px;" class="center">用户名</th>
                 <th class="center">功能模块</th>
-                <th class="center">操作描述</th>
+                <th class="center">操作描述(参考)</th>
                 <th class="center">IP</th>
                 <th style="width:160px;" class="center">操作时间</th>
                 <th style="width:50px;" class="center">操作</th>

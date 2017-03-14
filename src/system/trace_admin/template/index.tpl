@@ -56,9 +56,11 @@
     <div class="navbar-container" id="navbar-container">
         <div class="navbar-header pull-left">
             <a href="/">
+                <!--
                 <div class="navbar-brand">
                     <img style="height:30px;" src="/static/resource/images/logo_white2.png" />
-                </div><!-- /.brand -->
+                </div>
+                -->
                 <div class="navbar-brand-text">防伪溯源管理系统</div>
             </a>
         </div><!-- /.navbar-header -->

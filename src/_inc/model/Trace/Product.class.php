@@ -43,13 +43,10 @@ class Model_Trace_Product extends BaseModelTable
                 );
                 if (!empty($data['product_flow'])) {
                     foreach ($data['product_flow'] as $flowId => $item) {
-                        $data['content_flow'][$flowId] = array(
-                            'name'    => $item['name'],
-                            'content' => '',
-                        );
                         if (isset($contentFlow[$flowId])) {
-                            $data['content_flow'][$flowId]['content'] = $contentFlow[$flowId]['content'];
+                            $data['content_flow'][$flowId] = $contentFlow[$flowId];
                         }
+                        $data['content_flow'][$flowId]['name'] = $item['name'];
                     }
                 }
             }
