@@ -57,11 +57,10 @@ class AceAdmin_BaseController extends BaseController
     	if($totalSize){
     		$page = new Lib_Page(array('total' => $totalSize, 'perpage' => $perPage));
     		if ($ajaxAction) {
-    			$page->open_ajax($ajaxAction);
+    			$page->openAjax($ajaxAction);
     		}
     		$page = $page->show($type);
     	}
-
 
     	$page = str_ireplace(array(
     		'</a>',
@@ -102,22 +101,6 @@ class AceAdmin_BaseController extends BaseController
             'align'   => $align,
             'type'    => $type,
         );
-    }
-
-    /**
-     * 页面跳转.
-     *
-     * @param string $url 跳转连接.
-     */
-    public function redirectExit($url = null)
-    {
-        if (empty($url) && isset($_SERVER['HTTP_REFERER'])) {
-            $url = $_SERVER['HTTP_REFERER'];
-        }
-        if (!empty($url)) {
-            header("location:{$url}");
-        }
-        exception('exit');
     }
 
     /**

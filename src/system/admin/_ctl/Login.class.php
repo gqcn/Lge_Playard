@@ -45,7 +45,7 @@ class Controller_Login extends AceAdmin_BaseController
                 $this->addMessage('帐号或密码不正确！', 'error');
             }
         }
-        $this->redirectExit();
+        Lib_Redirecter::redirectExit();
     }
 
     /**

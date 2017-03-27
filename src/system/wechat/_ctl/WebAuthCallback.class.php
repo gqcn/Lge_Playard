@@ -86,13 +86,13 @@ class Controller_WebAuthCallback extends BaseController
                     if (empty($wechatInfo)) {
                         Logger::log("request for new user:{$openid}", 'wechat_webauth');
                         // 如果是新用户，那么新增用户，这里会重新请求微信接口，并且需要用户授权获取用户信息，成功后跳转回该页面
-                        $callbackUrl = Lib_Redirecter::getCurrentUrlWithoutUri()."WebAuthCallback?url={$url}&new=1";
+                        $callbackUrl = Lib_Url::getCurrentUrlWithoutUri()."WebAuthCallback?url={$url}&new=1";
                         $wechatApi->redirectToGetUserInfoByWebAuth($callbackUrl, 'snsapi_userinfo');
                     } else {
                         // 判断是否更新(7天更新一次，这里的时间可以根据不同的业务场景需要进行调整)
                         if (time() - $wechatInfo['update_time'] > 7*86400) {
                             Logger::log("request for existing user:{$openid}", 'wechat_webauth');
-                            $callbackUrl = Lib_Redirecter::getCurrentUrlWithoutUri()."WebAuthCallback?url={$url}&update=1";
+                            $callbackUrl = Lib_Url::getCurrentUrlWithoutUri()."WebAuthCallback?url={$url}&update=1";
                             $wechatApi->redirectToGetUserInfoByWebAuth($callbackUrl, 'snsapi_userinfo');
                         }
                     }

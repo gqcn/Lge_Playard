@@ -80,7 +80,7 @@ class Controller_Base extends BaseController
     protected function _getOpenidByAuth($localUrl = '')
     {
         if (empty($localUrl)) {
-            $localUrl = Lib_Redirecter::getCurrentUrl();
+            $localUrl = Lib_Url::getCurrentUrl();
         }
 
         $config = Config::get();

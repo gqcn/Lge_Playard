@@ -141,7 +141,7 @@ class Controller_Callback extends BaseController
                         // 图片地址如果为本站地址，那么默认为当前域名下可访问的图片
                         $image = $v['image'];
                         if ($image[0] == '/' || substr($image, 0, 4) != 'http') {
-                            $image = Lib_Redirecter::getCurrentUrlWithoutUri().$v['image'];
+                            $image = Lib_Url::getCurrentUrlWithoutUri().$v['image'];
                         }
                         $brief = isset($v['brief']) ? $v['brief'] : $v['title'];
                         $data['Articles']['item'][] = array(
