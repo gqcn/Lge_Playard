@@ -20,7 +20,7 @@ return array(
             // 日志文件配置
             'file' => array(
                 // 日志目录存放位置
-                'path' => ROOT_PATH.'../log/',
+                'path' => L_ROOT_PATH.'../log/',
             ),
             // 日志数据库服务器配置
             'database' => array(
@@ -55,7 +55,7 @@ return array(
             'type'     => 'sqlite',
             'prefix'   => '',
             'charset'  => 'utf8',
-    		'database' => ROOT_PATH.'cache/data/test.sqlite3',
+    		'database' => L_ROOT_PATH.'cache/data/test.sqlite3',
         ),
         */
         /**
@@ -130,7 +130,7 @@ return array(
         'cache' => array(
             'host'     => '127.0.0.1',
             'port'     => 6379,
-            'db'       => 0,
+            'db'       => 1,
         ),
     ),
     
@@ -160,9 +160,9 @@ return array(
      */
     'Cookie' => array(
         'path'    => '/',
-        'domain'  => '.johnx.cn',  // 格式为“.xxx.com”，如果为空，那么默认获取当前一级域名
+        'domain'  => '',  // 格式为“.xxx.com”，如果为空，那么默认获取当前一级域名
         'expire'  => 86400 * 7,
-        'authkey' => 'PhpMe',
+        'authkey' => 'Lge',
     ),
 
     /**

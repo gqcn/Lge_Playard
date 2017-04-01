@@ -21,7 +21,7 @@ class Controller_Image extends Controller_Base
             echo "error size";
             return ;
         } else {
-            $dirPath = rtrim(ROOT_PATH, '/');
+            $dirPath = rtrim(L_ROOT_PATH, '/');
             $srcPath = $dirPath.$src;
             $dstPath = $dirPath.$dst;
             if (Lib_FileSys::isImage($srcPath) && file_exists($srcPath)) {

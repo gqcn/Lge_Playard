@@ -1,2 +1,2 @@
 <?php
-define('ROOT_PATH_EX', realpath(__DIR__.'/..').'/');
+define('L_ROOT_PATH_EX', realpath(__DIR__.'/..').'/');

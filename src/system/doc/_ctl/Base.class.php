@@ -72,7 +72,7 @@ class Controller_Base extends BaseController
          * 菜单最多三级，因此这里遍历的时候也只遍历三级
          */
         if (empty($this->menus)) {
-            $menus = include(ROOT_PATH_EX.'/_cfg/menu.inc.php');
+            $menus = include(L_ROOT_PATH_EX.'/_cfg/menu.inc.php');
         } else {
             $menus = $this->menus;
         }

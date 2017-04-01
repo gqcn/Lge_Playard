@@ -56,7 +56,7 @@ function nameValidator($name) {
 }
 
 // 根据权限判断目录
-$dirPath   = ROOT_PATH."upload/";
+$dirPath   = L_ROOT_PATH."upload/";
 $urlPrefix = "/upload/";
 
 // 如果目录不存在，则创建

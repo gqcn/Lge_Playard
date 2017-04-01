@@ -152,7 +152,7 @@ class Module_Spider extends BaseModule
 		$minite = date('i',time());
 		$dir    = "upload/image/{$year}/{$month}/{$day}/{$hour}/{$minite}";
 
-		$path   = ROOT_PATH.'/'.$dir;
+		$path   = L_ROOT_PATH.'/'.$dir;
 		if (!file_exists($path)) {
 			mkdir($path, 0777, true);
 		}

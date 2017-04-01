@@ -162,7 +162,7 @@ class Module_UserAuth extends BaseModule
     {
         $config = Config::get();
         $auths  = array();
-        $sysDir = ROOT_PATH.'system/';
+        $sysDir = L_ROOT_PATH.'system/';
         $dirs   = scandir($sysDir);
         $index  = 0;
         foreach ($dirs as $dir) {

@@ -32,7 +32,7 @@ class Module_Utility extends BaseModule
         if (!file_exists($filePath)) {
             return array();
         }
-        require_once ROOT_PATH.'_inc/library/PHPExcel/PHPExcel.class.php';
+        require_once L_ROOT_PATH.'_inc/library/PHPExcel/PHPExcel.class.php';
         // 根据文件名后缀判断导出excel类型
         $excelType = $this->_getExcelTypeByFileName($filePath);
         $xlsReader = PHPExcel_IOFactory::createReader($excelType);
@@ -64,7 +64,7 @@ class Module_Utility extends BaseModule
         if (empty($filePath)) {
             return "文件路径不能为空";
         }
-        require_once ROOT_PATH.'_inc/library/PHPExcel/PHPExcel.class.php';
+        require_once L_ROOT_PATH.'_inc/library/PHPExcel/PHPExcel.class.php';
 
         //创建新的PHPExcel对象
         $objPHPExcel = new PHPExcel();

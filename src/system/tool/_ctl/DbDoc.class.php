@@ -71,7 +71,7 @@ class Controller_DbDoc extends Controller_Base
         $content .= "</ol>\n";
         $tplContent = file_get_contents(Core::$sysDir. 'template/dbdoc.tpl.htm');
         $content    = str_ireplace('{$content}', $content, $tplContent);
-        // file_put_contents(ROOT_PATH.'cache/html/doc.html', $content);
+        // file_put_contents(L_ROOT_PATH.'cache/html/doc.html', $content);
         echo $content;
     }
 }

@@ -15,7 +15,7 @@ class Controller_Test extends BaseController
         var_dump($r);
         exit();
         $db  = Instance::database();
-        $sql = file_get_contents(ROOT_PATH.'../doc/InitSQL/init.sql');
+        $sql = file_get_contents(L_ROOT_PATH.'../doc/InitSQL/init.sql');
         $db->query($sql, array(), 'master');
     }
 }
