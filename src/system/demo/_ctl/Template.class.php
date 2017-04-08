@@ -15,8 +15,7 @@ class Controller_Template extends Controller_Base
      */
     public function index()
     {
-        $users   = Model_Demo_User::instance()->getAll();
-        $company = Model_Demo_Company::instance()->getAll();
+        $users = Model_Demo_User::instance()->getAll();
         $this->assigns(array(
             'list' => $users,
         ));

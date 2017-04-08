@@ -15,6 +15,6 @@ class Controller_Default extends Controller_Base
      */
     public function index()
     {
-        var_dump(Lib_Utility::getProcessCount('--a=test'));
+
     }
 }

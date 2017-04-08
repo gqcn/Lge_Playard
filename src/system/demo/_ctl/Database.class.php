@@ -183,14 +183,6 @@ MM;
 
         echo "==============================\n";
 
-        /**
-         * 在query方法中尝试同时执行多条SQL(只会成功前一条)
-         *
-         * @todo 待测试
-         */
-//        echo "try multi query in method query:\n";
-//        var_dump($db->query('SELECT * FROM `user`; DELETE FROM `user`'));
-
         /*
         // 删除数据表
         $sql = "DROP TABLE IF EXISTS `company`";
