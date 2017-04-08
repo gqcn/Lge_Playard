@@ -11,9 +11,9 @@ if (!defined('LGE')) {
 class Controller_IpUpdater extends Controller_Base
 {
     public $logCategory     = 'crontab/ip-updater';
-    public $accessKeyId     = 'GdXUNhfUzSEdVEpE';
+    public $accessKeyId     = '';
     public $accessKeySecret = '';
-    public $domains         = array('johnx.cn', 'johng.cn');
+    public $domains         = array();
 
     /**
      * 默认入口函数.
@@ -23,6 +23,10 @@ class Controller_IpUpdater extends Controller_Base
     public function index()
     {
         set_time_limit(60);
+        $ipSecret = Config::getFile('ip_secret', true);
+        $this->accessKeyId     = $ipSecret['appid'];
+        $this->accessKeySecret = $ipSecret['secret'];
+        $this->domains         = $ipSecret['domains'];
         foreach ($this->domains as $domain) {
             $publicIp = $this->_getMyPublicIp();
             $records  = $this->_sendRequest(array(
