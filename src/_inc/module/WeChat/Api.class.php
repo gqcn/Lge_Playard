@@ -28,7 +28,7 @@ class Module_WeChat_Api extends Module_WeChat_Base
         /**
          * 读取配置文件，初始化微信配置，如果没有配置那么则需要手动设置成员变量.
          */
-        $config = Config::get();
+        $config = Config::getFile();
         if (!empty($config['WeChat'])) {
             $this->appid     = $config['WeChat']['appid'];
             $this->unionid   = $config['WeChat']['unionid'];

@@ -44,7 +44,7 @@ class Module_OperationLog extends BaseModule
             // 可自定义判断某种操作，根据操作不同写入的日志内容会不同
             switch ($checkKey) {
                 default:
-                    $config   = Config::get();
+                    $config   = Config::getFile();
                     $sysBrief = isset($config['System'][$sys]['name']) ? $config['System'][$sys]['name'] : '';
                     $actBrief = Module_UserAuth::instance()->getActBriefByAct(Core::$act, Core::$ctlPath);
                     $data     = array(

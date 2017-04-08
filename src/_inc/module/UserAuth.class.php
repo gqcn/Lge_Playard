@@ -160,7 +160,7 @@ class Module_UserAuth extends BaseModule
      */
     public function getAuthListBySystemCtl($specifiedSystem = '')
     {
-        $config = Config::get();
+        $config = Config::getFile();
         $auths  = array();
         $sysDir = L_ROOT_PATH.'system/';
         $dirs   = scandir($sysDir);

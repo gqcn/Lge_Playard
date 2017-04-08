@@ -168,7 +168,7 @@ class Controller_Callback extends BaseController
     private function _checkAndUpdateUserInfo()
     {
         $openid    = $this->data['FromUserName'];
-        $config    = Config::get();
+        $config    = Config::getFile();
         $wechatApi = Module_WeChat_Api::Instance();
         $user      = Module_User::instance()->getUserByOpenid($openid);
         $userInfo  = $wechatApi->getUserInfoByAccessToken($openid);
@@ -303,7 +303,7 @@ class Controller_Callback extends BaseController
      */
     private function _checkSignature()
     {
-        $config = Config::get();
+        $config = Config::getFile();
         $data   = Lib_Request::getArray(array(
             'signature' => '',
             'timestamp' => '',

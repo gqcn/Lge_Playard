@@ -31,7 +31,7 @@ class Controller_Base extends BaseController
 //         * 接口数据校验
 //         */
 //        // 查询对应的appsecret
-//        $appidConfig = Config::get('appid');
+//        $appidConfig = Config::getFile('appid');
 //        if (!isset($appidConfig[$appid])) {
 //            $this->_response(false, '', "invalid appid");
 //        }
@@ -51,7 +51,7 @@ class Controller_Base extends BaseController
     {
         $appid       = Lib_Request::getRequest('appid');
         $appsecret   = null;
-        $appidConfig = Config::get('appid');
+        $appidConfig = Config::getFile('appid');
         if (isset($appidConfig[$appid])) {
             $appsecret = $appidConfig[$appid];
         }

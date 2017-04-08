@@ -24,7 +24,7 @@ class Module_Baidu_Ditu_Api extends BaseModule
         $result   = $redis->get($redisKey);
         if (empty($result)) {
             $return  = array();
-            $config  = Config::get();
+            $config  = Config::getFile();
             $http    = new Lib_Network_Http();
             $url     = "{$config['BaiduDitu']['url']}geocoder/v2/?ak={$config['BaiduDitu']['ak']}&";
             $url    .= "address=".urlencode($address)."&output=json";
@@ -56,7 +56,7 @@ class Module_Baidu_Ditu_Api extends BaseModule
     public function convertGps($lng, $lat, $from = 3, $to = 5)
     {
         $return = array();
-        $config = Config::get();
+        $config = Config::getFile();
         $http   = new Lib_Network_Http();
         $url    = "{$config['BaiduDitu']['url']}geoconv/v1/?ak={$config['BaiduDitu']['ak']}&";
         $url   .= "coords={$lng},{$lat}&from={$from}&to={$to}&output=json";
@@ -95,7 +95,7 @@ class Module_Baidu_Ditu_Api extends BaseModule
      */
 
     public function getAddressByGps($lng = 'float 经度', $lat = 'float 纬度'){
-        $config = Config::get();
+        $config = Config::getFile();
         $http   = new Lib_Network_Http();
         //http://api.map.baidu.com/geocoder/v2/?ak=E4805d16520de693a3fe707cdc962045
         //&callback=renderReverse&location=39.983424,116.322987&output=json&pois=1
@@ -129,7 +129,7 @@ class Module_Baidu_Ditu_Api extends BaseModule
         if($isWx == 1){
            list($lng, $lat) = $this->convertGps($lng, $lat);
         }
-        $config = Config::get();
+        $config = Config::getFile();
         $url    = "{$config['BaiduDitu']['url']}staticimage/v2?ak={$config['BaiduDitu']['ak']}";
         $url   .= "&mcode=666666&center={$lng},{$lat}&zoom={$zoom}&copyright=1&markers={$lng},{$lat}";
         return $url;
@@ -165,7 +165,7 @@ class Module_Baidu_Ditu_Api extends BaseModule
             $distance = number_format($distance / 1000, 2);
         }
         $distance = !empty($distance) ? $distance : '(未知)';
-        $config   = Config::get();
+        $config   = Config::getFile();
         $url      = "{$config['BaiduDitu']['url']}staticimage/v2?ak={$config['BaiduDitu']['ak']}";
         // 是否隐藏工人经纬度
         if (!empty($endLng)) {

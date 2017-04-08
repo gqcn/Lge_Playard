@@ -18,7 +18,7 @@ class Controller_Backupper extends Controller_Base
     {
         Logger::log('start', $this->logCategory);
 
-        $config       = Config::get('backupper', true);
+        $config       = Config::getFile('backupper', true);
         $clientConfig = $config['backup_client'];
         $serverConfig = $config['backup_server'];
         $backupDir    = rtrim($clientConfig['folder'], '/');

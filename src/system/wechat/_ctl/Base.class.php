@@ -83,7 +83,7 @@ class Controller_Base extends BaseController
             $localUrl = Lib_Url::getCurrentUrl();
         }
 
-        $config = Config::get();
+        $config = Config::getFile();
         $openid = empty($this->_session['openid']) ? '' : $this->_session['openid'];
         if (empty($openid)) {
             $openid = Instance::cookie()->get('openid');
@@ -122,9 +122,9 @@ class Controller_Base extends BaseController
      */
     public function display($tpl = 'index')
     {
-        $config = Config::get();
+        $config = Config::getFile();
         $this->assigns(array(
-            'config'  => Config::get(),
+            'config'  => Config::getFile(),
             'session' => $this->_session,
             'system'  => '/system/default/',
             'version' => $config['StaticVersion'],

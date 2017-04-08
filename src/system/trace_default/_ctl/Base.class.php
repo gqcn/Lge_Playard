@@ -36,7 +36,7 @@ class Controller_Base extends BaseController
     public function display($tpl = 'index')
     {
         $this->assigns(array(
-            'config'  => Config::get(),
+            'config'  => Config::getFile(),
             'session' => $this->_session,
             'system'  => '/system/trace_default/',
         ));

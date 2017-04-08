@@ -101,7 +101,7 @@ class Controller_UserGroup extends AceAdmin_BaseControllerAuth
          * 自定义权限
          */
         $customAuths        = array();
-        $definedCustomAuths = Config::get('auth');
+        $definedCustomAuths = Config::getFile('auth');
         if (empty($definedCustomAuths)) {
             $definedCustomAuths = array();
         }

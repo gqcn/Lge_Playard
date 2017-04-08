@@ -149,7 +149,7 @@ class AceAdmin_BaseController extends BaseController
     {
         $this->assigns(array(
             'system'            => Core::$sys,
-            'config'            => Config::get(),
+            'config'            => Config::getFile(),
             'session'           => $this->_session,
             'breadCrumbs'       => $this->breadCrumbs,
             'sysurl'            => '/system/admin/template',

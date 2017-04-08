@@ -26,7 +26,7 @@ class Controller_WebAuthCallback extends BaseController
         $update = Lib_Request::get('update',  0);
         // $state = Lib_Request::get('state', '');
         if (!empty($code)) {
-            $config         = Config::get();
+            $config         = Config::getFile();
             $wechatApi      = Module_WeChat_Api::Instance();
             $userAccessInfo = $wechatApi->getUserAccessInfoByCode($code);
 
