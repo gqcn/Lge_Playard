@@ -12,3 +12,5 @@ src/cache/
 src/upload/
 src/system/crontab/_cfg/
 !src/system/crontab/_cfg/_example/
+src/system/tool/_cfg/
+!src/system/tool/_cfg/_example/

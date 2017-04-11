@@ -19,8 +19,6 @@ class Controller_InitProject extends Controller_Base
         echo "Done!".PHP_EOL;
     }
 
-
-
     /**
      * SQL文件执行初始化.
      *
@@ -39,7 +37,7 @@ class Controller_InitProject extends Controller_Base
             }
             $filePath = realpath($path.$file);
             if (is_dir($filePath)) {
-                self::initSqlByPath($filePath);
+                self::_initSqlByPath($filePath);
             } else {
                 $fileType = Lib_FileSys::getFileType($filePath);
                 if (strcasecmp($fileType, 'sql') == 0) {
