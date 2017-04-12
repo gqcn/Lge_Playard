@@ -9,12 +9,9 @@
 ## 子站点说明
       system
         ├── admin         通用管理后台(AceAdmin)
-        ├── api           对外API接口(未实现完)
+        ├── apidoc        API接口文档站点，用于展示API接口的输入输出
         ├── crontab       Linux下Crontab定时任务
         ├── default       默认站点(一般什么都不做，或者用于展示主站)
         ├── demo          示例站点，包含一些示例代码
-        ├── doc           API接口文档站点，用于展示API接口的输入输出
         ├── tool          管理工具(目前包含一个数据库字典生成工具和一个项目SQL初始化工具)
-        ├── trace_admin   溯源系统后台
-        ├── trace_default 溯源系统前台(wap)
         └── wechat        微信前台
