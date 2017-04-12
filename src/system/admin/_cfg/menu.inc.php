@@ -22,7 +22,115 @@ return array(
         'acts' => array('default', 'index'),
         'url'  => '/default',
     ),
-
+    'menu' => array(
+        'name' => '菜单管理',
+        'icon' => 'book',
+        'sub'  => array(
+            'index'    => array(
+                'name' => '菜单管理',
+                'icon' => '',
+            ),
+            'category' => array(
+                'name' => '菜单分类',
+                'icon' => '',
+            ),
+        ),
+    ),
+    'article' => array(
+        'name' => '文章管理',
+        'icon' => 'edit',
+        'sub'  => array(
+            'index'    => array(
+                'name' => '文章管理',
+                'icon' => '',
+            ),
+            'showEdit' => array(
+                'name' => '文章发布',
+                'icon' => '',
+            ),
+            
+            'category' => array(
+                'name' => '文章分类',
+                'icon' => '',
+            ),
+        ),
+    ),
+    'picture' => array(
+        'name' => '图片管理',
+        'icon' => 'picture',
+        'sub'  => array(
+            'index'    => array(
+                'name' => '图片管理',
+                'icon' => '',
+            ),
+            'showEdit' => array(
+                'name' => '图片发布',
+                'icon' => '',
+            ),
+            'category' => array(
+                'name' => '图片分类',
+                'icon' => '',
+            ),
+        ),
+    ),
+    'link' => array(
+        'name' => '连接管理',
+        'icon' => 'exchange',
+        'sub'  => array(
+            'index'    => array(
+                'name' => '连接管理',
+                'icon' => '',
+            ),
+            'showEdit' => array(
+                'name' => '新建连接',
+                'icon' => '',
+            ),
+            'category' => array(
+                'name' => '连接分类',
+                'icon' => '',
+            ),
+        ),
+    ),
+    
+    'frag' => array(
+        'name' => '碎片管理',
+        'icon' => 'asterisk',
+        'sub'  => array(
+            'index'    => array(
+                'name' => '碎片管理',
+                'icon' => '',
+            ),
+            'showEdit' => array(
+                'name' => '添加碎片',
+                'icon' => '',
+            ),
+            'category' => array(
+                'name' => '碎片分类',
+                'icon' => '',
+            ),
+        ),
+    ),
+    'comment' => array(
+        'name' => '评论管理',
+        'icon' => 'comment',
+        'sub'  => array(
+            'index'    => array(
+                'name' => '评论管理',
+                'icon' => '',
+            ),
+        ),
+    ),
+    
+    'guestbook' => array(
+        'name' => '留言管理',
+        'icon' => 'comment-alt',
+        'sub'  => array(
+            'index'    => array(
+                'name' => '留言管理',
+                'icon' => '',
+            ),
+        ),
+    ),
     array(
         'name' => '系统管理',
         'icon' => 'menu-icon fa fa-cogs',
@@ -212,6 +320,38 @@ return array(
                 'name' => '微信测试平台',
                 'acts' => array('wechat-thirdparty', 'wechatTest'),
                 'url'  => '/wechat-thirdparty/wechatTest',
+            ),
+        ),
+    ),
+    
+        'profile' => array(
+        'name' => '个人中心',
+        'icon' => 'user',
+        'sub'  => array(
+            'index'    => array(
+                'name' => '个人信息',
+                'icon' => '',
+            ),
+            'password' => array(
+                'name' => '密码修改',
+                'icon' => '',
+            ),
+            'logout'   => array(
+                'name' => '退出登录',
+                'url'  => 'javascript:confirmLogout();',
+                'icon' => '',
+            ),
+        ),
+    ),
+    
+        array(
+        'name' => '支付管理',
+        'icon' => 'credit-card',
+        'subs' => array(
+            array(
+                'name' => '支付记录',
+                'acts' => array('pay', 'index'),
+                'url'  => '/pay/index',
             ),
         ),
     ),
