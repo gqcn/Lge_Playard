@@ -132,6 +132,28 @@ return array(
     ),
 
     array(
+        'name' => '溯源管理',
+        'icon' => 'menu-icon fa fa-cubes',
+        'subs' => array(
+            array(
+                'name' => '产品分类',
+                'acts' => array('trace.category', 'index'),
+                'url'  => '/trace.category/index',
+            ),
+            array(
+                'name' => '产品流程',
+                'acts' => array('trace.flow', 'index'),
+                'url'  => '/trace.flow/index',
+            ),
+            array(
+                'name' => '产品管理',
+                'acts' => array('trace.product', 'index'),
+                'url'  => '/trace.product/index',
+            ),
+        ),
+    ),
+
+    array(
         'name' => '支付管理',
         'icon' => 'menu-icon fa fa-money',
         'subs' => array(
