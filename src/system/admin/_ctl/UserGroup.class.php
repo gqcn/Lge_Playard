@@ -18,7 +18,7 @@ class Controller_UserGroup extends AceAdmin_BaseControllerAuth
     public function index()
     {
         $this->assigns(array(
-            'list'    => Instance::table('user_group')->getAll('*', 1, null, '`order` asc, id asc'),
+            'list'    => Instance::table('_user_group')->getAll('*', 1, null, '`order` asc, id asc'),
             'mainTpl' => 'user-group/index',
         ));
         $this->display();
@@ -38,7 +38,7 @@ class Controller_UserGroup extends AceAdmin_BaseControllerAuth
         foreach ($orders as $gid => $order) {
             $gid   = intval($gid);
             $order = intval($order);
-            Instance::table('user_group')->update(array('order' => $order), array('id=?', $gid));
+            Instance::table('_user_group')->update(array('order' => $order), array('id=?', $gid));
         }
         $this->addMessage("用户组重新排序完成", 'success');
         Lib_Redirecter::redirectExit();
@@ -62,7 +62,7 @@ class Controller_UserGroup extends AceAdmin_BaseControllerAuth
             'auths'       => array(),
         ));
         if ($id !== '') {
-            $group = Instance::table('user_group')->getOne('*', array('id' => $id));
+            $group = Instance::table('_user_group')->getOne('*', array('id' => $id));
             $data  = array_merge($data, $group);
         }
 
@@ -145,14 +145,14 @@ class Controller_UserGroup extends AceAdmin_BaseControllerAuth
         ), 'post');
         $id = Lib_Request::getPost('id');
         if ($id === '') {
-            $id = Instance::table('user_group')->insert($data);
+            $id = Instance::table('_user_group')->insert($data);
             if ($id) {
                 $this->addMessage("用户组添加成功", 'success');
             } else {
                 $this->addMessage("用户组添加失败", 'error');
             }
         } else {
-            if (Instance::table('user_group')->update($data, array('id' => $id))) {
+            if (Instance::table('_user_group')->update($data, array('id' => $id))) {
                 $this->addMessage("用户组信息修改成功", 'success');
             } else {
                 $this->addMessage("用户组信息修改失败", 'error');
@@ -184,8 +184,8 @@ class Controller_UserGroup extends AceAdmin_BaseControllerAuth
                     'brief' => '',
                 );
             }
-            Instance::table('user_group_auth')->delete(array('gid' => $id));
-            Instance::table('user_group_auth')->batchInsert($auths);
+            Instance::table('_user_group_auth')->delete(array('gid' => $id));
+            Instance::table('_user_group_auth')->batchInsert($auths);
         }
         Lib_Redirecter::redirectExit();
     }
@@ -197,7 +197,7 @@ class Controller_UserGroup extends AceAdmin_BaseControllerAuth
     {
         $id = Lib_Request::get('id');
         if (!empty($id) && $id > 1) {
-            if (Instance::table('user_group')->delete(array('id' => $id))) {
+            if (Instance::table('_user_group')->delete(array('id' => $id))) {
                 $this->addMessage("用户组删除成功", 'success');
             } else {
                 $this->addMessage("用户组删除失败", 'error');

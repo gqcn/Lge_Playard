@@ -15,7 +15,7 @@ class Controller_InitProject extends Controller_Base
 
     public function index()
     {
-        $this->_initSqlByPath(L_ROOT_PATH.'../doc/init/');
+        $this->_initSqlByPath(L_ROOT_PATH.'../doc/数据库初始化脚本/');
         echo "Done!".PHP_EOL;
     }
 

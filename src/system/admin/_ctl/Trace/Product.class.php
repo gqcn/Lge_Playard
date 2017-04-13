@@ -150,7 +150,7 @@ class Controller_Trace_Product extends AceAdmin_BaseControllerAuth
                 if (!empty($data)) {
                     $contentFlow          = empty($data['content_flow']) ? $data['content_flow'] : json_decode($data['content_flow'], true);
                     $data['content_flow'] = array();
-                    $data['product_flow'] = Instance::table('plugin_trace_flow')->getAll(
+                    $data['product_flow'] = Instance::table('_plugin_trace_flow')->getAll(
                         "*", array('cat_id' => $data['cat_id']), null, "`order`,id asc", 0, 0, 'id'
                     );
                     if (!empty($data['product_flow'])) {

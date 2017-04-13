@@ -18,9 +18,9 @@ class Controller_ApiApi extends AceAdmin_BaseControllerAuth
     {
         $appid = Lib_Request::get('appid');
         $appid = intval($appid);
-        $app   = Instance::table('api_app')->getOne('*', array('id' => $appid, 'uid' => $this->_session['user']['uid']));
+        $app   = Instance::table('_api_app')->getOne('*', array('id' => $appid, 'uid' => $this->_session['user']['uid']));
         if (empty($app)) {
-            $app = Instance::table('api_app')->getOne('*', array('uid' => $this->_session['user']['uid']), null, "`order` ASC,`id` ASC");
+            $app = Instance::table('_api_app')->getOne('*', array('uid' => $this->_session['user']['uid']), null, "`order` ASC,`id` ASC");
             if (empty($app)) {
                 $this->addMessage('您当前没有任何应用信息，请先添加应用后进行操作', 'info');
                 Lib_Redirecter::redirectExit('/api-app');
@@ -52,7 +52,7 @@ class Controller_ApiApi extends AceAdmin_BaseControllerAuth
         ));
 
         $this->assigns(array(
-            'app'      => Instance::table('api_app')->getOne('*', array('id' => $appid)),
+            'app'      => Instance::table('_api_app')->getOne('*', array('id' => $appid)),
             'apps'     => Model_ApiApp::instance()->getMyApps(),
             'catList'  => Model_ApiCategory::instance()->getCatTree($appid),
             'mainTpl' => 'api/api/index',
@@ -69,7 +69,7 @@ class Controller_ApiApi extends AceAdmin_BaseControllerAuth
         $appid  = Lib_Request::get('appid');
         $catid  = Lib_Request::get('catid');
         $catid  = intval($catid);
-        $cat    = Instance::table('api_app_cat')->getOne('*', array('id' => $catid));
+        $cat    = Instance::table('_api_app_cat')->getOne('*', array('id' => $catid));
         $tables = array(
             'api_app_api aaa',
             'left join api_app_cat aac on(aac.id=aaa.cat_id)',
@@ -206,7 +206,7 @@ class Controller_ApiApi extends AceAdmin_BaseControllerAuth
                     $data['content'] = json_decode($data['content'], true);
                 }
             }
-            $cat     = Instance::table('api_app_cat')->getOne('*', array('id' => $data['cat_id']));
+            $cat     = Instance::table('_api_app_cat')->getOne('*', array('id' => $data['cat_id']));
             $catList = Model_ApiCategory::instance()->getCatTree($appid);
             if (empty($catList)) {
                 echo "暂无分类信息，请先添加分类后再添加接口。";

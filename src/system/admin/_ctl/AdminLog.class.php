@@ -8,7 +8,7 @@ if(!defined('LGE')){
 /**
  * 操作日志管理.
  */
-class Controller_OperationLog extends AceAdmin_BaseControllerAuth
+class Controller_AdminLog extends AceAdmin_BaseControllerAuth
 {
     /**
      * 日志列表.
@@ -26,8 +26,8 @@ class Controller_OperationLog extends AceAdmin_BaseControllerAuth
             $condition .= " AND l.create_time between {$startTime} and {$endTime}";
         }
         $tables = array(
-            'operation_log l',
-            'left join user u on(u.uid=l.uid)',
+            '_admin_log l',
+            'left join _user u on(u.uid=l.uid)',
         );
         $fields = 'u.nickname,l.*';
         $limit  = $data['limit'] > 100 ? 100 : $data['limit'];
@@ -38,7 +38,7 @@ class Controller_OperationLog extends AceAdmin_BaseControllerAuth
         $this->assigns(array(
             'list'    => $list,
             'page'    => $this->getPage($count, $limit),
-            'mainTpl' => 'operation-log/index'
+            'mainTpl' => 'admin-log/index'
         ));
         $this->display();
     }
@@ -50,15 +50,15 @@ class Controller_OperationLog extends AceAdmin_BaseControllerAuth
     {
         $id     = Lib_Request::get('id');
         $tables = array(
-            'operation_log l',
-            'left join user u on(u.uid=l.uid)',
+            '_admin_log l',
+            'left join _user u on(u.uid=l.uid)',
         );
         $fields = 'u.nickname,l.*';
         $data   = Instance::table($tables)->getOne($fields, array('id' => $id));
         $data['content'] = json_decode($data['content'], true);
         $this->assigns(array(
             'data'    => $data,
-            'mainTpl' => 'operation-log/detail'
+            'mainTpl' => 'admin-log/detail'
         ));
         $this->display();
     }

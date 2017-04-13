@@ -26,7 +26,7 @@ class Module_Setting extends BaseModule
      */
     public function get($k)
     {
-        return json_decode(Instance::table('setting')->getValue('v', array('k=?', $k)), true);
+        return json_decode(Instance::table('_setting')->getValue('v', array('k=?', $k)), true);
     }
 
     /**
@@ -37,7 +37,7 @@ class Module_Setting extends BaseModule
      */
     public function set($k, $v)
     {
-        return Instance::table('setting')->insert(array('k' => $k,'v' => json_encode($v)), 'replace', false);
+        return Instance::table('_setting')->insert(array('k' => $k,'v' => json_encode($v)), 'replace', false);
     }
 
     /**
@@ -47,6 +47,6 @@ class Module_Setting extends BaseModule
      */
     public function drop($k)
     {
-        return Instance::table('setting')->delete(array('k=?', $k));
+        return Instance::table('_setting')->delete(array('k=?', $k));
     }
 }

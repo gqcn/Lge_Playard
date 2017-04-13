@@ -1,9 +1,10 @@
 <?php
-if(!defined('PhpMe')){
+namespace Lge;
+if (!defined('LGE')) {
 	exit('Include Permission Denied!');
 }
 
-class Controller_Profile extends BaseAppEx
+class Controller_Profile extends AceAdmin_BaseControllerAuth
 {
     /**
      * 个人信息

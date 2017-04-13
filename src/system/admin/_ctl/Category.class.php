@@ -1,5 +1,6 @@
 <?php
-if(!defined('PhpMe')){
+namespace Lge;
+if (!defined('LGE')) {
 	exit('Include Permission Denied!');
 }
 /**
@@ -8,7 +9,7 @@ if(!defined('PhpMe')){
  * @author john
  *
  */
-class Controller_Category extends BaseAppEx
+class Controller_Category extends AceAdmin_BaseControllerAuth
 {
     // 分类 或者 分组
     public $name = '分类';

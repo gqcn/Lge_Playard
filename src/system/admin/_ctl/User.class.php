@@ -40,9 +40,9 @@ class Controller_User extends AceAdmin_BaseControllerAuth
         }
         $limit          = $data['limit'] > 100 ? 100 : $data['limit'];
         $start          = $this->getStart($limit);
-        $list           = Instance::table('user')->getAll("*", $condition, null, "`uid` asc", $start, $limit);
-        $count          = Instance::table('user')->getCount($condition);
-        $groups         = Instance::table('user_group')->getAll("*", 1, null, '`order` asc,id asc', 0, 0, 'id');
+        $list           = Instance::table('_user')->getAll("*", $condition, null, "`uid` asc", $start, $limit);
+        $count          = Instance::table('_user')->getCount($condition);
+        $groups         = Instance::table('_user_group')->getAll("*", 1, null, '`order` asc,id asc', 0, 0, 'id');
         $userModule     = Module_User::instance();
         foreach ($list as $k => $v) {
             $v['from_name']   = isset($userModule->fromArray[$v['from']]) ? $userModule->fromArray[$v['from']] : '';
@@ -69,7 +69,7 @@ class Controller_User extends AceAdmin_BaseControllerAuth
         switch ($type) {
             case 'group':
                 $gid = Lib_Request::getPost('batch_gid');
-                Instance::table('user')->update(
+                Instance::table('_user')->update(
                     array('gid' => $gid),
                     "gid != 1 and uid in({$uids})"
                 );
@@ -78,7 +78,7 @@ class Controller_User extends AceAdmin_BaseControllerAuth
 
             case 'status':
                 $status = Lib_Request::getPost('batch_status');
-                Instance::table('user')->update(
+                Instance::table('_user')->update(
                     array('status' => $status),
                     "gid != 1 and uid in({$uids})"
                 );
@@ -118,17 +118,17 @@ class Controller_User extends AceAdmin_BaseControllerAuth
             'create_time'     => time(),
         );
         if (!empty($groupKey)) {
-            $data['gid'] = Instance::table('user_group')->getValue('id', array('group_key' => $groupKey));
+            $data['gid'] = Instance::table('_user_group')->getValue('id', array('group_key' => $groupKey));
         }
 
-        $userGroups = Instance::table('user_group')->getAll('*', "group_key!='super_admin'", null, '`order` asc,id asc', 0, 0, 'id');
+        $userGroups = Instance::table('_user_group')->getAll('*', "group_key!='super_admin'", null, '`order` asc,id asc', 0, 0, 'id');
         if (!empty($uid)) {
-            $userInfo  = Instance::table('user')->getOne("*", array('uid' => $uid));
+            $userInfo  = Instance::table('_user')->getOne("*", array('uid' => $uid));
             if (!empty($userInfo)) {
                 $data = array_merge($data, $userInfo);
             }
         }
-        $city   = Instance::table('geoinfo_city')->getAll('name', 'province_id > 20');
+        $city   = Instance::table('_geoinfo_city')->getAll('name', 'province_id > 20');
         $cities = array();
         foreach ($city as $v) {
             $cities[] = $v['name'];
@@ -143,7 +143,7 @@ class Controller_User extends AceAdmin_BaseControllerAuth
             $cities[] = $v;
         }
 
-        $superAdmin = Instance::table('user_group')->getValue('id', array('group_key' => 'super_admin'));
+        $superAdmin = Instance::table('_user_group')->getValue('id', array('group_key' => 'super_admin'));
         $this->assigns(array(
             'data'       => $data,
             'city'       => $cities,
@@ -184,7 +184,7 @@ class Controller_User extends AceAdmin_BaseControllerAuth
         } else {
             $uid = Lib_Request::getPost('uid');
             // 修改账号时判断该用户是否已经存在
-            $isAlreadyExist = Instance::table('user')->getCount("uid != {$uid} and passport='{$data['passport']}'");
+            $isAlreadyExist = Instance::table('_user')->getCount("uid != {$uid} and passport='{$data['passport']}'");
             if (!empty($isAlreadyExist)) {
                 $this->addMessage("账号名称{$data['passport']}已经存在，不能添加重复名称的账号", 'error');
                 Lib_Redirecter::redirectExit();
@@ -193,7 +193,7 @@ class Controller_User extends AceAdmin_BaseControllerAuth
             if (empty($uid)) {
                 $data['from']     = 'admin';
                 $data['password'] = md5($data['password'].$data['create_time']);
-                $uid              = Instance::table('user')->insert($data);
+                $uid              = Instance::table('_user')->insert($data);
                 if ($uid) {
                     $this->addMessage('用户添加成功', 'success');
                 } else {
@@ -201,7 +201,7 @@ class Controller_User extends AceAdmin_BaseControllerAuth
                 }
             } else {
                 // 判断是否修改了密码
-                $user = Instance::table('user')->getOne('*', array('uid=?', $uid));
+                $user = Instance::table('_user')->getOne('*', array('uid=?', $uid));
                 if (strcasecmp(md5($user['password']), $data['password']) == 0) {
                     $data['password'] = $user['password'];
                 } else {
@@ -210,7 +210,7 @@ class Controller_User extends AceAdmin_BaseControllerAuth
 
                 if (!empty($user)) {
                     $data['update_time'] = time();
-                    if (Instance::table('user')->update($data, array('uid=?', $uid))) {
+                    if (Instance::table('_user')->update($data, array('uid=?', $uid))) {
                         $this->addMessage('用户修改成功', 'success');
                     } else {
                         $this->addMessage('用户修改失败', 'error');

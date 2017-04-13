@@ -32,7 +32,7 @@ class Controller_ApiApp extends AceAdmin_BaseControllerAuth
         $ids     = Lib_Request::getPost('ids');
         $idArray = explode(',', $ids);
         foreach ($idArray as $k => $id) {
-            Instance::table('api_app')->update(
+            Instance::table('_api_app')->update(
                 array('order' => $k + 1),
                 array(
                     'id'  => $id,
@@ -58,7 +58,7 @@ class Controller_ApiApp extends AceAdmin_BaseControllerAuth
                 'order' => 99,
             );
             if (!empty($id)) {
-                $result = Instance::table('api_app')->getOne("*", array('id' => $id));
+                $result = Instance::table('_api_app')->getOne("*", array('id' => $id));
                 if (!empty($result)) {
                     $data = array_merge($data, $result);
                 }
@@ -82,7 +82,7 @@ class Controller_ApiApp extends AceAdmin_BaseControllerAuth
         if (empty($id)) {
             $data['create_time'] = time();
         }
-        $result = Instance::table('api_app')->mysqlFiltSave($data);
+        $result = Instance::table('_api_app')->mysqlFiltSave($data);
         if (empty($result)) {
             $this->addMessage('信息保存失败', 'error');
         } else {
@@ -98,7 +98,7 @@ class Controller_ApiApp extends AceAdmin_BaseControllerAuth
     {
         $id = Lib_Request::getGet('id', 0);
         if (!empty($id)) {
-            Instance::table('api_app')->delete(array('id' => $id));
+            Instance::table('_api_app')->delete(array('id' => $id));
             $this->addMessage('删除成功', 'success');
         }
         Lib_Redirecter::redirectExit();

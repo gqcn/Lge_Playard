@@ -1,6 +1,6 @@
 <?php
 include __DIR__.'/../../../../_cfg/const.inc.php';
-include FRAME_PATH.'common.inc.php';
+include L_FRAME_PATH.'/common.inc.php';
 if (!\Lge\sessionStarted()) {
     session_start();
 }
@@ -57,6 +57,7 @@ function nameValidator($name) {
 
 // 根据权限判断目录
 $dirPath   = L_ROOT_PATH."upload/";
+$dirPath   = realpath($dirPath);
 $urlPrefix = "/upload/";
 
 // 如果目录不存在，则创建

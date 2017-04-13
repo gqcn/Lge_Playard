@@ -21,7 +21,7 @@ class AceAdmin_BaseController extends BaseController
     public function __init()
     {
         // 操作日志记录
-        Module_OperationLog::instance()->checkAndAddLogToDatabase();
+        Module_AdminLog::instance()->checkAndAddLogToDatabase();
     }
 
     /**

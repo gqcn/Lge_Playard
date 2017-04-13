@@ -38,7 +38,7 @@ class Model_Trace_Product extends BaseModelTable
             $contentFlow = empty($data['content_flow']) ? $data['content_flow'] : json_decode($data['content_flow'], true);
             if (!empty($contentFlow)) {
                 $data['content_flow'] = array();
-                $data['product_flow'] = Instance::table('plugin_trace_flow')->getAll(
+                $data['product_flow'] = Instance::table('_plugin_trace_flow')->getAll(
                     "*", array('cat_id' => $data['cat_id']), null, "`order`,id asc", 0, 0, 'id'
                 );
                 if (!empty($data['product_flow'])) {

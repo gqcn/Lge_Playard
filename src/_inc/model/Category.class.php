@@ -10,7 +10,7 @@ if(!defined('LGE')){
  */
 class Model_Category extends BaseModelTable
 {
-    public $table = 'category';
+    public $table = '_category';
 
     /**
      * 所有分类.
@@ -18,14 +18,12 @@ class Model_Category extends BaseModelTable
      * @var array
      */
     public $types = array(
-        /*
         101 => '文章',
         102 => '图片',
         103 => '菜单',
         104 => '连接',
         105 => '碎片',
         106 => '笔记',
-        */
     );
 
     /**

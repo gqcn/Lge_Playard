@@ -44,8 +44,8 @@ class Controller_Setting extends AceAdmin_BaseControllerAuth
     public function geoinfo()
     {
         //分别获取到省市区县乡镇的数据
-        $addressProvince = Instance::table('geoinfo_province')->getAll(); //省
-        $addressCity = Instance::table('geoinfo_city')->getAll(); //市
+        $addressProvince = Instance::table('_geoinfo_province')->getAll(); //省
+        $addressCity = Instance::table('_geoinfo_city')->getAll(); //市
         $countyTable = "geoinfo_county AS gco";
         $countyTable .= " LEFT JOIN geoinfo_city AS gci ON gco.city_id = gci.id";
         $countyFiled = "gco.*,gci.province_id";
@@ -163,8 +163,8 @@ class Controller_Setting extends AceAdmin_BaseControllerAuth
         if (!empty($provinceId) && count($provinceId) > 0) {
             //更新操作
             $provinceStr = implode(',', $provinceId);
-            $provinceUpdate1 = Instance::table('geoinfo_province')->update($data, "id IN({$provinceStr})");
-            $provinceUpdate2 = Instance::table('geoinfo_province')->update($ndata, "id NOT IN({$provinceStr})");
+            $provinceUpdate1 = Instance::table('_geoinfo_province')->update($data, "id IN({$provinceStr})");
+            $provinceUpdate2 = Instance::table('_geoinfo_province')->update($ndata, "id NOT IN({$provinceStr})");
             if(true !== $provinceUpdate1 || true !== $provinceUpdate2){
                 Logger::log('modify geoinfo_province extra: ' . $provinceStr, $category);
                 $this->addMessage("省级信息的地区开放修改失败", 'error');
@@ -173,8 +173,8 @@ class Controller_Setting extends AceAdmin_BaseControllerAuth
         if (!empty($cityId) && count($cityId) > 0) {
             //更新操作
             $cityStr = implode(',', $cityId);
-            $cityUpdate1 = Instance::table('geoinfo_city')->update($data, "id IN({$cityStr})");
-            $cityUpdate2 = Instance::table('geoinfo_city')->update($ndata, "id NOT IN({$cityStr})");
+            $cityUpdate1 = Instance::table('_geoinfo_city')->update($data, "id IN({$cityStr})");
+            $cityUpdate2 = Instance::table('_geoinfo_city')->update($ndata, "id NOT IN({$cityStr})");
             if(true !== $cityUpdate1 || true !== $cityUpdate2){
                 Logger::log('modify geoinfo_province extra: ' . $cityStr, $category);
                 $this->addMessage("市级信息的地区开放修改失败", 'error');
@@ -183,8 +183,8 @@ class Controller_Setting extends AceAdmin_BaseControllerAuth
         if (!empty($countyId) && count($countyId) > 0) {
             //更新操作
             $countyStr = implode(',', $countyId);
-            $countyUpdate1 = Instance::table('geoinfo_county')->update($data, "id IN({$countyStr})");
-            $countyUpdate2 = Instance::table('geoinfo_county')->update($ndata, "id NOT IN({$countyStr})");
+            $countyUpdate1 = Instance::table('_geoinfo_county')->update($data, "id IN({$countyStr})");
+            $countyUpdate2 = Instance::table('_geoinfo_county')->update($ndata, "id NOT IN({$countyStr})");
             if(true !== $countyUpdate1 || true !== $countyUpdate2){
                 Logger::log('modify geoinfo_province extra: ' . $countyStr, $category);
                 $this->addMessage("市级信息的地区开放修改失败", 'error');
@@ -193,8 +193,8 @@ class Controller_Setting extends AceAdmin_BaseControllerAuth
         if (!empty($townId) && count($townId) > 0) {
             //更新操作
             $townStr = implode(',', $townId);
-            $townUpdate1 = Instance::table('geoinfo_town')->update($data, "id IN({$townStr})");
-            $townUpdate2 = Instance::table('geoinfo_town')->update($ndata, "id NOT IN({$townStr})");
+            $townUpdate1 = Instance::table('_geoinfo_town')->update($data, "id IN({$townStr})");
+            $townUpdate2 = Instance::table('_geoinfo_town')->update($ndata, "id NOT IN({$townStr})");
             if(true !== $townUpdate1 || true !== $townUpdate2){
                 Logger::log('modify geoinfo_province extra: ' . $townStr, $category);
                 $this->addMessage("市级信息的地区开放修改失败", 'error');

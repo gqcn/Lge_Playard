@@ -95,7 +95,7 @@ class Controller_Base extends BaseController
          * @todo 只有在多个公众号cookie共享的情况下需要判别，如果确定不会共享，那么可以不用
          */
         if (!empty($openid)) {
-            $result = Instance::table('wechat_user')->getCount(array('openid=?', $openid));
+            $result = Instance::table('_wechat_user')->getCount(array('openid=?', $openid));
             if (empty($result)) {
                 $openid                   = '';
                 $this->_session['openid'] = '';

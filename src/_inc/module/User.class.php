@@ -43,10 +43,10 @@ class Module_User extends BaseModule
      */
     public function initSessionByOpenid($openid)
     {
-        $wechatInfo = Instance::table('wechat_user')->getOne('*', array('openid=?', $openid));
+        $wechatInfo = Instance::table('_wechat_user')->getOne('*', array('openid=?', $openid));
         if (!empty($wechatInfo)) {
             $this->_session['openid'] = $openid;
-            $this->_session['user']   = Instance::table('user')->getOne('*', array('wechat_id=?', $wechatInfo['id']));
+            $this->_session['user']   = Instance::table('_user')->getOne('*', array('wechat_id=?', $wechatInfo['id']));
             if (!empty($this->_session['user'])) {
                 $this->_session['user']['wechat_info'] = $wechatInfo;
                 // 头像更新
@@ -54,7 +54,7 @@ class Module_User extends BaseModule
                     $wechatInfoArray = json_decode($wechatInfo['raw'], true);
                     if (!empty($wechatInfoArray['headimgurl'])) {
                         $this->_session['user']['avatar'] = $wechatInfoArray['headimgurl'];
-                        Instance::table('user')->update(
+                        Instance::table('_user')->update(
                             array('avatar' => $this->_session['user']['avatar']),
                             array('uid'    => $this->_session['user']['uid'])
                         );
@@ -75,9 +75,9 @@ class Module_User extends BaseModule
     public function getUserByOpenid($openid)
     {
         $user     = array();
-        $wechatId = Instance::table('wechat_user')->getValue('id', array('openid=?', $openid));
+        $wechatId = Instance::table('_wechat_user')->getValue('id', array('openid=?', $openid));
         if (!empty($wechatId)) {
-            $user = Instance::table('user')->getOne('*', array('wechat_id=?', $wechatId));
+            $user = Instance::table('_user')->getOne('*', array('wechat_id=?', $wechatId));
         }
         return $user;
     }
@@ -139,12 +139,12 @@ class Module_User extends BaseModule
      */
     public function doLogin($passport, $password, $auto = true)
     {
-        $user   = Instance::table('user')->getOne('*', array('passport' => $passport));
+        $user   = Instance::table('_user')->getOne('*', array('passport' => $passport));
         $result = $this->_checkUser($user, $password);
         if (!empty($result)) {
             // 设置session，包括用户信息以及用户用户组
             $session = $result;
-            $group   = Instance::table('user_group')->getOne('*', array('id' => $result['gid']));
+            $group   = Instance::table('_user_group')->getOne('*', array('id' => $result['gid']));
             if (!empty($group)) {
                 $session['auths'] = Module_UserAuth::Instance()->getGroupAuths($result['gid']);
                 $session['group'] = $group;
@@ -201,7 +201,7 @@ class Module_User extends BaseModule
                     'latest_time' => time(),
                     'login_count' => $user['login_count'] + 1,
                 );
-                Instance::table('user')->update($data, array('uid' => $user['uid']));
+                Instance::table('_user')->update($data, array('uid' => $user['uid']));
             }
         }
 
@@ -213,7 +213,7 @@ class Module_User extends BaseModule
                 'create_time' => time(),
                 'result'      => !empty($result),
             );
-            Instance::table('user_login')->insert($data, 'ignore', false);
+            Instance::table('_user_login')->insert($data, 'ignore', false);
         }
         return $result;
     }

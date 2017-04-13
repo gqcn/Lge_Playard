@@ -66,7 +66,7 @@ class Controller_WechatReply extends AceAdmin_BaseControllerAuth
     public function sort()
     {
         $orders = Lib_Request::getPost('orders', array());
-        $list   = Instance::table('wechat_reply')->getAll('*', 1, null, "`order` ASC,`id` ASC", 0, 0, 'id');
+        $list   = Instance::table('_wechat_reply')->getAll('*', 1, null, "`order` ASC,`id` ASC", 0, 0, 'id');
         $updateList = array();
         foreach ($orders as $id => $order) {
             if (isset($list[$id]) && $list[$id]['order'] != $order) {
@@ -74,7 +74,7 @@ class Controller_WechatReply extends AceAdmin_BaseControllerAuth
             }
         }
         foreach ($updateList as $id => $order) {
-            Instance::table('wechat_reply')->update(array('order' => $order), array('id' => $id));
+            Instance::table('_wechat_reply')->update(array('order' => $order), array('id' => $id));
         }
         $this->addMessage('列表重新排序完成', 'success');
         Lib_Redirecter::redirectExit();
@@ -94,7 +94,7 @@ class Controller_WechatReply extends AceAdmin_BaseControllerAuth
                 'order' => 99
             );
             if (!empty($id)) {
-                $result = Instance::table('wechat_reply')->getOne("*", array('id' => $id));
+                $result = Instance::table('_wechat_reply')->getOne("*", array('id' => $id));
                 if (!empty($result)) {
                     // 不同消息类型处理
                     switch ($result['type']) {
@@ -162,7 +162,7 @@ class Controller_WechatReply extends AceAdmin_BaseControllerAuth
                 $data['content'] = json_encode($content);
                 break;
         }
-        $result = Instance::table('wechat_reply')->mysqlFiltSave($data);
+        $result = Instance::table('_wechat_reply')->mysqlFiltSave($data);
         if (empty($result)) {
             Lib_Response::json(false, '', '操作执行失败');
         } else {
@@ -178,7 +178,7 @@ class Controller_WechatReply extends AceAdmin_BaseControllerAuth
     {
         $id = Lib_Request::getGet('id', 0);
         if (!empty($id)) {
-            Instance::table('wechat_reply')->delete(array('id' => $id));
+            Instance::table('_wechat_reply')->delete(array('id' => $id));
             $this->addMessage('删除成功', 'success');
         }
         Lib_Redirecter::redirectExit();

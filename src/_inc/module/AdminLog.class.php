@@ -8,7 +8,7 @@ if(!defined('LGE')){
  * 操作日志管理模块。
  *
  */
-class Module_OperationLog extends BaseModule
+class Module_AdminLog extends BaseModule
 {
     /**
      * 敏感单词数组，用于判断方法中是否带有敏感词汇，如果是，那么该方法的操作会记录到操作日志中.
@@ -62,7 +62,7 @@ class Module_OperationLog extends BaseModule
                         )),
                         'create_time' => time(),
                     );
-                    Instance::table('operation_log')->insert($data);
+                    Instance::table('_admin_log')->insert($data);
                     break;
             }
         }

@@ -27,7 +27,7 @@ class Controller_Api extends Controller_Base
     {
         $appid     = Lib_Request::get('appid');
         $appid     = intval($appid);
-        $this->app = Instance::table('api_app')->getOne('*', array('id' => $appid));
+        $this->app = Instance::table('_api_app')->getOne('*', array('id' => $appid));
         if (empty($this->app)) {
             exit('应用不存在！');
         }

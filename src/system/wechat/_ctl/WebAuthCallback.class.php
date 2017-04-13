@@ -55,7 +55,7 @@ class Controller_WebAuthCallback extends BaseController
                     // 新增用户信息(注意：当第一次进入该回调页面时new为null，第二次为1)
                     // Logger::log("insert for existing user:{$openid}", 'wechat_webauth');
                     $data['create_time'] = time();
-                    $wechatId = Instance::table('wechat_user')->insert($data, 'ignore');
+                    $wechatId = Instance::table('_wechat_user')->insert($data, 'ignore');
                     if (!empty($wechatId)) {
                         $data = array(
                             'wechat_id'     => $wechatId,
@@ -63,26 +63,26 @@ class Controller_WebAuthCallback extends BaseController
                             'avatar'        => $userInfo['headimgurl'],
                             'register_time' => time(),
                         );
-                        Instance::table('user')->insert($data, 'ignore', true);
+                        Instance::table('_user')->insert($data, 'ignore', true);
                     }
                 } else if (!empty($update)) {
                     // 微信用户信息更新
                     // Logger::log("update for existing user:{$openid}", 'wechat_webauth');
                     $data['update_time'] = time();
-                    $wechatId = Instance::table('wechat_user')->insert($data, 'update');
+                    $wechatId = Instance::table('_wechat_user')->insert($data, 'update');
                     if (!empty($wechatId)) {
                         $data = array(
                             'nickname'    => $userInfo['nickname'],
                             'avatar'      => $userInfo['headimgurl'],
                             'update_time' => time(),
                         );
-                        Instance::table('user')->update($data, array('wechat_id' => $wechatId));
+                        Instance::table('_user')->update($data, array('wechat_id' => $wechatId));
                     }
                 } else {
                     // 判断对应openid是否在数据库中存在
                     $fields     = '*';
                     $condition  = array('openid=? and appid=?', $openid, $config['WeChat']['appid']);
-                    $wechatInfo = Instance::table('wechat_user')->getOne($fields, $condition);
+                    $wechatInfo = Instance::table('_wechat_user')->getOne($fields, $condition);
                     if (empty($wechatInfo)) {
                         Logger::log("request for new user:{$openid}", 'wechat_webauth');
                         // 如果是新用户，那么新增用户，这里会重新请求微信接口，并且需要用户授权获取用户信息，成功后跳转回该页面

@@ -10,7 +10,7 @@ if(!defined('LGE')){
  */
 class Model_ApiCategory extends BaseModelTable
 {
-    public $table = 'api_app_cat';
+    public $table = '_api_app_cat';
 
     /**
      * 获得实例.

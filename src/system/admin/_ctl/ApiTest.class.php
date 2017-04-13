@@ -37,7 +37,7 @@ class Controller_ApiTest extends AceAdmin_BaseControllerAuth
         if (!empty($data['uid'])) {
             $data['request_params']   = json_encode($params);
             $data['response_content'] = $result;
-            Instance::table('api_test')->save($data);
+            Instance::table('_api_test')->save($data);
         }
         Lib_Response::json(true, $result);
     }

@@ -56,8 +56,8 @@ class Controller_Pay extends AceAdmin_BaseControllerAuth
         $limit  = empty($limit) ? 10 : $limit;
         $start  = $this->getStart($limit);
         $tables = array(
-            'pay p',
-            'left join user u on(u.uid=p.uid)',
+            '_pay p',
+            'left join _user u on(u.uid=p.uid)',
         );
         $fields = 'p.*,u.avatar,u.nickname';
         $list   = Instance::table($tables)->getAll($fields, $condition, null, 'id DESC', $start, $limit);

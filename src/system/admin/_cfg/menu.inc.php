@@ -22,123 +22,144 @@ return array(
         'acts' => array('default', 'index'),
         'url'  => '/default',
     ),
-    'menu' => array(
+    array(
         'name' => '菜单管理',
-        'icon' => 'book',
-        'sub'  => array(
-            'index'    => array(
+        'icon' => 'menu-icon fa fa-book',
+        'subs' => array(
+            array(
                 'name' => '菜单管理',
-                'icon' => '',
+                'acts' => array('menu', 'index'),
+                'url'  => '/menu/index',
             ),
-            'category' => array(
+            array(
                 'name' => '菜单分类',
-                'icon' => '',
+                'acts' => array('menu', 'category'),
+                'url'  => '/menu/category',
             ),
         ),
     ),
-    'article' => array(
+
+    array(
         'name' => '文章管理',
-        'icon' => 'edit',
-        'sub'  => array(
-            'index'    => array(
+        'icon' => 'menu-icon fa fa-edit',
+        'subs' => array(
+            array(
                 'name' => '文章管理',
-                'icon' => '',
+                'acts' => array('article', 'index'),
+                'url'  => '/article/index',
             ),
-            'showEdit' => array(
+            array(
                 'name' => '文章发布',
-                'icon' => '',
+                'acts' => array('article', 'showEdit'),
+                'url'  => '/article/showEdit',
             ),
             
-            'category' => array(
+            array(
                 'name' => '文章分类',
-                'icon' => '',
+                'acts' => array('article', 'category'),
+                'url'  => '/article/category',
             ),
         ),
     ),
-    'picture' => array(
+
+    array(
         'name' => '图片管理',
-        'icon' => 'picture',
-        'sub'  => array(
-            'index'    => array(
+        'icon' => 'menu-icon fa fa-picture-o',
+        'subs' => array(
+            array(
                 'name' => '图片管理',
-                'icon' => '',
+                'acts' => array('picture', 'index'),
+                'url'  => '/picture/index',
             ),
-            'showEdit' => array(
+            array(
                 'name' => '图片发布',
-                'icon' => '',
+                'acts' => array('picture', 'showEdit'),
+                'url'  => '/picture/showEdit',
             ),
-            'category' => array(
+            array(
                 'name' => '图片分类',
-                'icon' => '',
+                'acts' => array('picture', 'category'),
+                'url'  => '/picture/category',
             ),
         ),
     ),
-    'link' => array(
+
+    array(
         'name' => '连接管理',
-        'icon' => 'exchange',
-        'sub'  => array(
-            'index'    => array(
+        'icon' => 'menu-icon fa fa-exchange',
+        'subs' => array(
+            array(
                 'name' => '连接管理',
-                'icon' => '',
+                'acts' => array('link', 'index'),
+                'url'  => '/link/index',
             ),
-            'showEdit' => array(
+            array(
                 'name' => '新建连接',
-                'icon' => '',
+                'acts' => array('link', 'showEdit'),
+                'url'  => '/link/showEdit',
             ),
-            'category' => array(
+            array(
                 'name' => '连接分类',
-                'icon' => '',
+                'acts' => array('link', 'category'),
+                'url'  => '/link/category',
             ),
         ),
     ),
     
-    'frag' => array(
+    array(
         'name' => '碎片管理',
-        'icon' => 'asterisk',
-        'sub'  => array(
-            'index'    => array(
+        'icon' => 'menu-icon fa fa-asterisk',
+        'subs' => array(
+            array(
                 'name' => '碎片管理',
-                'icon' => '',
+                'acts' => array('frag', 'index'),
+                'url'  => '/frag/index',
             ),
-            'showEdit' => array(
+            array(
                 'name' => '添加碎片',
-                'icon' => '',
+                'acts' => array('frag', 'showEdit'),
+                'url'  => '/frag/showEdit',
             ),
-            'category' => array(
+            array(
                 'name' => '碎片分类',
-                'icon' => '',
+                'acts' => array('frag', 'category'),
+                'url'  => '/frag/category',
             ),
         ),
     ),
-    'comment' => array(
+
+    array(
         'name' => '评论管理',
-        'icon' => 'comment',
-        'sub'  => array(
-            'index'    => array(
+        'icon' => 'menu-icon fa fa-comment',
+        'subs' => array(
+            array(
                 'name' => '评论管理',
-                'icon' => '',
+                'acts' => array('comment', 'index'),
+                'url'  => '/comment/index',
             ),
         ),
     ),
     
-    'guestbook' => array(
+    array(
         'name' => '留言管理',
-        'icon' => 'comment-alt',
-        'sub'  => array(
-            'index'    => array(
+        'icon' => 'menu-icon fa fa-comment-o',
+        'subs' => array(
+            array(
                 'name' => '留言管理',
-                'icon' => '',
+                'acts' => array('guestbook', 'index'),
+                'url'  => '/guestbook/index',
             ),
         ),
     ),
+
     array(
         'name' => '系统管理',
         'icon' => 'menu-icon fa fa-cogs',
         'subs' => array(
             array(
                 'name' => '操作日志',
-                'acts' => array('operation-log', 'index'),
-                'url'  => '/operation-log/index',
+                'acts' => array('admin-log', 'index'),
+                'url'  => '/admin-log/index',
             ),
             array(
                 'name' => '文件管理',
@@ -301,7 +322,7 @@ return array(
             ),
         ),
     ),
-
+/*
     array(
         'name' => '第三方平台',
         'icon' => 'menu-icon fa fa-external-link',
@@ -323,35 +344,25 @@ return array(
             ),
         ),
     ),
-    
-        'profile' => array(
+*/
+    array(
         'name' => '个人中心',
-        'icon' => 'user',
-        'sub'  => array(
-            'index'    => array(
-                'name' => '个人信息',
-                'icon' => '',
-            ),
-            'password' => array(
-                'name' => '密码修改',
-                'icon' => '',
-            ),
-            'logout'   => array(
-                'name' => '退出登录',
-                'url'  => 'javascript:confirmLogout();',
-                'icon' => '',
-            ),
-        ),
-    ),
-    
-        array(
-        'name' => '支付管理',
-        'icon' => 'credit-card',
-        'subs' => array(
+        'icon' => 'menu-icon fa fa-user',
+        'subs'  => array(
             array(
-                'name' => '支付记录',
-                'acts' => array('pay', 'index'),
-                'url'  => '/pay/index',
+                'name' => '个人信息',
+                'acts' => array('profile', 'index'),
+                'url'  => '/profile/index',
+            ),
+            array(
+                'name' => '密码修改',
+                'acts' => array('profile', 'password'),
+                'url'  => '/profile/password',
+            ),
+            array(
+                'name' => '退出登录',
+                'acts' => array('profile', 'logout'),
+                'url'  => 'javascript:confirmLogout();',
             ),
         ),
     ),

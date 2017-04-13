@@ -40,7 +40,7 @@ class Module_UserAuth extends BaseModule
         }
 
         if (empty($this->_userGroupKeys[$gid]) && $gid !== '') {
-            $this->_userGroupKeys[$gid] = Instance::table('user_group')->getValue('group_key', array('id=?', $gid));
+            $this->_userGroupKeys[$gid] = Instance::table('_user_group')->getValue('group_key', array('id=?', $gid));
         }
         $key = isset($this->_userGroupKeys[$gid]) ? $this->_userGroupKeys[$gid] : '';
         switch ($key) {
@@ -122,7 +122,7 @@ class Module_UserAuth extends BaseModule
         if (empty($this->_userGroupAuths[$gid])) {
             $auths     = array();
             $condition = array('gid' => $gid);
-            $result    = Instance::table('user_group_auth')->getAll('`key`,`value`', $condition);
+            $result    = Instance::table('_user_group_auth')->getAll('`key`,`value`', $condition);
             foreach ($result as $v) {
                 $key         = $this->formatKey($v['key']);
                 $auths[$key] = $v['value'];

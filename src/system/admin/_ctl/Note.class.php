@@ -1,9 +1,10 @@
 <?php
-if(!defined('PhpMe')){
+namespace Lge;
+if (!defined('LGE')) {
 	exit('Include Permission Denied!');
 }
 
-class Controller_Note extends BaseAppEx
+class Controller_Note extends AceAdmin_BaseControllerAuth
 {
     public $catType = 6;
     

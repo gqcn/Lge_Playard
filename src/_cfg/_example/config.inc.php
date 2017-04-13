@@ -22,12 +22,6 @@ return array(
                 // 日志目录存放位置
                 'path' => L_ROOT_PATH.'../log/',
             ),
-            // 日志数据库服务器配置
-            'database' => array(
-                // 数据库配置对应节点名称(配置文件中需要有该节点的配置)
-                'node'  => 'default',
-                'table' => 'log',
-            ),
         ),
     ),
 

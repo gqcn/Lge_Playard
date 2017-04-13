@@ -106,7 +106,7 @@ class Controller_Callback extends BaseController
     private function _checkAndReplyByKeywords($keywords)
     {
         $data  = array();
-        $reply = Instance::table('wechat_reply')->getOne('*', array('keywords' => $keywords), null, "`order`,`id` ASC");
+        $reply = Instance::table('_wechat_reply')->getOne('*', array('keywords' => $keywords), null, "`order`,`id` ASC");
         if (!empty($reply)) {
             switch ($reply['type']) {
                 case 'text':
@@ -193,7 +193,7 @@ class Controller_Callback extends BaseController
         if (empty($user['wechat_id'])) {
             $data['create_time'] = time();
         }
-        $wechatId = Instance::table('wechat_user')->insert($data, 'update');
+        $wechatId = Instance::table('_wechat_user')->insert($data, 'update');
         // 新增/更新用户数据表信息
         if (!empty($user)) {
             $wechatId = $user['wechat_id'];
@@ -205,14 +205,14 @@ class Controller_Callback extends BaseController
                 'avatar'        => $userInfo['headimgurl'],
                 'create_time'   => time(),
             );
-            Instance::table('user')->insert($data, 'ignore', false);
+            Instance::table('_user')->insert($data, 'ignore', false);
         } else {
             $data = array(
                 'nickname' => $userInfo['nickname'],
                 'avatar'   => $userInfo['headimgurl'],
             );
             $condition = "wechat_id={$wechatId} AND gid=0 AND passport IS NULL";
-            Instance::table('user')->update($data, $condition);
+            Instance::table('_user')->update($data, $condition);
         }
     }
 
@@ -224,7 +224,7 @@ class Controller_Callback extends BaseController
     private function _onSubscribe()
     {
         // 更新关注状态
-        Instance::table('wechat_user')->update(array('subscribe' => 1), array('openid' => $this->data['FromUserName']));
+        Instance::table('_wechat_user')->update(array('subscribe' => 1), array('openid' => $this->data['FromUserName']));
         $this->_checkAndReplyByKeywords('关注时自动回复');
     }
 
@@ -234,7 +234,7 @@ class Controller_Callback extends BaseController
     private function _onUnsubscribe()
     {
         // 更新关注状态
-        Instance::table('wechat_user')->update(array('subscribe' => 0), array('openid' => $this->data['FromUserName']));
+        Instance::table('_wechat_user')->update(array('subscribe' => 0), array('openid' => $this->data['FromUserName']));
     }
 
     /**
