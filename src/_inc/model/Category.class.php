@@ -18,12 +18,12 @@ class Model_Category extends BaseModelTable
      * @var array
      */
     public $types = array(
-        101 => '文章',
-        102 => '图片',
-        103 => '菜单',
-        104 => '连接',
-        105 => '碎片',
-        106 => '笔记',
+        100 => '文章',
+        200 => '图片',
+        300 => '菜单',
+        400 => '连接',
+        500 => '碎片',
+        600 => '笔记',
     );
 
     /**
@@ -64,13 +64,13 @@ class Model_Category extends BaseModelTable
     {
 
         if (empty($catName)) {
-            $tables    = 'category a';
+            $tables    = '_category a';
             $fields    = 'a.*';
             $condition = array('a.type=? and a.cat_name=?', $type, $pCatName);
         } else {
             $tables    = array(
-                'category a',
-                'left join category b ON(b.cat_id = a.pcat_id)',
+                '_category a',
+                'left join _category b ON(b.cat_id = a.pcat_id)',
             );
             $fields    = 'a.*';
             $condition = array('a.type=? and a.cat_name=? and b.cat_name=?', $type, $catName, $pCatName);

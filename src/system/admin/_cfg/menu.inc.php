@@ -50,8 +50,8 @@ return array(
             ),
             array(
                 'name' => '文章发布',
-                'acts' => array('article', 'showEdit'),
-                'url'  => '/article/showEdit',
+                'acts' => array('article', 'item'),
+                'url'  => '/article/item',
             ),
             
             array(

@@ -1,5 +1,6 @@
 <?php
-if(!defined('PhpMe')){
+namespace Lge;
+if (!defined('LGE')) {
     exit('Include Permission Denied!');
 }
 /**
@@ -8,6 +9,7 @@ if(!defined('PhpMe')){
  */
 class Model_Menu extends BaseModelTable
 {
+    public $table = '_menu';
     public $types = array(
         0 => '内部连接',
         1 => '外部连接',
@@ -18,12 +20,6 @@ class Model_Menu extends BaseModelTable
         '_blank' => '新窗口',
         '_self'  => '原窗口',
     );
-    
-    public function setTableAndPri()
-    {
-        $this->table   = 'menu';
-        $this->primary = 'menu_id';
-    }
     
     /**
      * 获得菜单列表.
@@ -106,4 +102,3 @@ class Model_Menu extends BaseModelTable
 		return rtrim($children, ',');
 	}
 }
-?>

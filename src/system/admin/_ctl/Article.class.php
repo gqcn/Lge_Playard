@@ -13,12 +13,7 @@ class Controller_Article extends AceAdmin_BaseControllerAuth
      */
     public function index()
     {
-        $this->setBreadCrumbs(array(
-            array('default'),
-            array('article'),
-        ));
-        
-        $data = $this->getRequest(array(
+        $data = Lib_Request::getArray(array(
         	'limit'  => 10, 
         	'cat_id' => 0, 
         	'key'    => '', 
@@ -31,11 +26,11 @@ class Controller_Article extends AceAdmin_BaseControllerAuth
         if (!empty($data['key'])) {
             $condition .= " AND `title` LIKE '%{$data['key']}%'"; 
         }
-        $articleModel = &M('Article');
-        $catModel     = &M('Category');
+        $articleModel = Instance::table('_cms_article');
+        $catModel     = Model_Category::instance();
         $limit        = $data['limit'] > 100 ? 100 : $data['limit'];
         $start        = $this->getStart($limit);
-        $list         = $articleModel->getList("*", $condition, $start, $limit, "`order` ASC,`article_id` DESC");
+        $list         = $articleModel->getAll("*", $condition, $start, $limit, "`order` ASC,`id` DESC");
         $count        = $articleModel->getCount($condition);
         $catArray     = $catModel->getCatArray($this->catType);
         foreach ($list as $k => $v) {
@@ -56,12 +51,7 @@ class Controller_Article extends AceAdmin_BaseControllerAuth
      */
     public function category()
     {
-        $this->setBreadCrumbs(array(
-            array('default'),
-            array('article'),
-            array('article', 'category'),
-        ));
-        $catModel = &M('Category');
+        $catModel = Model_Category::instance();
         $this->assigns(array(
         	'type'     => $this->catType,
         	'catArray' => $catModel->getCatTreeList($this->catType),
@@ -73,11 +63,11 @@ class Controller_Article extends AceAdmin_BaseControllerAuth
     /**
      * 显示文章添加/修改
      */
-    public function showEdit()
+    public function item()
     {
-        $articleId = isset($this->_get['id']) ? intval($this->_get['id']) : 0;
-        $data      = array(
-        	'article_id'   => 0, 
+        $this->setCurrentMenu('article', 'index');
+        $data = array(
+        	'id'           => 0,
         	'cat_id'       => 0, 
         	'author'       => $this->_session['user']['nickname'], 
         	'order'        => 999, 
@@ -91,37 +81,19 @@ class Controller_Article extends AceAdmin_BaseControllerAuth
         	'content' 	   => '', 
         	'tags' 		   => ''
         );
-        if ($articleId) {
-            $articleModel = &M('Article');
-            $contentModel = &M('ArticleContent');
-            $article      = $articleModel->getOne("*", "`article_id`={$articleId}");
-            $content      = $contentModel->getValue("`content`", "`article_id`={$articleId}");
+        if ($data['id']) {
+            $article = Instance::table('_cms_article')->getOne("*", "`id`={$data['id']}");
             if (!empty($article)) {
                 $data = $article;
                 $data['release_date'] = date('Y-m-d', $article['release_time']);
                 $data['release_time'] = date('H-i-s', $article['release_time']);
-                $data['content']      = $content;
             }
         }
-        // 面包屑
-        $breadCrumbs = array(
-            array('default'),
-            array('article'),
-        );
-        if (empty($articleId)) {
-            $breadCrumbs[] = array('article', 'showEdit');
-        } else {
-            $breadCrumbs[] = array('article', 'showEdit', '文章修改');
-            $this->setCurrentMenu('article', 'index');
-        }
-        $this->setBreadCrumbs($breadCrumbs);
-        // 树形分类
-        $catModel = &M('Category');
-        $catTree  = $catModel->getCatTreeList($this->catType);
+
         $this->assigns(array(
-        	'catArray' => $catTree,
+        	'catArray' => Model_Category::instance()->getCatTreeList($this->catType),
         	'data'     => $data,
-        	'mainTpl'  => 'article/showEdit'
+        	'mainTpl'  => 'article/item'
         ));
         $this->display();
     }
@@ -132,8 +104,8 @@ class Controller_Article extends AceAdmin_BaseControllerAuth
      */
     public function edit()
     {
-        $data = $this->getRequest(array(
-        	'article_id'   => 0, 
+        $data = Lib_Request::getPostArray(array(
+        	'id'           => 0,
         	'cat_id'       => 0, 
         	'author'       => '', 
         	'order'        => 999, 
@@ -147,62 +119,28 @@ class Controller_Article extends AceAdmin_BaseControllerAuth
         	'content' 	   => '', 
         	'tags' 		   => ''
         ));
-        $articleId = $data['article_id'];
-        $content   = $data['content'];
-        if (empty($data['author'])) {
-            $this->addMessage('文章作者不能为空', 'error');
-        } else if (empty($data['title'])) {
-            $this->addMessage('文章标题不能为空', 'error');
+        $rules = array(
+            'author' => array('required', '文章作者不能为空'),
+            'title'  => array('required', '文章标题不能为空'),
+        );
+        $checkError = Lib_Validator::check($data, $rules, 2, true);
+        if (!empty($checkError)) {
+            $this->addMessage($checkError, 'error');
         } else {
             $data['uid']          = $this->_session['user']['uid'];
             $data['status']       = 1;
             $data['release_time'] = strtotime("{$data['release_date']} {$data['release_time']}");
             $data['update_time']  = time();
-            unset($data['article_id'], $data['release_date'], $data['content']);
-            $articleModel = &M('Article');
-            $contentModel = &M('ArticleContent');
-            if (empty($articleId)) {
+            if (empty($data['id'])) {
                 $data['create_time'] = time();
-                $articleId           = $articleModel->insert($data);
-                if ($articleId > 0) {
-                    $contentModel->insert(array(
-                        'article_id' => $articleId,
-                        'content'    => $content,
-                    ));
-                    $this->addMessage('文章添加成功', 'success');
-                } else {
-                    $this->addMessage('文章添加失败', 'error');
-                }
+            }
+            $result = Instance::table('_cms_article')->save($data);
+            if (empty($result)) {
+                $this->addMessage('文章保存失败', 'error');
             } else {
-                $r1 = $articleModel->update($data, "`article_id`={$articleId}");
-                $r2 = $contentModel->update(array(
-                'content' => $content
-                ), "`article_id`={$articleId}");
-                if ($r1 || $r2) {
-                    $this->addMessage('文章修改成功', 'success');
-                } else {
-                    $this->addMessage('文章修改失败', 'error');
-                }
+                $this->addMessage('文章保存成功', 'success');
             }
         }
-        $this->redirect();
-    }
-    
-    /**
-     * 文章删除.
-     */
-    public function delete()
-    {
-        $articleId = isset($this->_get['id']) ? intval($this->_get['id']) : 0;
-        if (empty($articleId)) {
-            $this->addMessage('请选择需要删除的文章', 'error');
-        } else {
-            $articleModel = &M('Article');
-            $contentModel = &M('ArticleContent');
-            $articleModel->delete("`article_id`={$articleId}");
-            $contentModel->delete("`article_id`={$articleId}");
-            $this->addMessage('文章删除成功', 'success');
-        }
-        $this->redirect();
+        Lib_Redirecter::redirectExit();
     }
 }

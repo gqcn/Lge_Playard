@@ -1,5 +1,6 @@
 <?php
-if(!defined('PhpMe')){
+namespace Lge;
+if (!defined('LGE')) {
     exit('Include Permission Denied!');
 }
 /**
@@ -8,12 +9,8 @@ if(!defined('PhpMe')){
  */
 class Model_ModelField extends BaseModelTable
 {
-    public function setTableAndPri()
-    {
-        $this->table   = 'model_field';
-        $this->primary = 'field_id';
-    }
-    
+    public $table   = '_model_field';
+
     /**
      * 获得经过解析的字段.
      * 
@@ -34,4 +31,3 @@ class Model_ModelField extends BaseModelTable
         return $fields;
     }
 }
-?>

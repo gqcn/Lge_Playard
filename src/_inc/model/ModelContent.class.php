@@ -1,5 +1,6 @@
 <?php
-if(!defined('PhpMe')){
+namespace Lge;
+if (!defined('LGE')) {
     exit('Include Permission Denied!');
 }
 /**
@@ -8,11 +9,7 @@ if(!defined('PhpMe')){
  */
 class Model_ModelContent extends BaseModelTable
 {
-    public function setTableAndPri()
-    {
-        $this->table   = 'model_content';
-        $this->primary = 'id';
-    }
+    public $table = '_model_content';
     
     /**
      * 获得数据模型的一条内容.
@@ -26,8 +23,8 @@ class Model_ModelContent extends BaseModelTable
         $data = array();
         $one  = $this->getOne("*", "`id`={$contentId}");
         if (!empty($one)) {
-            $fieldModel      = &M('ModelField');
-            $fieldValueModel = &M('ModelFieldValue');
+            $fieldModel      = Model_ModelField::instance();
+            $fieldValueModel = Instance::table('_model_field_value');
             $fieldMap        = $fieldModel->getFields($one['model_id']);
             $fieldValue      = $fieldValueModel->getOne("*", "`content_id`={$contentId}");
             $data            = $one;
@@ -41,4 +38,3 @@ class Model_ModelContent extends BaseModelTable
         return $data;
     }
 }
-?>
