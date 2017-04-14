@@ -1,18 +1,18 @@
 <div class="row">
 <div class="col-xs-12">
-<form class="form-horizontal" id="validation-form" action="?app=article&act=edit" method="post" enctype="multipart/form-data">
-<input type="hidden" name="article_id" value="{$data['article_id']}"/>
+<form class="form-horizontal" id="validation-form" action="?" method="post" enctype="multipart/form-data">
+<input type="hidden" name="id" value="{$data['id']}"/>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2 no-padding-right">文章分类:</label>
         <div class="col-xs-12 col-sm-9">
         {if $catArray}
-        <select class="select2" name="cat_id">
-            {foreach from=$catArray index=$index key=$key item=$item}
-            <option value="{$item['cat_id']}" {if $data['cat_id'] == $item['cat_id']}selected{/if}>{$item['cat_name']}</option>
-            {/foreach}
-        </select>
+            <select class="select2" name="cat_id">
+                {foreach from=$catArray index=$index key=$key item=$item}
+                <option value="{$item['cat_id']}" {if $data['cat_id'] == $item['cat_id']}selected{/if}>{$item['cat_name']}</option>
+                {/foreach}
+            </select>
         {else}
-        <div style="margin:5px 0 0 0px;">当前没有文章分类，您可以点这 <a href="?app=article&act=category" target="_blank">创建分类</a></div>
+            <div style="margin:5px 0 0 0px;">当前没有文章分类，您可以点这 <a href="/article/category" target="_blank">创建分类</a></div>
         {/if}
         </div>
     </div>
@@ -40,14 +40,14 @@
                 <div class="input-group" style="width:150px;float:left;">
                     <input value="{$data['release_date']}"  name="release_date" class="form-control date-picker" id="id-date-picker" type="text" data-date-format="yyyy-mm-dd" />
                     <span class="input-group-addon">
-                        <i class="icon-calendar bigger-110"></i>
+                        <i class="fa fa-calendar bigger-110"></i>
                     </span>
                 </div>
                 
                 <div class="input-group bootstrap-timepicker" style="width:150px;float:left;margin:0 0 0 5px;">
                     <input value="{$data['release_time']}" name="release_time" id="timepicker" type="text" class="form-control"/>
                     <span class="input-group-addon">
-                        <i class="icon-time bigger-110"></i>
+                        <i class="fa fa-clock-o bigger-110"></i>
                     </span>
                 </div>
             </div>
@@ -175,47 +175,24 @@ jQuery(function($) {
     .on('change', function(){
         $(this).closest('form').validate().element($(this));
     }); 
-    
-    //we could just set the data-provide="tag" of the element inside HTML, but IE8 fails!
-    var tag_input = $('#form-field-tags');
-    if (!( /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase())) ) {
-        tag_input.tag({
-            placeholder:tag_input.attr('placeholder')
-          }
-        );
-    } else {
-        // display a textarea for old IE, because it doesn't support this plugin or another one I tried!
-        tag_input.after('<textarea id="'+tag_input.attr('id')+'" name="'+tag_input.attr('name')+'" rows="3">'+tag_input.val()+'</textarea>').remove();
-        //$('#form-field-tags').autosize({append: "\n"});
-    }
-	
+
     UE.getEditor('editor');
     
     $('#validation-form').validate({
         errorElement: 'div',
-        errorClass: 'help-block',
+        errorClass  : 'help-block',
         focusInvalid: true,
         rules: {
-            title: {
-                required: true
-            },
-            referer: {
-                url: true
-            },
-            referto: {
-                url: true
-            }
+            title:   { required: true },
+            author:  { required: true },
+            referer: { url: true },
+            referto: { url: true }
         },
         messages: {
-            title: {
-                required: "文章标题不能为空"
-            },
-            referer: {
-                url: "您输入的URL格式不正确"
-            },
-            referto: {
-                url: "您输入的URL格式不正确"
-            }
+            title:   { required: "文章标题不能为空" },
+            author:  { required: "文章作者不能为空" },
+            referer: { url: "您输入的URL格式不正确" },
+            referto: { url: "您输入的URL格式不正确" }
         },
         highlight: function (e) {
             $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
@@ -243,7 +220,6 @@ jQuery(function($) {
             }
         }
     });
-
 });
 </script>
 

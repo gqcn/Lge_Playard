@@ -17,12 +17,9 @@
             <div class="row" style="margin-bottom:10px;">
                 <div class="input-group col-xs-1"  style="width:80px;" title="分页大小" data-rel="tooltip" >
                     <select class="select2" name="limit">
-                        <option value="10" {if $_Get->data['limit'] == 10}selected{/if}>10</option>
-                        <option value="20" {if $_Get->data['limit'] == 20}selected{/if}>20</option>
-                        <option value="30" {if $_Get->data['limit'] == 30}selected{/if}>30</option>
-                        <option value="50" {if $_Get->data['limit'] == 50}selected{/if}>50</option>
-                        <option value="80" {if $_Get->data['limit'] == 80}selected{/if}>80</option>
-                        <option value="100" {if $_Get->data['limit'] == 100}selected{/if}>100</option>
+                        {foreach from=$limits index=$index key=$k item=$v}
+                            <option value="{$v}" {if $_Get->data['limit'] === $k}selected{/if}>{$v}</option>
+                        {/foreach}
                     </select>
                 </div>
 

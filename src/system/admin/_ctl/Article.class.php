@@ -65,8 +65,7 @@ class Controller_Article extends AceAdmin_BaseControllerAuth
      */
     public function item()
     {
-        $this->setCurrentMenu('article', 'index');
-        $data = array(
+        $data = Lib_Request::getPostArray(array(
         	'id'           => 0,
         	'cat_id'       => 0, 
         	'author'       => $this->_session['user']['nickname'], 
@@ -80,45 +79,33 @@ class Controller_Article extends AceAdmin_BaseControllerAuth
         	'brief'        => '', 
         	'content' 	   => '', 
         	'tags' 		   => ''
-        );
-        if ($data['id']) {
-            $article = Instance::table('_cms_article')->getOne("*", "`id`={$data['id']}");
-            if (!empty($article)) {
-                $data = $article;
-                $data['release_date'] = date('Y-m-d', $article['release_time']);
-                $data['release_time'] = date('H-i-s', $article['release_time']);
-            }
-        }
-
-        $this->assigns(array(
-        	'catArray' => Model_Category::instance()->getCatTreeList($this->catType),
-        	'data'     => $data,
-        	'mainTpl'  => 'article/item'
         ));
-        $this->display();
+        if (Lib_Request::isRequestMethodPost()) {
+            return $this->_edit($data);
+        } else {
+            if (!empty($data['id'])) {
+                $article = Instance::table('_cms_article')->getOne("*", array('id' => $data['id']));
+                if (!empty($article)) {
+                    $data = $article;
+                    $data['release_date'] = date('Y-m-d', $article['release_time']);
+                    $data['release_time'] = date('H-i-s', $article['release_time']);
+                }
+            }
+            $this->assigns(array(
+                'catArray' => Model_Category::instance()->getCatTreeList($this->catType),
+                'data'     => $data,
+                'mainTpl'  => 'article/item'
+            ));
+            $this->display();
+        }
     }
     
     /**
      * 
      * 文章添加/修改
      */
-    public function edit()
+    private function _edit($data)
     {
-        $data = Lib_Request::getPostArray(array(
-        	'id'           => 0,
-        	'cat_id'       => 0, 
-        	'author'       => '', 
-        	'order'        => 999, 
-        	'thumb'        => '', 
-        	'release_date' => date('Y-m-d'), 
-        	'release_time' => date('H-i-s'), 
-        	'title'        => '', 
-        	'referer'      => '', 
-        	'referto'      => '', 
-        	'brief'        => '', 
-        	'content' 	   => '', 
-        	'tags' 		   => ''
-        ));
         $rules = array(
             'author' => array('required', '文章作者不能为空'),
             'title'  => array('required', '文章标题不能为空'),

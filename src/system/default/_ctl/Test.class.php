@@ -9,6 +9,17 @@ class Controller_Test extends BaseController
 {
     public function index()
     {
+\Lge\Instance::template()->setOptions(array(
+    'tpl_ext'       => 'php',
+    "tpl_dir"       => __DIR__.'/template/',
+    "cache_dir"     => __DIR__.'cache/',
+    'check_update'  => 0,
+    'totally_php'   => true,
+    'php_enabled'   => false,
+));
+\Lge\Instance::template()->assign('data', $data);
+\Lge\Instance::template()->display('login');
+
 //        $str = 'regix_e:/[\y\w].:[\d\w]+/i';
 //        $str = 'required|regex:/|[\y\w].:[\d\w]+/i|min:2,3|regex:/|[\y\w].:2[\d\w]+/i';
 //        // preg_match("/^(\w+)(:*)(.+)/", $str, $match);

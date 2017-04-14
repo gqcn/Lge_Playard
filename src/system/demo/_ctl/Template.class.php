@@ -7,7 +7,6 @@ if (!defined('LGE')) {
 
 class Controller_Template extends Controller_Base
 {
-    
     /**
      * 默认入口函数.
      *
@@ -15,7 +14,10 @@ class Controller_Template extends Controller_Base
      */
     public function index()
     {
-        $users = Model_Demo_User::instance()->getAll();
+        $users = array(
+            array('age' => 16, 'name' => 'Smith'),
+            array('age' => 28, 'name' => 'John'),
+        );
         $this->assigns(array(
             'list' => $users,
         ));
