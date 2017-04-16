@@ -16,11 +16,11 @@ class Controller_LgePhar extends Controller_Base
 
     public function index()
     {
-        $phar = new \Phar('lge.phar');
-        $phar->buildFromDirectory('/home/john/Workspace/PHP/Lge/Lge/src/_frm');
-        $phar->compressFiles(\Phar::GZ);
-        $phar->stopBuffering();
-        $phar->setStub($phar->createDefaultStub('common.inc.php'));
+$phar = new \Phar('lge.phar');
+$phar->buildFromDirectory('/home/john/Workspace/PHP/Lge/Lge/src/_frm');
+$phar->compressFiles(\Phar::GZ);
+$phar->stopBuffering();
+$phar->setStub($phar->createDefaultStub('common.inc.php'));
         echo "Done!\n";
         exit();
     }

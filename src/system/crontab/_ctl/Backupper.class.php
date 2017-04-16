@@ -68,7 +68,7 @@ class Controller_Backupper extends Controller_Base
                             array($pass, true, 86400),
                         );
                         $ssh = new Lib_Network_Ssh($fileConfig['host'], $fileConfig['port'], $fileConfig['user'], $fileConfig['pass']);
-                        $ssh->shellCmd($sshShellCmds);
+                        $ssh->asyncCmd($sshShellCmds);
                     }
                 }
             }
