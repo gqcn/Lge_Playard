@@ -22,7 +22,7 @@ class Controller_InitProject extends Controller_Base
     /**
      * SQL文件执行初始化.
      *
-     * @param string $path       存放SQL文件的文件夹路径.
+     * @param string $path       存放SQL文件的en 文件夹路径.
      * @param string $dbItemName 数据库配置项名称.
      *
      * @return void

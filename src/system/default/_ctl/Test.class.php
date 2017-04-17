@@ -9,16 +9,32 @@ class Controller_Test extends BaseController
 {
     public function index()
     {
-        $path = 'ssh://john@120.76.249.69:8822//home/john/www/lge';
-        preg_match("/ssh:\/\/(.+?)@([^:]+):{0,1}(\d*)\/(\/.+)/", $path, $match);
-        print_r($match);
-        exit();
-        $sshShellCmds = array(
-            array("ll -a", false, 100),
-            // array("top", false, 80000)
+        $descriptorspec = array(
+            0 => array("pipe", "r"),  // stdin is a pipe that the child will read from
+            1 => array("pipe", "w"),  // stdout is a pipe that the child will write to
+            2 => array("file", "/tmp/error-output.txt", "a") // stderr is a file to write to
         );
-        $ssh = new Lib_Network_Ssh('127.0.0.1', '8822', 'john', '8692651');
-        $r = $ssh->sendFile("/home/john/Documents/temp.txt", "/home/john/temp/temp.txt", 0777);
-        var_dump($r);
+
+        $cwd = '/tmp';
+        $env = array('some_option' => 'aeiou');
+
+        $process = proc_open('/bin/bash', $descriptorspec, $pipes, $cwd, $env);
+        //$process = proc_open('/usr/bin/xterm -hold', $descriptorspec, $pipes, $cwd, $env);
+
+        if (is_resource($process)) {
+            stream_set_blocking($pipes[0], 0);
+            stream_set_blocking($pipes[1], 0);
+            fwrite($pipes[0], "vim /home/john/Documents/temp.txt".PHP_EOL);
+            while (true) {
+                $result = stream_get_contents($pipes[1]);
+                if (empty($result)) {
+                    usleep(100000);
+                    //var_dump('sleep');
+                } else {
+                    var_dump($result);
+                }
+            }
+            proc_close($process);
+        }
     }
 }
