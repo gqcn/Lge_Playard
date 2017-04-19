@@ -19,7 +19,7 @@ class Controller_Database extends Controller_Base
          * 这里采用的是SQLite数据库操作来演示该框架的数据库操作，其他数据库如MySQL、MSSQL也是一样的操作方式.
          */
         // 初始化数据库操作对象
-        $db = Instance::database('sqlite_demo');
+        $db = Instance::database();
         // 设置出错时不立即停止执行
         $db->setHalt(false);
         // 设置调试模式(内部会记录详细的SQL执行信息)
@@ -200,5 +200,53 @@ MM;
 
         echo "\n";
         */
+        // 获取年龄为18岁的所有女性
+        Instance::table('lge_user')->getAll('*', array(
+            'age'    => 18,
+            'gender' => 0,
+        ));
+
+        $fields    = 'uid,nickname';
+        $condition = array("gender=? and age>? and uid in(1,2,3) and name like '%john%'", $_GET['gender'], $_GET['age']);
+        $groupby   = null;
+        $orderby   = 'uid desc';
+        $start     = 0;
+        $limit     = 100;
+        $arrayKey  = 'uid';
+        Instance::table('lge_user')->getAll($fields, $condition, $groupby, $orderby, $start, $limit, $arrayKey);
+
+        // 查询指定某一时间段高于某个价格的用户信息及用户地址
+        $tables    = array(
+            'user u',
+            'left join order o on(o.uid=u.uid)',
+            'left join order_address oa on(oa.order_id=o.id)',
+        );
+        $fields    = 'u.uid,u.nickname,oa.order_id,oa.address';
+        $condition = array("o.order_price>? and o.create_time between ? and ?", $_GET['price'], $_GET['start_time'], $_GET['end_time']);
+        $groupby   = null;
+        $orderby   = 'oa.order_id desc';
+        $start     = 0;
+        $limit     = 100;
+        $arrayKey  = 'oa.order_id';
+        Instance::table($tables)->getAll($fields, $condition, $groupby, $orderby, $start, $limit, $arrayKey);
+
+        /**
+         * 表前缀示例
+         */
+        // 1、单表查询
+        Instance::table('_user')->getOne('*', 'uid=1');
+
+        // 2、联表查询
+        $tables    = array(
+            '_user u',
+            'left join _user_address ua on(ua.uid=u.uid)',
+        );
+        $fields    = 'u.uid,u.nickname,ua.address';
+        $condition = array('uid' => $_GET['uid']);
+        Instance::table($tables)->getAll($fields, $condition);
+
+        $db   = Instance::database();
+        $sqls = $db->getQueriedSqls();
+        print_r($sqls);
     }
 }
