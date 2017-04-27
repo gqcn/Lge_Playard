@@ -248,5 +248,19 @@ MM;
         $db   = Instance::database();
         $sqls = $db->getQueriedSqls();
         print_r($sqls);
+
+
+        Instance::table('lge_user')->getValue('nickname', array(
+            "age=:age and gender=:gender", array(
+                'gender' => $_GET['gender'],
+                'age'    => $_GET['age'],
+            )
+        ));
+
+        // 查询某个区域所有小于某个年龄的用户
+        $tables    = "user u, user_address ua";
+        $fields    = 'u.uid,u.nickname,ua.address';
+        $condition = array("u.uid=ua.uid and u.age<:max_age and ua.address like '四川省成都市%'", array(':max_age' => 30));
+        Instance::table($tables)->getAll($fields, $condition);
     }
 }

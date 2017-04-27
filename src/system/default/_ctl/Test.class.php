@@ -9,11 +9,6 @@ class Controller_Test extends BaseController
 {
     public function index()
     {
-        $db = Instance::database();
-        $r = $db->query('select * from lge_setting');
-        var_dump($r);
-        sleep(4);
-        $r = $db->query('select * from lge_setting');
-        print_r($db);
+        var_dump(number_format(9.2029571533203E-5, 9));
     }
 }
