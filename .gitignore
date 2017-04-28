@@ -7,8 +7,7 @@
 .idea/
 log/
 gitpush.sh
-src/_cfg/
-!src/_cfg/_example/
+
 src/cache/
 src/upload/
 src/system/crontab/_cfg/
