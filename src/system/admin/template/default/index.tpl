@@ -2,8 +2,8 @@
     <div class="col-xs-12">
         <div class="alert alert-block">
             欢迎您！
-            尊敬的 <b>{$_Session->get('user')['nickname']}</b>
-            {if $session['user']['gender']}先生{else}女士{/if}！
+            尊敬的 <b>{$_SESSION['user']['nickname']}</b>
+            {if $_SESSION['user']['gender']}先生{else}女士{/if}！
         </div>
 
     </div>

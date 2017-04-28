@@ -67,7 +67,7 @@
             <ul class="nav ace-nav">
                 <li class="light-blue">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                        欢迎您！ <b>{$_Session->get('user')['nickname']}</b>
+                        欢迎您！ <b>{$_SESSION['user']['nickname']}</b>
                         <i class="ace-icon fa fa-caret-down"></i>
                     </a>
 

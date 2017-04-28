@@ -6587,8 +6587,10 @@ button.close {
 
 .edui-default > *:before,  .edui-default > *:after {
     -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
 }
 
 .edui-default div,  .edui-default img, .edui-default p {
     -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
 }
