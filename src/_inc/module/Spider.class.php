@@ -24,7 +24,7 @@ class Module_Spider extends BaseModule
 	 */
 	public static function instance()
 	{
-		return self::InstanceInternal(__CLASS__);
+		return self::_instanceInternal(__CLASS__);
 	}
 
 	/**

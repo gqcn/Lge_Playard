@@ -21,6 +21,6 @@ class Model_Demo_User extends BaseModelTable
      */
     public static function instance ()
     {
-        return self::instanceInternal(__CLASS__);
+        return self::_instanceInternal(__CLASS__);
     }
 }

@@ -47,7 +47,7 @@ class Module_WeChat_Api extends Module_WeChat_Base
      */
     public static function instance()
     {
-        return self::instanceInternal(__CLASS__);
+        return self::_instanceInternal(__CLASS__);
     }
 
     /**

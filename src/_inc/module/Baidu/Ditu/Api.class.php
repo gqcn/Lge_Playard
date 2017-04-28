@@ -14,7 +14,7 @@ class Module_Baidu_Ditu_Api extends BaseModule
      */
     public static function instance()
     {
-        return self::instanceInternal(__CLASS__);
+        return self::_instanceInternal(__CLASS__);
     }
 
     public function getGpsByAddress($address)

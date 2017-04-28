@@ -19,7 +19,7 @@ class Model_ApiCategory extends BaseModelTable
      */
     public static function instance()
     {
-        return self::instanceInternal(__CLASS__);
+        return self::_instanceInternal(__CLASS__);
     }
 
     /**
