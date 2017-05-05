@@ -90,38 +90,64 @@ $(document).ready(function(){
 
     // 通过返回示例自动识别返回参数
     $('.check-response-params').click(function(){
-        $.ajax({
-            url     : '/api.api/ajaxCheckRespnseParams',
-            type    : 'post',
-            data    : {
-                json: codeMirrorJson.getValue(),
-                xml : codeMirrorXml.getValue()
-            },
-            dataType: 'json',
-            success : function(result){
-                if (result.result) {
-                    $('.response-param-tr-values').remove();
-                    $('.response-param-tr-brief').remove();
-                    for (var i = 0; i < result.data.length; ++i) {
-                        $('.response-params-table .add-response-param-button').click();
-                        $('.response-param-tr-values:last').find("input[name='content[response_params][name][]']").val(result.data[i].name);
-                        $('.response-param-tr-values:last').find("select[name='content[response_params][type][]']").val(result.data[i].type);
-                        $('.response-param-tr-values:last').find("input[name='content[response_params][example][]']").val(result.data[i].example);
+        var jsonValue = codeMirrorJson.getValue();
+        var xmlValue  = codeMirrorXml.getValue();
+        if (jsonValue.length < 1 && xmlValue < 1) {
+            return;
+        }
+        var doRequest = function() {
+            $.ajax({
+                url     : '/api.api/ajaxCheckRespnseParams',
+                type    : 'post',
+                data    : {
+                    json: jsonValue,
+                    xml : xmlValue
+                },
+                dataType: 'json',
+                success : function(result){
+                    if (result.result) {
+                        $('.response-param-tr-values').remove();
+                        $('.response-param-tr-brief').remove();
+                        for (var i = 0; i < result.data.length; ++i) {
+                            $('.response-params-table .add-response-param-button').click();
+                            $('.response-param-tr-values:last').find("input[name='content[response_params][name][]']").val(result.data[i].name);
+                            $('.response-param-tr-values:last').find("select[name='content[response_params][type][]']").val(result.data[i].type);
+                            $('.response-param-tr-values:last').find("input[name='content[response_params][example][]']").val(result.data[i].example);
+                        }
+                        $.gritter.add({
+                            title: '成功提示',
+                            text : '返回参数已自动识别',
+                            class_name: 'gritter-success gritter-right'
+                        });
+                    } else {
+                        $.gritter.add({
+                            title: '错误提示',
+                            text : result.message,
+                            class_name: 'gritter-error gritter-right'
+                        });
                     }
-                    $.gritter.add({
-                        title: '成功提示',
-                        text : '返回参数已自动识别',
-                        class_name: 'gritter-success gritter-right'
-                    });
-                } else {
-                    $.gritter.add({
-                        title: '错误提示',
-                        text : result.message,
-                        class_name: 'gritter-error gritter-right'
-                    });
                 }
-            }
-        });
+            });
+        }
+        var responseParamNameInputLength = $("input[name='content[response_params][name][]']").length;
+        if (responseParamNameInputLength > 2
+            || (responseParamNameInputLength == 2
+            && $("input[name='content[response_params][name][]']:eq(1)").val().length > 1)) {
+            bootbox.dialog({
+                message: "自动识别返回示例中的数据格式将会覆盖当前已设置的返回参数，是否继续？",
+                buttons:
+                    {
+                        "button" : {"label" : "取消", "className" : "btn-sm"},
+                        "danger" : {"label" : "继续", "className" : "btn-sm btn-info",
+                            "callback": function() {
+                                doRequest();
+                            }
+                        }
+                    }
+            });
+        } else {
+            doRequest();
+        }
     });
 
     /**

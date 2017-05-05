@@ -235,7 +235,7 @@
     </div>
 
     <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2 no-padding-right">返回结构:</label>
+        <label class="control-label col-xs-12 col-sm-2 no-padding-right">返回示例:</label>
         <div class="col-xs-12 col-sm-10">
             <div class="clearfix">
                 <div class="tabbable response-example-tabs">

@@ -49,13 +49,13 @@
                                     </div>
                                     <div class="content">
                                         <h4>接口说明</h4>
-                                        <div class="markdown"><p>{$api['brief']}</p></div>
-                                        <div class="markdown"><p>{$api['detail']}</p></div>
-                                        <br />
+                                        <div><p>{$api['brief']}</p></div>
+                                        <div><p>{$api['detail']}</p></div>
                                         <h4>接口地址</h4>
                                         <div><p>生产环境地址：<b><a href="{$api['address_prod']}" target="_blank">{$api['address_prod']}</a></b></p></div>
                                         <div><p>测试环境地址：<b><a href="{$api['address_prod']}" target="_blank">{$api['address_test']}</a></b></p></div>
-                                        <div><p>跨域测试地址：<b><a href="{$api['address_crossdomain']}" target="_blank">{$api['address_crossdomain']}</a></b></p></div>
+                                        <div><p>跨域测试地址(测试)：<b><a href="{$api['address_crossdomain_test']}" target="_blank">{$api['address_crossdomain_test']}</a></b></p></div>
+                                        <div><p>跨域测试地址(生产)：<b><a href="{$api['address_crossdomain_prod']}" target="_blank">{$api['address_crossdomain_prod']}</a></b></p></div>
                                         <br />
                                         <h4>请求参数</h4>
                                         {if $api['content']['request_params']}
@@ -132,19 +132,19 @@
                                         <h4>返回示例</h4>
                                         <div class="tabbable response-example-tabs">
                                             <ul class="nav nav-tabs">
-                                                <li class="active">
+                                                <li class="active {if $api['content']['response_example']['JSON']}has-example-content{/if}">
                                                     <a data-toggle="tab" href="#response-type-json-{$catIndex}-{$apiIndex}">JSON</a>
                                                 </li>
-                                                <li class="">
+                                                <li class="{if $api['content']['response_example']['XML']}has-example-content{/if}">
                                                     <a data-toggle="tab" href="#response-type-xml-{$catIndex}-{$apiIndex}" >XML</a>
                                                 </li>
-                                                <li class="">
+                                                <li class="{if $api['content']['response_example']['JSONP']}has-example-content{/if}">
                                                     <a data-toggle="tab" href="#response-type-jsonp-{$catIndex}-{$apiIndex}" >JSONP</a>
                                                 </li>
-                                                <li class="">
+                                                <li class="{if $api['content']['response_example']['Template']}has-example-content{/if}">
                                                     <a data-toggle="tab" href="#response-type-template-{$catIndex}-{$apiIndex}">模板变量</a>
                                                 </li>
-                                                <li class="">
+                                                <li class="{if $api['content']['response_example']['Other']}has-example-content{/if}">
                                                     <a data-toggle="tab" href="#response-type-other-{$catIndex}-{$apiIndex}">其他/自定义</a>
                                                 </li>
                                             </ul>

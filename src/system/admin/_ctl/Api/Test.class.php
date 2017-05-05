@@ -16,7 +16,7 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
     public function index()
     {
         $this->assigns(array(
-            'list'     => Model_ApiApp::instance()->getMyApps(),
+            'list'     => Model_Api_App::instance()->getMyApps(),
             'mainTpl' => 'api/test/index',
         ));
         $this->display();

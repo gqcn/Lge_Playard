@@ -71,7 +71,7 @@ class Controller_Default extends Controller_Base
     public function apiList()
     {
         $apiList  = array();
-        $catArray = Model_ApiCategory::instance()->getCatArray($this->app['id']);
+        $catArray = Model_Api_Category::instance()->getCatArray($this->app['id']);
         $list     = Instance::table($this->bindTableName)->getAll('*', array('appid' => $this->app['id']), null, "`order` ASC,`id` ASC");
         // 分类绑定接口
         foreach ($list as $api) {
@@ -80,10 +80,11 @@ class Controller_Default extends Controller_Base
                 if (!isset($catArray[$catid]['api_list'])) {
                     $catArray[$catid]['api_list'] = array();
                 }
-                $api['content']             = json_decode($api['content'], true);
-                $api['address_prod']        = empty($this->app['address_prod']) ? $api['address'] : rtrim($this->app['address_prod'], '/').$api['address'];
-                $api['address_test']        = empty($this->app['address_test']) ? $api['address'] : rtrim($this->app['address_test'], '/').$api['address'];
-                $api['address_crossdomain'] = Lib_Url::getCurrentUrlWithoutUri().'test/'.$api['id'];
+                $api['content']      = json_decode($api['content'], true);
+                $api['address_prod'] = empty($this->app['address_prod']) ? $api['address'] : rtrim($this->app['address_prod'], '/').$api['address'];
+                $api['address_test'] = empty($this->app['address_test']) ? $api['address'] : rtrim($this->app['address_test'], '/').$api['address'];
+                $api['address_crossdomain_test'] = Lib_Url::getCurrentUrlWithoutUri().'test/'.$api['id'];
+                $api['address_crossdomain_prod'] = Lib_Url::getCurrentUrlWithoutUri().'prod-test/'.$api['id'];
                 $catArray[$catid]['api_list'][] = $api;
             }
         }

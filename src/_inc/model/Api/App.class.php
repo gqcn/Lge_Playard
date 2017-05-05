@@ -8,14 +8,14 @@ if(!defined('LGE')){
  * 云服务 - 云服务应用管理模型。
  *
  */
-class Model_ApiApp extends BaseModelTable
+class Model_Api_App extends BaseModelTable
 {
     public $table = '_api_app';
 
     /**
      * 获得实例.
      *
-     * @return Model_ApiApp
+     * @return Model_Api_App
      */
     public static function instance()
     {

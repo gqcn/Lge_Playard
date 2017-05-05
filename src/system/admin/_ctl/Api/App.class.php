@@ -16,7 +16,7 @@ class Controller_Api_App extends AceAdmin_BaseControllerAuth
     public function index()
     {
         $this->assigns(array(
-            'list'     => Model_ApiApp::instance()->getMyApps(),
+            'list'     => Model_Api_App::instance()->getMyApps(),
             'mainTpl' => 'api/app/index',
         ));
         $this->display();

@@ -54,8 +54,8 @@ class Controller_Api_Api extends AceAdmin_BaseControllerAuth
         $this->assigns(
             array(
                 'app'      => Instance::table('_api_app')->getOne('*', array('id' => $appid)),
-                'apps'     => Model_ApiApp::instance()->getMyApps(),
-                'catList'  => Model_ApiCategory::instance()->getCatTree($appid),
+                'apps'     => Model_Api_App::instance()->getMyApps(),
+                'catList'  => Model_Api_Category::instance()->getCatTree($appid),
                 'mainTpl' => 'api/api/index',
             )
         );
@@ -93,7 +93,7 @@ class Controller_Api_Api extends AceAdmin_BaseControllerAuth
         $this->assigns(array(
             'cat'      => $cat,
             'list'     => $list,
-            'catList'  => Model_ApiCategory::instance()->getCatTree($appid),
+            'catList'  => Model_Api_Category::instance()->getCatTree($appid),
             'mainTpl' => 'api/api/embed_index',
         ));
         $this->display();
@@ -116,11 +116,11 @@ class Controller_Api_Api extends AceAdmin_BaseControllerAuth
             }
         }
         if (!empty($xml)) {
-            $xmlArray = Lib_XmlParser::xml2Array($xml);
+            $xmlArray = @Lib_XmlParser::xml2Array($xml);
             if (empty($xmlArray)) {
                 Lib_Response::json(false, null, 'XML数据解析失败，请查看数据格式是否正确');
             } else {
-                $params = $this->_contentArrayToParams($xmlArray, $params);
+                $params = array_merge($params, $this->_contentArrayToParams($xmlArray, $params));
             }
         }
         Lib_Response::json(1, array_values($params));
@@ -212,7 +212,7 @@ class Controller_Api_Api extends AceAdmin_BaseControllerAuth
                 }
             }
             $cat     = Instance::table('_api_app_cat')->getOne('*', array('id' => $data['cat_id']));
-            $catList = Model_ApiCategory::instance()->getCatTree($appid);
+            $catList = Model_Api_Category::instance()->getCatTree($appid);
             if (empty($catList)) {
                 echo "暂无分类信息，请先添加分类后再添加接口。";
                 exit();
@@ -232,6 +232,11 @@ class Controller_Api_Api extends AceAdmin_BaseControllerAuth
         }
     }
 
+    /**
+     * 处理接口信息修改
+     *
+     * @return void
+     */
     private function _handleSave()
     {
         $id     = Lib_Request::getPost('id');
@@ -242,7 +247,7 @@ class Controller_Api_Api extends AceAdmin_BaseControllerAuth
         if (empty($id)) {
             $data['create_time'] = time();
         }
-        // 内容结构处理
+        // 请求参数
         $requestParams = array();
         foreach ($data['content']['request_params']['name'] as $k => $v) {
             if (empty($v)) {
@@ -256,6 +261,7 @@ class Controller_Api_Api extends AceAdmin_BaseControllerAuth
                 'brief'   => $data['content']['request_params']['brief'][$k],
             );
         }
+        // 返回参数
         $responseParams = array();
         foreach ($data['content']['response_params']['name'] as $k => $v) {
             if (empty($v)) {
@@ -272,7 +278,7 @@ class Controller_Api_Api extends AceAdmin_BaseControllerAuth
         $data['content']['response_params'] = $responseParams;
         $data['content']                    = json_encode($data['content']);
         $result = Instance::table($this->bindTableName)->mysqlFiltSave($data);
-        if (empty($result)) {
+        if ($result === false) {
             Lib_Response::json(false, '', '接口信息保存失败');
         } else {
             Lib_Response::json(true, '', '接口信息保存成功');

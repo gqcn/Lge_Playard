@@ -1540,3 +1540,20 @@
 .operation-params .param-name {
     color:#000;
 }
+
+.has-example-content a:link,
+.has-example-content a:focus,
+.has-example-content a:hover,
+.has-example-content a:visited,
+.has-example-content a:active {
+    font-weight: bold;
+    color:#111;
+}
+.has-example-content.active a:link,
+.has-example-content.active a:focus,
+.has-example-content.active a:hover,
+.has-example-content.active a:visited,
+.has-example-content.active a:active {
+    font-weight: bold;
+    color:#111;
+}

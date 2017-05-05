@@ -8,14 +8,14 @@ if(!defined('LGE')){
  * 云服务 - 云服务分类管理模型。
  *
  */
-class Model_ApiCategory extends BaseModelTable
+class Model_Api_Category extends BaseModelTable
 {
     public $table = '_api_app_cat';
 
     /**
      * 获得实例.
      *
-     * @return Model_ApiCategory
+     * @return Model_Api_Category
      */
     public static function instance()
     {
