@@ -39,6 +39,7 @@ class Controller_Backupper extends Controller_Base
                         $filePath      = "{$dataBackupDir}/{$name}.sql";
                         $filePathTemp  = "{$dataBackupDir}/{$name}.temp.sql";
                         $localShellCmd = "mysqldump -C -h{$host} -P{$port} -u{$user} -p{$pass} {$name} > {$filePathTemp}";
+                        echo "Backing up database: {$filePath}\n";
                         shell_exec($localShellCmd);
                         // 判断是否备份成功(大于1K)，使用临时文件防止失败时被覆盖
                         if (filesize($filePathTemp) > 1024) {
@@ -67,11 +68,17 @@ class Controller_Backupper extends Controller_Base
                             array("yes", true, 10),
                             array($pass, true, 86400),
                         );
-                        $ssh = new Lib_Network_Ssh($fileConfig['host'], $fileConfig['port'], $fileConfig['user'], $fileConfig['pass']);
-                        $ssh->asyncCmd($sshShellCmds);
+                        try {
+                            $ssh = new Lib_Network_Ssh($fileConfig['host'], $fileConfig['port'], $fileConfig['user'], $fileConfig['pass']);
+                            $ssh->asyncCmd($sshShellCmds);
+                        } catch (\Exception $e) {
+                            echo $e->getMessage().PHP_EOL;
+                        }
                     }
                 }
             }
+
+            echo "Done!\n\n";
         }
 
         Logger::log('end', $this->logCategory);

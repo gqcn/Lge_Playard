@@ -23,7 +23,7 @@ class Controller_IpUpdater extends Controller_Base
     public function index()
     {
         set_time_limit(60);
-        $ipSecret = Config::getFile('ip_secret', true);
+        $ipSecret = Config::getFile('ipsecret', true);
         $this->accessKeyId     = $ipSecret['appid'];
         $this->accessKeySecret = $ipSecret['secret'];
         $this->domains         = $ipSecret['domains'];
