@@ -181,7 +181,7 @@ class Module_UserAuth extends BaseModule
                 'pid'    => 0,
                 'system' => $system,
                 'key'    => "System:{$system}",
-                'name'   => isset($config['System'][$system]['name']) ? $config['System'][$system]['name'] : "System:{$system}",
+                'name'   => isset($config['Sites'][$system]['name']) ? $config['Sites'][$system]['name'] : "System:{$system}",
                 'value'  => 'system',
             );
 

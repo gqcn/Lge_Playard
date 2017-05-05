@@ -18,7 +18,7 @@
                 <div class="input-group col-xs-1"  style="width:80px;" title="分页大小" data-rel="tooltip" >
                     <select class="select2" name="limit">
                         {foreach from=$limits index=$index key=$k item=$v}
-                            <option value="{$v}" {if $_Get->data['limit'] === $k}selected{/if}>{$v}</option>
+                            <option value="{$v}" {if $_GET['limit'] === $k}selected{/if}>{$v}</option>
                         {/foreach}
                     </select>
                 </div>
@@ -27,7 +27,7 @@
                     <select class="select2" name="from">
                         <option value="">所有用户来源</option>
                         {foreach from=$froms index=$index key=$key item=$name}
-                            <option value="{$key}" {if $_Get->data['from'] === $key}selected{/if}>
+                            <option value="{$key}" {if $_GET['from'] === $key}selected{/if}>
                                 {$name}
                             </option>
                         {/foreach}
@@ -38,7 +38,7 @@
                     <select class="select2" name="gid">
                         <option value="">所有用户组</option>
                         {foreach from=$groups index=$index key=$key item=$item}
-                            <option value="{$item['id']}" {if $_Get->data['gid'] === $item['id']}selected{/if}>
+                            <option value="{$item['id']}" {if $_GET['gid'] === $item['id']}selected{/if}>
                                 {$item['name']}
                             </option>
                         {/foreach}
@@ -46,7 +46,7 @@
                 </div>
 
                 <div class="input-group col-xs-3 no-padding-left" title="昵称搜索" data-rel="tooltip" >
-                    <input type="text" name="key" placeholder="昵称关键字查询" class="form-control search-query" value="{$_String->escape($_Get->data['key'])}">
+                    <input type="text" name="key" placeholder="昵称关键字查询" class="form-control search-query" value="{$_String->escape($_GET['key'])}">
                     <span class="input-group-btn">
                         <button class="btn btn-info btn-sm" type="submit">
                             <i class="ace-icon fa fa-search fa-on-right bigger-110"></i>
@@ -108,8 +108,8 @@
                         <td class="center">{$item['group_name']}</td>
                         <td>{$item['passport']}</td>
                         <td>
-                            {if $_Get->data['key'] && $item['nickname']}
-                                {$_String->highlight($item['nickname'], $_Get->data['key'])}</a>
+                            {if $_GET['key'] && $item['nickname']}
+                                {$_String->highlight($item['nickname'], $_GET['key'])}</a>
                             {else}
                                 {$item['nickname']}
                             {/if}

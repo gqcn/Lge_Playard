@@ -91,7 +91,7 @@ $(document).ready(function(){
     // 通过返回示例自动识别返回参数
     $('.check-response-params').click(function(){
         $.ajax({
-            url     : '/api-api/ajaxCheckRespnseParams',
+            url     : '/api.api/ajaxCheckRespnseParams',
             type    : 'post',
             data    : {
                 json: codeMirrorJson.getValue(),
@@ -124,6 +124,9 @@ $(document).ready(function(){
         });
     });
 
+    /**
+     * 提交并验证数据
+     */
     $('#api-save-form').validate({
         errorElement: 'div',
         errorClass  : 'help-block',
@@ -154,7 +157,8 @@ $(document).ready(function(){
                             text : result.message,
                             class_name: 'gritter-success gritter-right'
                         });
-                        reloadCategoryAndApiList();
+                        // reloadCategoryAndApiList();
+                        reloadCategory();
                     } else {
                         $.gritter.add({
                             title: '错误提示',

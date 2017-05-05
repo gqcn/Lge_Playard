@@ -21,7 +21,7 @@
 <div class="col-xs-12">
 
 
-<form class="form-horizontal reply-form" id="validation-form" action="/api-app/item" method="post" enctype="multipart/form-data">
+<form class="form-horizontal reply-form" id="validation-form" action="/api.app/item" method="post" enctype="multipart/form-data">
 <input type="hidden" name="id" value="{$data['id']}"/>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2 no-padding-right"></label>

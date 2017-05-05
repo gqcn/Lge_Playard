@@ -53,21 +53,58 @@
                                         <div class="markdown"><p>{$api['detail']}</p></div>
                                         <br />
                                         <h4>接口地址</h4>
-                                        <div><p>生产地址：<b>{$api['address_prod']}</b></p></div>
-                                        <div><p>测试地址：<b>{$api['address_test']}</b></p></div>
+                                        <div><p>生产环境地址：<b><a href="{$api['address_prod']}" target="_blank">{$api['address_prod']}</a></b></p></div>
+                                        <div><p>测试环境地址：<b><a href="{$api['address_prod']}" target="_blank">{$api['address_test']}</a></b></p></div>
+                                        <div><p>跨域测试地址：<b><a href="{$api['address_crossdomain']}" target="_blank">{$api['address_crossdomain']}</a></b></p></div>
                                         <br />
                                         <h4>请求参数</h4>
-                                        <table class="fullwidth parameters">
-                                            <thead>
+                                        {if $api['content']['request_params']}
+                                            <table class="fullwidth parameters">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width: 150px;">
+                                                            参数名称
+                                                        </th>
+                                                        <th style="width: 150px;">
+                                                            参数类型
+                                                        </th>
+                                                        <th style="width: 150px;">
+                                                            参数状态
+                                                        </th>
+                                                        <th>
+                                                            参数示例
+                                                        </th>
+                                                        <th>
+                                                            参数说明
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="operation-params">
+                                                    {foreach from=$api['content']['request_params'] index=$_ key=$_ item=$param}
+                                                        <tr>
+                                                            <td class="{$param['status']}">{$param['name']}</td>
+                                                            <td class="param-name">{$param['type']}</td>
+                                                            <td>{$param['status']}</td>
+                                                            <td>{$param['example']}</td>
+                                                            <td>{$param['brief']}</td>
+                                                        </tr>
+                                                    {/foreach}
+                                                </tbody>
+                                            </table>
+                                        {else}
+                                            <div>无</div>
+                                        {/if}
+                                        <br />
+                                        <h4>返回参数</h4>
+                                        {if $api['content']['response_params']}
+                                            <table class="fullwidth parameters">
+                                                <thead>
                                                 <tr>
                                                     <th style="width: 150px;">
                                                         参数名称
                                                     </th>
                                                     <th style="width: 150px;">
                                                         参数类型
-                                                    </th>
-                                                    <th style="width: 150px;">
-                                                        参数状态
                                                     </th>
                                                     <th>
                                                         参数示例
@@ -76,49 +113,21 @@
                                                         参数说明
                                                     </th>
                                                 </tr>
-                                            </thead>
-                                            <tbody class="operation-params">
-                                                {foreach from=$api['content']['request_params'] index=$_ key=$_ item=$param}
+                                                </thead>
+                                                <tbody class="operation-params">
+                                                {foreach from=$api['content']['response_params'] index=$_ key=$_ item=$param}
                                                     <tr>
-                                                        <td class="{$param['status']}">{$param['name']}</td>
-                                                        <td class="param-name">{$param['type']}</td>
-                                                        <td>{$param['status']}</td>
+                                                        <td>{$param['name']}</td>
+                                                        <td>{$param['type']}</td>
                                                         <td>{$param['example']}</td>
                                                         <td>{$param['brief']}</td>
                                                     </tr>
                                                 {/foreach}
-                                            </tbody>
-                                        </table>
-                                        <br />
-                                        <h4>返回参数</h4>
-                                        <table class="fullwidth parameters">
-                                            <thead>
-                                            <tr>
-                                                <th style="width: 150px;">
-                                                    参数名称
-                                                </th>
-                                                <th style="width: 150px;">
-                                                    参数类型
-                                                </th>
-                                                <th>
-                                                    参数示例
-                                                </th>
-                                                <th>
-                                                    参数说明
-                                                </th>
-                                            </tr>
-                                            </thead>
-                                            <tbody class="operation-params">
-                                            {foreach from=$api['content']['response_params'] index=$_ key=$_ item=$param}
-                                                <tr>
-                                                    <td>{$param['name']}</td>
-                                                    <td>{$param['type']}</td>
-                                                    <td>{$param['example']}</td>
-                                                    <td>{$param['brief']}</td>
-                                                </tr>
-                                            {/foreach}
-                                            </tbody>
-                                        </table>
+                                                </tbody>
+                                            </table>
+                                        {else}
+                                            <div>无</div>
+                                        {/if}
                                         <br />
                                         <h4>返回示例</h4>
                                         <div class="tabbable response-example-tabs">

@@ -9,7 +9,7 @@
 
 
 {if $list}
-    <form class="form-horizontal" id="api-sort-form" action="/api-api/ajaxSort" method="post">
+    <form class="form-horizontal" id="api-sort-form" action="/api.api/ajaxSort" method="post">
         <table id="api-table" class="table table-striped table-bordered table-hover">
             <thead>
             <tr>
@@ -27,7 +27,7 @@
                     <td class="center">{$index + 1}</td>
                     <td>
                         <input type="hidden" name="ids[]"  value="{$item['id']}">
-                        {$_String->highlight($item['name'], $_Get->data['key'])}
+                        {$_String->highlight($item['name'], $_GET['key'])}
                     </td>
                     <td>{$item['cat_name']}</td>
                     <td>{$item['content']['request_type']}</td>
@@ -40,7 +40,7 @@
                             <a href="javascript:copyApiInfo({$item['id']});" class="blue" title="复制" data-rel="tooltip">
                                 <i class="ace-icon fa fa-copy bigger-130"></i>
                             </a>
-                            <a href="javascript:ajaxDeleteApi('/api-api/ajaxDelete?id={$item['id']}');" class="red ButtonDelete" title="删除" data-rel="tooltip">
+                            <a href="javascript:ajaxDeleteApi('/api.api/ajaxDelete?id={$item['id']}');" class="red ButtonDelete" title="删除" data-rel="tooltip">
                                 <i class="ace-icon fa fa-trash-o bigger-130"></i>
                             </a>
                         </div>
@@ -117,7 +117,7 @@
                             text : '接口重新排完成',
                             class_name: 'gritter-success gritter-right'
                         });
-                        showCategoryApiList({$_Get->data['catid']});
+                        showCategoryApiList({$_GET['catid']});
                     }
                 }
             });

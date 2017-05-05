@@ -7,9 +7,9 @@ if(!defined('LGE')){
 /**
  * 云服务 - 分类管理
  */
-class Controller_ApiCategory extends AceAdmin_BaseControllerAuth
+class Controller_Api_Category extends AceAdmin_BaseControllerAuth
 {
-    public $bindTableName  = 'api_app_cat';
+    public $bindTableName  = '_api_app_cat';
 
     /**
      * 分类列表.
@@ -19,8 +19,8 @@ class Controller_ApiCategory extends AceAdmin_BaseControllerAuth
         $appid     = Lib_Request::get('appid');
         $appid     = intval($appid);
         $tables    = array(
-            'api_app_cat aac',
-            'left join api_app_api aaa on(aaa.cat_id=aac.id)',
+            '_api_app_cat aac',
+            'left join _api_app_api aaa on(aaa.cat_id=aac.id)',
         );
         $fields    = 'aac.*,count(aaa.id) as api_count';
         $condition = array('aac.appid' => $appid, 'aac.uid' => $this->_session['user']['uid']);

@@ -7,7 +7,7 @@ if(!defined('LGE')){
 /**
  * 云服务 - 应用管理
  */
-class Controller_ApiApp extends AceAdmin_BaseControllerAuth
+class Controller_Api_App extends AceAdmin_BaseControllerAuth
 {
 
     /**
@@ -52,7 +52,7 @@ class Controller_ApiApp extends AceAdmin_BaseControllerAuth
         if (Lib_Request::isRequestMethodPost()) {
             $this->_handleSave();
         } else {
-            $this->setCurrentMenu('api-app', 'index');
+            $this->setCurrentMenu('api.app', 'index');
             $data = array(
                 'thumb' => '/static/resource/images/default.jpg',
                 'order' => 99,

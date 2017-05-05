@@ -47,7 +47,7 @@
 
 <div class="row">
     <div class="col-xs-12">
-        <form class="form-horizontal" id="api-test-form" action="/api-test/ajaxRequest" method="post">
+        <form class="form-horizontal" id="api-test-form" action="/api.test/ajaxRequest" method="post">
             <div class="form-group">
                 <label class="control-label col-xs-12 col-sm-2 no-padding-right required">请求方式:</label>
                 <div class="col-xs-12 col-sm-8">
@@ -159,13 +159,22 @@
     }
 
     $(document).ready(function () {
+        $.ajax({
+            url: 'http://apidoc.local.com/test',
+            method: 'post',
+            dataType: 'json',
+            success : function(result){
+                console.log(result.result);
+            }
+        });
+
         // 添加请求参数按钮
         $('.add-request-param-button').click(function(){
             var html = '<tr class="request-param-tr-values">' + $(this).parents('tbody').find('tr:eq(0)').html() + '</tr>';
             $(this).parents('tbody').find('tr:last').before(html);
         });
 
-        {if !$_Get->data['id']}
+        {if !$_GET['id']}
         // 初始化参数表数据
         $('.request-params-table').each(function(){
             if($(this).find('tbody tr').length < 4) {

@@ -17,7 +17,7 @@
             <select class="select2" name="type">
                 <option value="0">所有分类类型</option>
                 {foreach from=$types index=$index key=$key item=$name}
-                    <option value="{$key}" {if $_Get->data['type'] == $key}selected{/if}>{$name}</option>
+                    <option value="{$key}" {if $_GET['type'] == $key}selected{/if}>{$name}</option>
                 {/foreach}
             </select>
         </div>

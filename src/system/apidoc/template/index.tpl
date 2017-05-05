@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>{$title} - {$app['name']} - {$config['System']['doc']['name']}</title>
+    <title>{$title} - {$app['name']} - {$config['Sites']['apidoc']['name']}</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="/static/resource/images/favicon.ico" type="image/x-icon" />
@@ -59,7 +59,7 @@
                 <div class="navbar-brand">
                     <img style="height:30px;" src="/static/resource/images/logo_white2.png" />
                 </div><!-- /.brand -->
-                <div class="navbar-brand-text">服务管理平台</div>
+                <div class="navbar-brand-text">服务接口文档</div>
             </a>
         </div><!-- /.navbar-header -->
     </div><!-- /.container -->

@@ -7,9 +7,9 @@ if(!defined('LGE')){
 /**
  * 云服务 - 接口管理
  */
-class Controller_ApiApi extends AceAdmin_BaseControllerAuth
+class Controller_Api_Api extends AceAdmin_BaseControllerAuth
 {
-    public $bindTableName = 'api_app_api';
+    public $bindTableName = '_api_app_api';
 
     /**
      * 接口管理.
@@ -23,26 +23,26 @@ class Controller_ApiApi extends AceAdmin_BaseControllerAuth
             $app = Instance::table('_api_app')->getOne('*', array('uid' => $this->_session['user']['uid']), null, "`order` ASC,`id` ASC");
             if (empty($app)) {
                 $this->addMessage('您当前没有任何应用信息，请先添加应用后进行操作', 'info');
-                Lib_Redirecter::redirectExit('/api-app');
+                Lib_Redirecter::redirectExit('/api.app');
             } else {
-                Lib_Redirecter::redirectExit('/api-api?appid='.$app['id']);
+                Lib_Redirecter::redirectExit('/api.api?appid='.$app['id']);
             }
         }
         $this->setBreadCrumbs(array(
             array(
                 'icon' => 'fa fa-cloud',
                 'name' => '服务管理',
-                'url'  => '/api-app',
+                'url'  => '/api.app',
             ),
             array(
                 'icon' => '',
                 'name' => '应用管理',
-                'url'  => '/api-app',
+                'url'  => '/api.app',
             ),
             array(
                 'icon' => '',
                 'name' => $app['name'],
-                'url'  => '/api-api?appid='.$app['id'],
+                'url'  => '/api.api?appid='.$app['id'],
             ),
             array(
                 'icon' => '',
@@ -51,12 +51,14 @@ class Controller_ApiApi extends AceAdmin_BaseControllerAuth
             ),
         ));
 
-        $this->assigns(array(
-            'app'      => Instance::table('_api_app')->getOne('*', array('id' => $appid)),
-            'apps'     => Model_ApiApp::instance()->getMyApps(),
-            'catList'  => Model_ApiCategory::instance()->getCatTree($appid),
-            'mainTpl' => 'api/api/index',
-        ));
+        $this->assigns(
+            array(
+                'app'      => Instance::table('_api_app')->getOne('*', array('id' => $appid)),
+                'apps'     => Model_ApiApp::instance()->getMyApps(),
+                'catList'  => Model_ApiCategory::instance()->getCatTree($appid),
+                'mainTpl' => 'api/api/index',
+            )
+        );
         $this->display();
     }
 
@@ -71,8 +73,8 @@ class Controller_ApiApi extends AceAdmin_BaseControllerAuth
         $catid  = intval($catid);
         $cat    = Instance::table('_api_app_cat')->getOne('*', array('id' => $catid));
         $tables = array(
-            'api_app_api aaa',
-            'left join api_app_cat aac on(aac.id=aaa.cat_id)',
+            '_api_app_api aaa',
+            'left join _api_app_cat aac on(aac.id=aaa.cat_id)',
         );
         $fields      = 'aaa.*,aac.name as cat_name';
         $condition   = array();
@@ -129,14 +131,17 @@ class Controller_ApiApi extends AceAdmin_BaseControllerAuth
      *
      * @param array $array  返回示例数组.
      * @param array $params 返回参数.
+     *
      * @return array
      */
     private function _contentArrayToParams(array $array, array $params = array())
     {
         while (true) {
             foreach ($array as $k => $v) {
-                // XML带属性的字段以@符号开头，需要过滤掉
-                if (is_string($k) && !isset($params[$k]) && preg_match("/^\w+/", $k)) {
+                if (is_numeric($k) && is_array($v)) {
+                    $array = array_merge($array, $v);
+                } elseif (is_string($k) && !isset($params[$k]) && preg_match("/^\w+/", $k)) {
+                    // XML带属性的字段以@符号开头，需要过滤掉
                     $type = gettype($v);
                     if (in_array($type, array('boolean', 'integer', 'double'))) {
                         $type = 'integer';

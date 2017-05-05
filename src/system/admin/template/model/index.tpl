@@ -43,11 +43,11 @@
             <td>{$_Time->format($item['update_time'])}</td>
             <td class="center">
                 <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
-                    <a href="?app={$_Get->data['app']}&act=showEdit&id={$item['model_id']}" class="green" title="修改模型" data-rel="tooltip">
+                    <a href="?app={$_GET['app']}&act=showEdit&id={$item['model_id']}" class="green" title="修改模型" data-rel="tooltip">
                         <i class="icon-pencil bigger-130"></i>
                     </a>
                     
-                    <a href="?app={$_Get->data['app']}&act=showContentEdit&model_id={$item['model_id']}" class="green" title="添加内容" data-rel="tooltip">
+                    <a href="?app={$_GET['app']}&act=showContentEdit&model_id={$item['model_id']}" class="green" title="添加内容" data-rel="tooltip">
                         <i class="icon-plus bigger-130"></i>
                     </a>
 

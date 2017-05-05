@@ -28,13 +28,13 @@
         <div style="float:left;margin:0 10px 0 0;" title="选择可切换应用" data-rel="tooltip">
             <select class="select3" name="appid" style="width:180px;">
                 {foreach from=$apps index=$index key=$key item=$item}
-                    <option value="{$item['id']}" {if $item['id'] == $_Get->data['appid']}selected{/if}>{$item['name']}</option>
+                    <option value="{$item['id']}" {if $item['id'] == $_GET['appid']}selected{/if}>{$item['name']}</option>
                 {/foreach}
             </select>
         </div>
 
         <div class="input-group col-xs-3 no-padding-left" title="接口搜索" data-rel="tooltip" >
-            <input type="text" name="key" placeholder="请输入接口名称关键字进行搜索" class="form-control search-query" value="{$_String->escape($_Get->data['key'])}">
+            <input type="text" name="key" placeholder="请输入接口名称关键字进行搜索" class="form-control search-query" value="{$_String->escape($_GET['key'])}">
             <span class="input-group-btn">
                 <button class="btn btn-info btn-sm" type="button" onclick="searchApi()">
                     <i class="ace-icon fa fa-search fa-on-right bigger-110"></i>
@@ -62,21 +62,21 @@
     // 应用选择切换
     function onAppSelectionChange(appid)
     {
-        window.location.href = '/api-api?appid=' + appid
+        window.location.href = '/api.api?appid=' + appid
     }
 
     // 重新加载分类页面
     function reloadCategory()
     {
         setCurrentActionName('接口管理');
-        $('#api-category-content').load('/api-category?appid={$_Get->data['appid']}&__content=1');
+        $('#api-category-content').load('/api.category?appid={$_GET['appid']}&__content=1');
     }
 
     // 重新加载分类页面，并且保持分类的选中状态
     function reloadCategoryAndApiList()
     {
         setCurrentActionName('接口管理');
-        $('#api-category-content').load('/api-category?appid={$_Get->data['appid']}&__content=1', function(){
+        $('#api-category-content').load('/api.category?appid={$_GET['appid']}&__content=1', function(){
             if (currentCatid > 0) {
                 onClickCategory(currentCatid);
             }
@@ -95,7 +95,7 @@
         } else {
             catid        = currentCatid;
         }
-        $('#api-api-content').load('/api-api/apilist?appid={$_Get->data['appid']}&catid=' + catid + '&__content=1');
+        $('#api-api-content').load('/api.api/apilist?appid={$_GET['appid']}&catid=' + catid + '&__content=1');
     }
 
     // 在分类下添加API接口
@@ -107,31 +107,31 @@
         } else {
             catid        = currentCatid;
         }
-        $('#api-api-content').load('/api-api/item?appid={$_Get->data['appid']}&catid=' + catid + '&__content=1');
+        $('#api-api-content').load('/api.api/item?appid={$_GET['appid']}&catid=' + catid + '&__content=1');
     }
 
     // 修改接口信息
     function editApiInfo(id)
     {
         setCurrentActionName('修改接口');
-        $('#api-api-content').load('/api-api/item?appid={$_Get->data['appid']}&id=' + id + '&__content=1');
+        $('#api-api-content').load('/api.api/item?appid={$_GET['appid']}&id=' + id + '&__content=1');
     }
 
     // 复制接口信息
     function copyApiInfo(id)
     {
         setCurrentActionName('复制接口');
-        $('#api-api-content').load('/api-api/item?appid={$_Get->data['appid']}&id=' + id + '&__copy=1&__content=1');
+        $('#api-api-content').load('/api.api/item?appid={$_GET['appid']}&id=' + id + '&__copy=1&__content=1');
     }
 
     // 根据关键字搜索API
     function searchApi()
     {
         var key = $("input[name=key]").val();
-        $('#api-api-content').load('/api-api/apilist?appid={$_Get->data['appid']}&key=' + encodeURIComponent(key) + '&__content=1');
+        $('#api-api-content').load('/api.api/apilist?appid={$_GET['appid']}&key=' + encodeURIComponent(key) + '&__content=1');
     }
 
-    var currentAppid    = {$_Get->data['appid']};
+    var currentAppid    = {$_GET['appid']};
     var currentCatid    = 0;
 
     jQuery(function($) {

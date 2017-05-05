@@ -6,7 +6,7 @@
             <!--
         <div>
             <span class="profile-picture">
-                <a href="javascript:{if !$_Get->data['view']}changeAvatar(){/if};" >
+                <a href="javascript:{if !$_GET['view']}changeAvatar(){/if};" >
                 <img src="{$data['avatar']}" style="width:180px;height:200px;" id="avatar"/>
                 </a>
                 <div>头像预览</div>
@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-2 no-padding-right {if !$_Get->data['view']}required{/if}">帐号:</label>
+                    <label class="control-label col-xs-12 col-sm-2 no-padding-right {if !$_GET['view']}required{/if}">帐号:</label>
                     <div class="col-xs-12 col-sm-9">
                         <div class="clearfix">
                             <input value="{$data['passport']}" type="text" name="passport" class="col-xs-12 col-sm-12" {if $data['passport']}readonly="true"{/if} style="width:300px;"/>
@@ -42,7 +42,7 @@
                     </div>
                 </div>
 
-                {if !$_Get->data['view']}
+                {if !$_GET['view']}
                     <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-2 no-padding-right required">密码:</label>
                         <div class="col-xs-12 col-sm-9">
@@ -66,7 +66,7 @@
                     <label class="control-label col-xs-12 col-sm-2 no-padding-right required">昵称:</label>
                     <div class="col-xs-12 col-sm-9">
                         <div class="clearfix">
-                            <input value="{$data['nickname']}" type="text" name="nickname" class="col-xs-12 col-sm-12" {if $_Get->data['view']}readonly="true"{/if} style="width:300px;"/>
+                            <input value="{$data['nickname']}" type="text" name="nickname" class="col-xs-12 col-sm-12" {if $_GET['view']}readonly="true"{/if} style="width:300px;"/>
                         </div>
                     </div>
                 </div>
@@ -89,7 +89,7 @@
                     <label class="control-label col-xs-12 col-sm-2 no-padding-right">状态:</label>
 
                     <div class="col-xs-12 col-sm-9">
-                        {if $_Get->data['view']}
+                        {if $_GET['view']}
                             <div style="padding-top:5px;">
                                 {if $data['status'] == 1}
                                     <span class="lbl green"> 正常</span>
@@ -119,7 +119,7 @@
                     <label class="control-label col-xs-12 col-sm-2 no-padding-right">性别:</label>
 
                     <div class="col-xs-12 col-sm-9">
-                        {if $_Get->data['view']}
+                        {if $_GET['view']}
                             <div style="padding-top:5px;" class="lbl blue">
                                 {if $data['gender'] == 1}
                                     男士
@@ -149,7 +149,7 @@
                     <label class="control-label col-xs-12 col-sm-2 no-padding-right">邮箱:</label>
                     <div class="col-xs-12 col-sm-9">
                         <div class="clearfix">
-                            <input value="{$data['email']}" type="text" name="email" class="col-xs-12 col-sm-12" {if $_Get->data['view']}readonly="true"{/if} style="width:300px;"/>
+                            <input value="{$data['email']}" type="text" name="email" class="col-xs-12 col-sm-12" {if $_GET['view']}readonly="true"{/if} style="width:300px;"/>
                         </div>
                     </div>
                 </div>
@@ -158,7 +158,7 @@
                     <label class="control-label col-xs-12 col-sm-2 no-padding-right">手机:</label>
                     <div class="col-xs-12 col-sm-9">
                         <div class="clearfix">
-                            <input value="{$data['mobile']}" type="text" name="mobile" class="col-xs-12 col-sm-12" {if $_Get->data['view']}readonly="true"{/if} style="width:300px;"/>
+                            <input value="{$data['mobile']}" type="text" name="mobile" class="col-xs-12 col-sm-12" {if $_GET['view']}readonly="true"{/if} style="width:300px;"/>
                         </div>
                     </div>
                 </div>
@@ -167,7 +167,7 @@
                     <label class="control-label col-xs-12 col-sm-2 no-padding-right">电话:</label>
                     <div class="col-xs-12 col-sm-9">
                         <div class="clearfix">
-                            <input value="{$data['telephone']}" type="text" name="telephone" class="col-xs-12 col-sm-12" {if $_Get->data['view']}readonly="true"{/if} style="width:300px;"/>
+                            <input value="{$data['telephone']}" type="text" name="telephone" class="col-xs-12 col-sm-12" {if $_GET['view']}readonly="true"{/if} style="width:300px;"/>
                         </div>
                     </div>
                 </div>
@@ -176,12 +176,12 @@
                     <label class="control-label col-xs-12 col-sm-2 no-padding-right">QQ:</label>
                     <div class="col-xs-12 col-sm-9">
                         <div class="clearfix">
-                            <input value="{$data['qq']}" type="text" name="qq" class="col-xs-12 col-sm-12" {if $_Get->data['view']}readonly="true"{/if} style="width:300px;"/>
+                            <input value="{$data['qq']}" type="text" name="qq" class="col-xs-12 col-sm-12" {if $_GET['view']}readonly="true"{/if} style="width:300px;"/>
                         </div>
                     </div>
                 </div>
 
-                {if $_Get->data['view']}
+                {if $_GET['view']}
                     <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-2 no-padding-right">注册时间:</label>
                         <div class="col-xs-12 col-sm-9">
@@ -223,7 +223,7 @@
                     <label class="control-label col-xs-12 col-sm-2 no-padding-right">地址:</label>
                     <div class="col-xs-12 col-sm-9">
                         <div class="clearfix">
-                            <input value="{$data['address']}" type="text" name="address" class="col-xs-12 col-sm-12" {if $_Get->data['view']}readonly="true"{/if}/>
+                            <input value="{$data['address']}" type="text" name="address" class="col-xs-12 col-sm-12" {if $_GET['view']}readonly="true"{/if}/>
                         </div>
                     </div>
                 </div>
@@ -232,13 +232,13 @@
                     <label class="control-label col-xs-12 col-sm-2 no-padding-right">说明:</label>
                     <div class="col-xs-12 col-sm-9">
                         <div class="clearfix">
-                            <textarea name="brief" style="height:100px;width:100%;" {if $_Get->data['view']}readonly="true"{/if}>{$data['brief']}</textarea>
+                            <textarea name="brief" style="height:100px;width:100%;" {if $_GET['view']}readonly="true"{/if}>{$data['brief']}</textarea>
                         </div>
                     </div>
                 </div>
 
 
-                {if $_Get->data['view']}
+                {if $_GET['view']}
                     <div class="form-group">
                         <label class="control-label col-xs-12 col-sm-2 no-padding-right"></label>
                         <div class="col-xs-12 col-sm-9">
@@ -247,7 +247,7 @@
                                     <i class="icon-arrow-left icon-on-left bigger-110"></i> 返回
                                 </button>
 
-                                <button class="btn btn-info" type="button" onclick="window.location.href='?app=user&act=showEdit&uid={$_Get->data['uid']}'">
+                                <button class="btn btn-info" type="button" onclick="window.location.href='?app=user&act=showEdit&uid={$_GET['uid']}'">
                                     修改 <i class="icon-arrow-right icon-on-right bigger-110"></i>
                                 </button>
                             </div>

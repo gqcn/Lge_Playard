@@ -7,15 +7,13 @@
 
 return array(
     /*
-     * 子站点配置(可选)
+     * 系统配置(可选)
      */
     'System' => array(
         'check_by_subdomain'         => false,   // 通过URL中的子级域名判断子网站(true|false, 如果为true，例如: admin.xxx.com 映射的子网站为admin)
         'check_by_subdomain_level'   => 2,       // 当check_by_subdomain为true时有效, 子域名级别
         // 当check_by_subdomain为true时有效, 表示子级域名与子站点目录的自定义映射数组，默认子站点名字与子域名相同
-        'check_by_subdomain_mapping' => array(
-
-        ),
+        'check_by_subdomain_mapping' => array(),
     ),
 
     /*
@@ -33,7 +31,6 @@ return array(
      * 数据库配置项(可选)
      */
     'DataBase' => array(
-        /*
         'default' => array(
             'host'     => '127.0.0.1', // 主机地址(使用IP防止DNS解析)
             'user'     => 'root',      // 账号
@@ -41,72 +38,11 @@ return array(
             'port'     => '3306',      // 数据库端口
             'type'     => 'mysql',     // 数据库类型(mysql|pgsql|sqlite|oracle|mssql)
             'charset'  => 'utf8',      // 数据库编码
-            'prefix'   => '',          // 表名前缀，这个时候缩略表名应当以'_'符号开头
-            'database' => '',          // 数据库名称
-            'linkinfo' => '',          // 可自定义PDO数据库连接信息，主要用于操作type项不支持，但PDO支持的数据库类型
+            'prefix'   => 'lge_',          // 表名前缀，这个时候缩略表名应当以'_'符号开头
+            'database' => 'lge_playard',   // 数据库名称
+            'linkinfo' => '',              // 可自定义PDO数据库连接信息，主要用于操作type项不支持，但PDO支持的数据库类型
         ),
-        */
 
-        /*
-         * 天然支持主从复制模式，当配置项中包含master和slave字段时，数据库操作自动切换为主从模式，不会读取该配置项内的其他配置.
-         * 程序在执行数据库操作时会判断优先级，优先级计算方式：配置项值/总配置项值.
-         */
-        /*
-        'master_slave' => array(
-            'master'  => array(
-                array(
-                    'host'     => '127.0.0.1',
-                    'user'     => 'root',
-                    'pass'     => '',
-                    'port'     => '3306',
-                    'type'     => 'mysql',
-                    'charset'  => 'utf8',
-                    'prefix'   => '',
-                    'database' => '',
-                    'priority' => 100,
-                    'linkinfo' => '',
-                ),
-                array(
-                    'host'     => '127.0.0.1',
-                    'user'     => 'root',
-                    'pass'     => '',
-                    'port'     => '3306',
-                    'type'     => 'mysql',
-                    'charset'  => 'utf8',
-                    'prefix'   => '',
-                    'database' => '',
-                    'priority' => 100,
-                    'linkinfo' => '',
-                ),
-            ),
-            'slave'   => array(
-                array(
-                    'host'     => '127.0.0.1',
-                    'user'     => 'root',
-                    'pass'     => '',
-                    'port'     => '3306',
-                    'type'     => 'mysql',
-                    'charset'  => 'utf8',
-                    'prefix'   => '',
-                    'database' => '',
-                    'priority' => 100,
-                    'linkinfo' => '',
-                ),
-                array(
-                    'host'     => '127.0.0.1',
-                    'user'     => 'root',
-                    'pass'     => '',
-                    'port'     => '3306',
-                    'type'     => 'mysql',
-                    'charset'  => 'utf8',
-                    'prefix'   => '',
-                    'database' => '',
-                    'priority' => 100,
-                    'linkinfo' => '',
-                ),
-            ),
-        ),
-        */
     ),
 
     /*
@@ -161,4 +97,12 @@ return array(
         */
     ),
 
+    /*
+     * 子站点配置
+     */
+    'Sites' => array(
+        'admin' => array(
+            'name' => '创易云服务管理平台'
+        ),
+    ),
 );

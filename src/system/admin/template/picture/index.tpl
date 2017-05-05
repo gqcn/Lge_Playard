@@ -13,18 +13,18 @@
 
 
 <form class="form-horizontal" action="?" method="get">
-<input type="hidden" name="app" value="{$_Get->data['app']}">
-<input type="hidden" name="act" value="{$_Get->data['act']}">
+<input type="hidden" name="app" value="{$_GET['app']}">
+<input type="hidden" name="act" value="{$_GET['act']}">
 
 <div class="row" style="margin-bottom:10px;">
     <div class="input-group col-xs-1" title="分页大小" data-rel="tooltip" >
     <select class="select2" name="limit">
-        <option value="10" {if $_Get->data['limit'] == 10}selected{/if}>10</option>
-        <option value="20" {if $_Get->data['limit'] == 20}selected{/if}>20</option>
-        <option value="30" {if $_Get->data['limit'] == 30}selected{/if}>30</option>
-        <option value="50" {if $_Get->data['limit'] == 50}selected{/if}>50</option>
-        <option value="80" {if $_Get->data['limit'] == 80}selected{/if}>80</option>
-        <option value="100" {if $_Get->data['limit'] == 100}selected{/if}>100</option>
+        <option value="10" {if $_GET['limit'] == 10}selected{/if}>10</option>
+        <option value="20" {if $_GET['limit'] == 20}selected{/if}>20</option>
+        <option value="30" {if $_GET['limit'] == 30}selected{/if}>30</option>
+        <option value="50" {if $_GET['limit'] == 50}selected{/if}>50</option>
+        <option value="80" {if $_GET['limit'] == 80}selected{/if}>80</option>
+        <option value="100" {if $_GET['limit'] == 100}selected{/if}>100</option>
     </select>
     </div>
     
@@ -33,14 +33,14 @@
         <option value="0">所有分类</option>
         {if $catArray}
         {foreach from=$catArray index=$index key=$key item=$item}
-        <option value="{$item['cat_id']}" {if $_Get->data['cat_id'] == $item['cat_id']}selected{/if}>{$item['cat_name']}</option>
+        <option value="{$item['cat_id']}" {if $_GET['cat_id'] == $item['cat_id']}selected{/if}>{$item['cat_name']}</option>
         {/foreach}
         {/if}
     </select>
     </div>
 
     <div class="input-group col-xs-3" title="标题搜索" data-rel="tooltip" >
-    <input type="text" name="key" placeholder="图片标题关键字查询" class="form-control search-query" value="{$_String->escape($_Get->data['key'])}">
+    <input type="text" name="key" placeholder="图片标题关键字查询" class="form-control search-query" value="{$_String->escape($_GET['key'])}">
     <span class="input-group-btn">
         <button class="btn btn-info btn-sm" type="submit">
             <i class="icon-search icon-on-right bigger-110"></i>

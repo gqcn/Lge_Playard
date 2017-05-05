@@ -1,6 +1,6 @@
 <?php
 include __DIR__.'/../../../../_cfg/const.inc.php';
-include L_FRAME_PATH.'/common.inc.php';
+include L_PHAR_FILE_PATH;
 if (!\Lge\sessionStarted()) {
     session_start();
 }

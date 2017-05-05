@@ -5,13 +5,13 @@
                 <div class="input-group col-xs-1" title="分页大小" data-rel="tooltip" style="width:60px;">
                     <select class="select2" name="limit" style="width:60px;">
                         {foreach from=$limits index=$index key=$k item=$v}
-                            <option value="{$v}" {if $_Get->data['limit'] === $k}selected{/if}>{$v}</option>
+                            <option value="{$v}" {if $_GET['limit'] === $k}selected{/if}>{$v}</option>
                         {/foreach}
                     </select>
                 </div>
 
                 <div class="input-group" style="width:130px;float:left;margin:0 10px 0 0;" title="操作日期筛选" data-rel="tooltip">
-                    <input value="{$_Get->data['date']}" placeholder="操作日期" name="date" class="form-control date-picker" type="text" data-date-format="yyyy-mm-dd" />
+                    <input value="{$_GET['date']}" placeholder="操作日期" name="date" class="form-control date-picker" type="text" data-date-format="yyyy-mm-dd" />
                     <span class="input-group-addon">
                         <i class="fa fa-calendar bigger-110"></i>
                     </span>

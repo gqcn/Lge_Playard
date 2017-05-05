@@ -16,7 +16,7 @@
         <div class="input-group col-xs-1" title="分页大小" data-rel="tooltip" style="width:60px;">
             <select class="select2" name="limit">
                 {foreach from=$limits index=$index key=$k item=$v}
-                    <option value="{$v}" {if $_Get->data['limit'] === $k}selected{/if}>{$v}</option>
+                    <option value="{$v}" {if $_GET['limit'] === $k}selected{/if}>{$v}</option>
                 {/foreach}
             </select>
         </div>
@@ -25,7 +25,7 @@
             <select class="select2" name="channel">
                 <option value="">所有支付方式</option>
                 {foreach from=$payTypes index=$index key=$k item=$v}
-                    <option value="{$k}" {if $_Get->data['channel'] === $k}selected{/if}>{$v}</option>
+                    <option value="{$k}" {if $_GET['channel'] === $k}selected{/if}>{$v}</option>
                 {/foreach}
             </select>
         </div>
@@ -34,20 +34,20 @@
             <select class="select2" name="pay_type">
                 <option value="">支付用途</option>
                 {foreach from=$payTypes index=$index key=$k item=$v}
-                    <option value="{$k}" {if $_Get->data['pay_type'] === $k}selected{/if}>{$v}</option>
+                    <option value="{$k}" {if $_GET['pay_type'] === $k}selected{/if}>{$v}</option>
                 {/foreach}
             </select>
         </div>
 
         <div class="input-group" style="width:130px;float:left;margin:0 10px 0 0;" title="购买时间筛选" data-rel="tooltip">
-            <input value="{$_Get->data['date_from']}" placeholder="开始时间" name="date_from" class="form-control date-picker" type="text" data-date-format="yyyy-mm-dd" />
+            <input value="{$_GET['date_from']}" placeholder="开始时间" name="date_from" class="form-control date-picker" type="text" data-date-format="yyyy-mm-dd" />
             <span class="input-group-addon">
                 <i class="fa fa-calendar bigger-110"></i>
             </span>
         </div>
 
         <div class="input-group" style="width:130px;float:left;margin:0 10px 0 0;" title="购买时间筛选" data-rel="tooltip">
-            <input value="{$_Get->data['date_to']}" placeholder="结束时间" name="date_to" class="form-control date-picker" type="text" data-date-format="yyyy-mm-dd" />
+            <input value="{$_GET['date_to']}" placeholder="结束时间" name="date_to" class="form-control date-picker" type="text" data-date-format="yyyy-mm-dd" />
             <span class="input-group-addon">
                 <i class="fa fa-calendar bigger-110"></i>
             </span>

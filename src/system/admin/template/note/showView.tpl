@@ -45,7 +45,7 @@
                 <i class="icon-arrow-left icon-on-left bigger-110"></i> 返回
             </button>
             
-            <button class="btn btn-info" type="button" onclick="window.location.href='?app={$_Get->data['app']}&act=showEdit&id={$_Get->data['id']}'">
+            <button class="btn btn-info" type="button" onclick="window.location.href='?app={$_GET['app']}&act=showEdit&id={$_GET['id']}'">
                 修改 <i class="icon-arrow-right icon-on-right bigger-110"></i>
             </button>
             </div>

@@ -45,7 +45,7 @@ class Module_AdminLog extends BaseModule
             switch ($checkKey) {
                 default:
                     $config   = Config::getFile();
-                    $sysBrief = isset($config['System'][$sys]['name']) ? $config['System'][$sys]['name'] : '';
+                    $sysBrief = isset($config['Sites'][$sys]['name']) ? $config['Sites'][$sys]['name'] : '';
                     $actBrief = Module_UserAuth::instance()->getActBriefByAct(Core::$act, Core::$ctlPath);
                     $data     = array(
                         'uid'     => isset($this->_session['user']['uid']) ? $this->_session['user']['uid'] : 0,
@@ -54,12 +54,14 @@ class Module_AdminLog extends BaseModule
                         'act'     => strtolower(Core::$act),
                         'ip'      => Lib_IpHandler::getClientIp(),
                         'brief'   => empty($sysBrief) ? $actBrief : "{$sysBrief}::{$actBrief}",
-                        'content' => json_encode(array(
-                            '_get'     => $this->_get,
-                            '_post'    => $this->_post,
-                            '_cookie'  => $this->_cookie,
-                            '_session' => $this->_session,
-                        )),
+                        'content' => json_encode(
+                            array(
+                                '_get'     => $this->_get,
+                                '_post'    => $this->_post,
+                                '_cookie'  => $this->_cookie,
+                                '_session' => $this->_session,
+                            )
+                        ),
                         'create_time' => time(),
                     );
                     Instance::table('_admin_log')->insert($data);

@@ -24,7 +24,7 @@ outline: none;
     <option value="0">所有分类</option>
     {if $catArray}
     {foreach from=$catArray index=$index key=$key item=$item}
-    <option value="{$item['cat_id']}" {if $_Get->data['cat_id'] == $item['cat_id']}selected{/if}>{$item['cat_name']}</option>
+    <option value="{$item['cat_id']}" {if $_GET['cat_id'] == $item['cat_id']}selected{/if}>{$item['cat_name']}</option>
     {/foreach}
     {/if}
 </select>

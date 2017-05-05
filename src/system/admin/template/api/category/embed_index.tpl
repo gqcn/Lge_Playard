@@ -14,7 +14,7 @@
 <script src="{$sysurl}/assets/js/common.js"></script>
 
 {if $catList}
-    <form class="form-horizontal" id="categoy-sort-form" action="/api-category/ajaxSort" method="post">
+    <form class="form-horizontal" id="categoy-sort-form" action="/api.category/ajaxSort" method="post">
         <table id="api-category-table" class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>
@@ -37,7 +37,7 @@
                             <a href="#modal-form" data-toggle="modal" onclick="editForm({$item['id']})" class="green" title="修改" data-rel="tooltip">
                                 <i class="ace-icon fa fa-pencil bigger-130"></i>
                             </a>
-                            <a href="javascript:ajaxDeleteItem('/api-category/ajaxDelete?id={$item['id']}');" class="red ButtonDelete" title="删除" data-rel="tooltip">
+                            <a href="javascript:ajaxDeleteItem('/api.category/ajaxDelete?id={$item['id']}');" class="red ButtonDelete" title="删除" data-rel="tooltip">
                                 <i class="ace-icon fa fa-trash-o bigger-130"></i>
                             </a>
                         </div>
@@ -53,7 +53,7 @@
 
 
 <div id="modal-form" class="modal" tabindex="-1">
-    <form class="form-horizontal" id="categoy-validation-form" action="/api-category/item" method="post">
+    <form class="form-horizontal" id="categoy-validation-form" action="/api.category/item" method="post">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -92,7 +92,7 @@
                 </div>
                 <div class="modal-footer">
                     <input name="id" type="hidden" value="" />
-                    <input name="appid" type="hidden" value="{$_Get->data['appid']}" />
+                    <input name="appid" type="hidden" value="{$_GET['appid']}" />
                     <button class="btn btn-sm" data-dismiss="modal" type="button">取消</button>
                     <button class="btn btn-sm btn-primary" type="submit">保存</button>
                 </div>

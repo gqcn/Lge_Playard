@@ -31,22 +31,22 @@
             <div class="input-group col-xs-1 no-padding-left" title="分页大小" data-rel="tooltip" style="width:70px;">
                 <select class="select2" name="limit" style="width:70px;">
                     {foreach from=$limits index=$index key=$k item=$v}
-                        <option value="{$v}" {if $_Get->data['limit'] === $k}selected{/if}>{$v}</option>
+                        <option value="{$v}" {if $_GET['limit'] === $k}selected{/if}>{$v}</option>
                     {/foreach}
                 </select>
             </div>
 
             <div style="float:left;margin:0 10px 0 0;" title="请选择需要展示的分类" data-rel="tooltip">
                 <select class="select2" name="catid" style="width:160px;">
-                    <option value="0" {if 0 == $_Get->data['catid']}selected{/if}>展示所有分类的产品</option>
+                    <option value="0" {if 0 == $_GET['catid']}selected{/if}>展示所有分类的产品</option>
                     {foreach from=$catList index=$index key=$key item=$item}
-                        <option value="{$item['id']}" {if $item['id'] == $_Get->data['catid']}selected{/if}>{$item['name']}</option>
+                        <option value="{$item['id']}" {if $item['id'] == $_GET['catid']}selected{/if}>{$item['name']}</option>
                     {/foreach}
                 </select>
             </div>
 
             <div class="input-group col-xs-3 no-padding-left" title="产品搜索" data-rel="tooltip" >
-                <input type="text" name="key" placeholder="请输入产品编码/批次编号进行查询" class="form-control search-query" value="{$_String->escape($_Get->data['key'])}">
+                <input type="text" name="key" placeholder="请输入产品编码/批次编号进行查询" class="form-control search-query" value="{$_String->escape($_GET['key'])}">
                 <span class="input-group-btn">
                     <button class="btn btn-info btn-sm" type="submit">
                         <i class="ace-icon fa fa-search fa-on-right bigger-110"></i>
@@ -71,7 +71,7 @@
             <tbody>
             {foreach from=$list index=$index key=$key item=$item}
                 <tr>
-                    <td {if $_Get->data['key']}class="red"{/if}>{$item['batch_no']}</td>
+                    <td {if $_GET['key']}class="red"{/if}>{$item['batch_no']}</td>
                     <td class="center"><img src="{$item['qrcode']}" /></td>
                     <td>{$item['number']}</td>
                     <td>{$item['name']}</td>

@@ -72,7 +72,7 @@
 <script src="{$sysurl}/assets/js/common.js"></script>
 <script src="{$sysurl}/assets/js/api-api-item.js"></script>
 
-<form class="form-horizontal" id="api-save-form" action="/api-api/item" method="post">
+<form class="form-horizontal" id="api-save-form" action="/api.api/item" method="post">
     <input type="hidden" name="id"     value="{$data['id']}"/>
     <input type="hidden" name="appid"  value="{$data['appid']}"/>
     <input type="hidden" name="cat_id" value="{$cat['id']}"/>
@@ -414,7 +414,7 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-        {if !$_Get->data['id']}
+        {if !$_GET['id']}
         // 初始化参数表数据
         $('.request-params-table').each(function(){
             if($(this).find('tbody tr').length < 4) {

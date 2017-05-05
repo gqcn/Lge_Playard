@@ -22,6 +22,7 @@ return array(
         'acts' => array('default', 'index'),
         'url'  => '/default',
     ),
+    /*
     array(
         'name' => '菜单管理',
         'icon' => 'menu-icon fa fa-book',
@@ -151,7 +152,7 @@ return array(
             ),
         ),
     ),
-
+    */
     array(
         'name' => '系统管理',
         'icon' => 'menu-icon fa fa-cogs',
@@ -174,18 +175,18 @@ return array(
         'subs' => array(
             array(
                 'name' => '应用管理',
-                'acts' => array('api-app', 'index'),
-                'url'  => '/api-app/index',
+                'acts' => array('api.app', 'index'),
+                'url'  => '/api.app/index',
             ),
             array(
                 'name' => '接口管理',
-                'acts' => array('api-api', 'index'),
-                'url'  => '/api-api/index',
+                'acts' => array('api.api', 'index'),
+                'url'  => '/api.api/index',
             ),
             array(
                 'name' => '接口测试',
-                'acts' => array('api-test', 'index'),
-                'url'  => '/api-test/index',
+                'acts' => array('api.test', 'index'),
+                'url'  => '/api.test/index',
             ),
             /*
             array(
@@ -196,7 +197,7 @@ return array(
             */
         ),
     ),
-
+    /*
     array(
         'name' => '微信管理',
         'icon' => 'menu-icon fa fa-wechat',
@@ -235,7 +236,7 @@ return array(
                         'acts' => array('wechat-material', 'image'),
                         'url'  => '/wechat-material/image',
                     ),
-                    /*
+
                     array(
                         'name' => '视频素材',
                         'icon' => 'fa fa-video-camera',
@@ -248,7 +249,7 @@ return array(
                         'acts' => array('wechat-material', 'voice'),
                         'url'  => '/wechat-material/voice',
                     ),
-                    */
+
                     array(
                         'name' => '图文素材',
                         'icon' => 'fa fa-pencil-square-o',
@@ -293,7 +294,7 @@ return array(
             ),
         ),
     ),
-
+*/
     array(
         'name' => '用户管理',
         'icon' => 'menu-icon fa fa-group',
@@ -344,7 +345,7 @@ return array(
             ),
         ),
     ),
-*/
+
     array(
         'name' => '个人中心',
         'icon' => 'menu-icon fa fa-user',
@@ -366,5 +367,6 @@ return array(
             ),
         ),
     ),
+    */
 );
 

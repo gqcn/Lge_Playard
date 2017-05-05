@@ -57,7 +57,7 @@
                 保存&nbsp;&nbsp;&nbsp;
                 </button>
                 
-                <button class="btn" type="button" onclick="window.location.href='?app={$_Get->data['app']}&act=index'">
+                <button class="btn" type="button" onclick="window.location.href='?app={$_GET['app']}&act=index'">
                 <i class="icon-reply bigger-110"></i>
                 返回&nbsp;&nbsp;&nbsp;
                 </button>

@@ -29,9 +29,9 @@
 
         <div style="float:left;margin:0 10px 0 0;" title="请选择需要展示流程的分类" data-rel="tooltip">
             <select class="select3" name="catid" style="width:200px;">
-                <option value="0" {if 0 == $_Get->data['catid']}selected{/if}>请选择需要展示流程的分类</option>
+                <option value="0" {if 0 == $_GET['catid']}selected{/if}>请选择需要展示流程的分类</option>
                 {foreach from=$catList index=$index key=$key item=$item}
-                    <option value="{$item['id']}" {if $item['id'] == $_Get->data['catid']}selected{/if}>{$item['name']}</option>
+                    <option value="{$item['id']}" {if $item['id'] == $_GET['catid']}selected{/if}>{$item['name']}</option>
                 {/foreach}
             </select>
         </div>
@@ -76,7 +76,7 @@
                 <button class="btn btn-sm btn-info" type="submit"><i class="ace-icon fa fa-signal bigger-110"></i>排序</button>
             </div>
         </form>
-    {elseif $_Get->data['catid']}
+    {elseif $_GET['catid']}
         该分类下暂无流程信息，请点击“添加流程”在该分类下添加流程。
     {else}
         请选择需要展示流程的分类。
@@ -102,7 +102,7 @@
                                             <select name="cat_id" style="width:200px;">
                                                 {if $catList}
                                                     {foreach from=$catList index=$index key=$key item=$item}
-                                                        <option value="{$item['id']}" pid="{$item['pid']}" {if $item['id'] == $_Get->data['catid']}selected{/if}>
+                                                        <option value="{$item['id']}" pid="{$item['pid']}" {if $item['id'] == $_GET['catid']}selected{/if}>
                                                             {$item['name']}
                                                         </option>
                                                     {/foreach}

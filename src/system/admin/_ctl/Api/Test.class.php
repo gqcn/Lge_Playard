@@ -7,7 +7,7 @@ if(!defined('LGE')){
 /**
  * 云服务 - 接口测试
  */
-class Controller_ApiTest extends AceAdmin_BaseControllerAuth
+class Controller_Api_Test extends AceAdmin_BaseControllerAuth
 {
 
     /**

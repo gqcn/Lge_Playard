@@ -32,7 +32,7 @@
 <div class="col-xs-12">
 
 <div style="margin:0 0 5px 0;">
-    <a href="/api-app/item" class="btn btn-sm btn-success" title="添加应用" data-rel="tooltip">
+    <a href="/api.app/item" class="btn btn-sm btn-success" title="添加应用" data-rel="tooltip">
         <i class="ace-icon fa fa-plus bigger-110"></i>添加应用&nbsp;
     </a>
 </div>
@@ -45,7 +45,7 @@
         <ul class="ace-thumbnails clearfix">
             {foreach from=$list index=$index key=$key item=$item}
                 <li item-id="{$item['id']}">
-                    <a href="/api-api?appid={$item['id']}" class="" title="接口管理" data-rel="tooltip">
+                    <a href="/api.api?appid={$item['id']}" class="" title="接口管理" data-rel="tooltip">
                         <img width="150" height="150" src="{$item['thumb']}" />
                     </a>
                     <div class="text">
@@ -53,15 +53,15 @@
                     </div>
 
                     <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons" style="margin-top:10px;">
-                        <a href="/api-api?appid={$item['id']}" class="" title="接口管理" data-rel="tooltip">
+                        <a href="/api.api?appid={$item['id']}" class="" title="接口管理" data-rel="tooltip">
                             <i class="ace-icon fa fa-share-alt bigger-130"></i>
                         </a>
                         &nbsp;
-                        <a href="/api-app/item?id={$item['id']})" class="green" title="修改应用" data-rel="tooltip">
+                        <a href="/api.app/item?id={$item['id']})" class="green" title="修改应用" data-rel="tooltip">
                             <i class="ace-icon fa fa-pencil bigger-130"></i>
                         </a>
                         &nbsp;
-                        <a href="javascript:deleteItem('/api-app/delete?id={$item['id']}');" class="red ButtonDelete" title="删除应用" data-rel="tooltip">
+                        <a href="javascript:deleteItem('/api.app/delete?id={$item['id']}');" class="red ButtonDelete" title="删除应用" data-rel="tooltip">
                             <i class="ace-icon fa fa-trash-o bigger-130"></i>
                         </a>
                     </div>
@@ -92,7 +92,7 @@ jQuery(function($) {
         });
         if (ids.length > 0) {
             $.ajax({
-                url     : '/api-app/sort',
+                url     : '/api.app/sort',
                 type    : 'post',
                 data    : 'ids=' + ids.join(','),
                 dataType: 'json',

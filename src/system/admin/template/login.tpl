@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>{$config['System']['admin']['name']}</title>
+    <title>{$config['Sites']['admin']['name']} - 用户登录</title>
     <meta name="description" content="{$config['Site']['admin']['name']}" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="/static/resource/images/favicon.ico" type="image/x-icon" />
@@ -51,8 +51,8 @@
                                     <span class="ng-binding">请输入您的登录信息</span>
                                 </div> <!-- / .signin-text -->
 
-                                {if $_Session->data['message']}
-                                    {foreach from=$_Session->data['message'] index=$index key=$key item=$item}
+                                {if $_SESSION['message']}
+                                    {foreach from=$_SESSION['message'] index=$index key=$key item=$item}
                                         <div class="alert alert-danger" id="LoginInfo" style="margin-bottom:10px;">
                                             <button data-dismiss="alert" class="close" type="button" onclick="$('#LoginInfo').hide()">
                                                 <i class="icon-remove"></i>

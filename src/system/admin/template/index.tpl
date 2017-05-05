@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>{$config['System']['admin']['name']}</title>
+    <title>{$config['Sites']['admin']['name']}</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="/static/resource/images/favicon.ico" type="image/x-icon" />
@@ -252,8 +252,8 @@
 <script type="text/javascript">
     jQuery(function($) {
         {* 提示插件 *}
-        {if $_Session->get('message')}
-            {foreach from=$_Session->get('message') index=$index key=$key item=$item}
+        {if $_SESSION['message']}
+            {foreach from=$_SESSION['message'] index=$index key=$key item=$item}
                 {if $item['type'] == 'success'}
                     $.gritter.add({
                         title: '成功提示',
