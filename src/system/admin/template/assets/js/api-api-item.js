@@ -23,27 +23,113 @@ var tabToSpaceFunction = {
     }
 };
 
+// 覆盖原有的jquery html()方法，会将表单值也一起复制赋值
+(function ($) {
+    var oldHTML = $.fn.html;
+    $.fn.formhtml = function () {
+        if (arguments.length) return oldHTML.apply(this, arguments);
+        $("input,button", this).each(function () {
+            this.setAttribute('value', $(this).val());
+        });
+        $("textarea", this).each(function () {
+            this.innerHTML = $(this).val();
+        });
+        $(":radio,:checkbox", this).each(function () {
+            // im not really even sure you need to do this for "checked"
+            // but what the heck, better safe than sorry
+            if (this.checked) this.setAttribute('checked', 'checked');
+            else this.removeAttribute('checked');
+        });
+        $("option", this).each(function () {
+            // also not sure, but, better safe...
+            if (this.selected) this.setAttribute('selected', 'selected');
+            else this.removeAttribute('selected');
+        });
+        return oldHTML.apply(this);
+    };
+    //optional to override real .html() if you want
+    $.fn.html = $.fn.formhtml;
+})(jQuery);
+
+
+// 参数往上排序
+function moveParamUp(obj)
+{
+    var currentTrObj  = $(obj).parents('tr');
+    var nextTrObj     = currentTrObj.next('tr');
+    var previousTrObj = currentTrObj.prev('tr');
+    if (!previousTrObj.hasClass('init-param')) {
+        var ppreviousTrObj = previousTrObj.prev('tr');
+        var tmp1 = ppreviousTrObj.html();
+        var tmp2 = previousTrObj.html();
+        ppreviousTrObj.html(currentTrObj.html());
+        previousTrObj.html(nextTrObj.html());
+        currentTrObj.html(tmp1);
+        nextTrObj.html(tmp2);
+    }
+}
+
+// 参数往下排序
+function moveParamDown(obj)
+{
+    var currentTrObj  = $(obj).parents('tr');
+    var nextTrObj     = currentTrObj.next('tr');
+    var nnextTrObj    = nextTrObj.next('tr');
+    if (nnextTrObj.find('input').length > 0) {
+        var nnnextTrObj = nnextTrObj.next('tr');
+        var tmp1 = nnextTrObj.html();
+        var tmp2 = nnnextTrObj.html();
+        nnextTrObj.html(currentTrObj.html());
+        nnnextTrObj.html(nextTrObj.html());
+        currentTrObj.html(tmp1);
+        nextTrObj.html(tmp2);
+    }
+}
+
 // 删除参数(请求或者返回)
 function deleteParam(obj)
 {
-    var preType = 0; // 1:参数属性, 2:参数说明
-    $(obj).parents('tr').attr('deleted', true);
-    $(obj).parents('tbody').find('tr').each(function(){
-        if ($(this).attr('deleted')) {
-            $(this).remove();
-        } else {
-            if ($(this).find('textarea').length > 0) {
-                if (preType != 1) {
-                    preType = 2;
-                    $(this).remove();
-                } else {
-                    preType = 2;
-                }
+    var doDelete = function(obj) {
+        var preType = 0; // 1:参数属性, 2:参数说明
+        $(obj).parents('tr').attr('deleted', true);
+        $(obj).parents('tbody').find('tr').each(function(){
+            if ($(this).attr('deleted')) {
+                $(this).remove();
             } else {
-                preType = 1;
+                if ($(this).find('textarea').length > 0) {
+                    if (preType != 1) {
+                        preType = 2;
+                        $(this).remove();
+                    } else {
+                        preType = 2;
+                    }
+                } else {
+                    preType = 1;
+                }
             }
-        }
-    });
+        });
+    }
+    if ($(obj).parents('tr').find('input:eq(0)').val().length > 0) {
+        var message = "<div class='bigger-110'>确定删除该参数？</div>";
+        bootbox.dialog({
+            message: message,
+            buttons: {
+                "button" : {
+                    "label" : "取消",
+                    "className" : "btn-sm"
+                },
+                "danger" : {
+                    "label" : "删除",
+                    "className" : "btn-sm btn-danger",
+                    "callback": function() {
+                        doDelete(obj);
+                    }
+                }
+            }
+        });
+    } else {
+        doDelete(obj);
+    }
 }
 
 $(document).ready(function(){
