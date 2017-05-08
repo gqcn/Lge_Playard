@@ -9,15 +9,114 @@ if(!defined('LGE')){
  */
 class Controller_Api_Test extends AceAdmin_BaseControllerAuth
 {
+    public $actMap = array(
+        'list' => 'testlist'
+    );
+
+    /**
+     * 测试列表.
+     */
+    public function index()
+    {
+        $appid = Lib_Request::get('appid');
+        $appid = intval($appid);
+        $app   = Instance::table('_api_app')->getOne('*', array('id' => $appid, 'uid' => $this->_session['user']['uid']));
+        if (empty($app)) {
+            $app = Instance::table('_api_app')->getOne('*', array('uid' => $this->_session['user']['uid']), null, "`order` ASC,`id` ASC");
+            if (empty($app)) {
+                $this->addMessage('您当前没有任何应用信息，请先添加应用后进行操作', 'info');
+                Lib_Redirecter::redirectExit('/api.app');
+            } else {
+                Lib_Redirecter::redirectExit('/api.test?appid='.$app['id']);
+            }
+        }
+        $this->setBreadCrumbs(array(
+            array(
+                'icon' => 'fa fa-cloud',
+                'name' => '服务管理',
+                'url'  => '/api.app',
+            ),
+            array(
+                'icon' => '',
+                'name' => '应用管理',
+                'url'  => '/api.app',
+            ),
+            array(
+                'icon' => '',
+                'name' => $app['name'],
+                'url'  => '/api.test?appid='.$app['id'],
+            ),
+            array(
+                'icon' => '',
+                'name' => '接口测试',
+                'url'  => '',
+            ),
+        ));
+
+        $this->assigns(
+            array(
+                'app'      => Instance::table('_api_app')->getOne('*', array('id' => $appid)),
+                'apps'     => Model_Api_App::instance()->getMyApps(),
+                'catList'  => Model_Api_Category::instance()->getCatTree($appid),
+                'mainTpl' => 'api/test/index',
+            )
+        );
+        $this->display();
+    }
+
+    /**
+     * 接口测试列表
+     */
+    public function testlist()
+    {
+        $key         = Lib_Request::get('key');
+        $appid       = Lib_Request::get('appid');
+        $condition   = array();
+        $condition[] = array("uid = {$this->_session['user']['uid']}");
+        if (!empty($appid)) {
+            $condition[] = array("and appid={$appid}");
+        }
+        if (!empty($key)) {
+            $condition[] = array("and name like '%{$key}%'");
+        }
+        $defaultTestData = array(
+            'id'      => 0,
+            'name'    => '(默认接口测试)',
+            'address' => '-',
+        );
+        $list = Instance::table('_api_test')->getAll('*', $condition, null, "`order` ASC,`id` ASC", null, null, 'id');
+        $list = array_merge(array(0 => $defaultTestData), $list);
+        $this->assigns(array(
+            'list'     => $list,
+            'mainTpl' => 'api/test/embed_list',
+        ));
+        $this->display();
+    }
 
     /**
      * 接口测试.
      */
-    public function index()
+    public function item()
     {
+        $id      = Lib_Request::get('id');
+        $appid   = Lib_Request::get('appid');
+        $address = Lib_Request::get('address');
+        $data    = array(
+            'id'      => 0,
+            'appid'   => $appid,
+            'address' => $address,
+            'order'   => 99,
+        );
+        if (!empty($id)) {
+            $result = Instance::table('_api_test')->getOne("*", array('id' => $id));
+            if (!empty($result)) {
+                $data = array_merge($data, $result);
+                $data['request_params'] = json_decode($data['request_params'], true);
+            }
+        }
         $this->assigns(array(
-            'list'     => Model_Api_App::instance()->getMyApps(),
-            'mainTpl' => 'api/test/index',
+            'data'     => $data,
+            'mainTpl' => 'api/test/item',
         ));
         $this->display();
     }
@@ -33,10 +132,17 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
         }
         $params = $this->_parseRequestParams($data['request_params']);
         $http   = new Lib_Network_Http();
-        $result = $http->send($data['address'], $params, $data['request_type']);
-        if (!empty($data['uid'])) {
+        $result = $http->send($data['address'], $params, $data['request_method']);
+        if (!empty($data['uid']) && !empty($data['name'])) {
+            $testId = Instance::table('_api_test')->getValue('id', array('uid' => $data['uid'], 'name' => $data['name']));
+            if (empty($testId)) {
+                $data['create_time'] = time();
+            } else {
+                $data['id'] = $testId;
+            }
             $data['request_params']   = json_encode($params);
             $data['response_content'] = $result;
+            $data['update_time']      = time();
             Instance::table('_api_test')->save($data);
         }
         Lib_Response::json(true, $result);
@@ -64,4 +170,17 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
         }
         return $params;
     }
+
+    /**
+     * 异步删除接口测试.
+     */
+    public function ajaxDelete()
+    {
+        $id = Lib_Request::get('id', 0);
+        if (!empty($id)) {
+            Instance::table('_api_test')->delete(array('id' => $id));
+        }
+        Lib_Response::json(1, '', '接口删除成功');
+    }
+
 }

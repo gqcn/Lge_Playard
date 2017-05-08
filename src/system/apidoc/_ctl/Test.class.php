@@ -34,16 +34,17 @@ class Controller_Test extends Controller_Base
      */
     public function index()
     {
-        $id  = Lib_Request::get('__id');
-        $env = Lib_Request::get('__env', 'test');
-        $env = empty($env) ? 'test' : $env;
-        if (empty($id)) {
+        $appid = Lib_Request::get('__appid');
+        if (empty($appid)) {
             exception('请输入需要测试的API接口ID！');
         }
-        $api = Model_Api_Api::instance()->getApiInfoById($id);
+        $address = Lib_Request::get('__address');
+        $api     = Model_Api_Api::instance()->getApiInfoByAddress($address, $appid);
         if (empty($api)) {
             exception('请求的API接口不存在！');
         }
+        $env = Lib_Request::get('__env');
+        $env = empty($env) ? 'test' : $env;
         $key = "address_{$env}";
         if (empty($api[$key])) {
             exception('请求的API接口环境地址不存在！');
@@ -65,8 +66,37 @@ class Controller_Test extends Controller_Base
         if (!empty($remote)) {
             $http = new Lib_Network_Http();
             $result = $http->send($remote, $params, $method, 0);
+            if ($this->_isJson($result)) {
+                header('Content-type: application/json');
+            } elseif ($this->_isXml($result)) {
+                header("Content-type: text/xml");
+            }
             echo $result;
         }
+    }
+
+    /**
+     * 判断所给内容是否为XML格式
+     *
+     * @param $content
+     *
+     * @return array
+     */
+    private function _isXml($content)
+    {
+        return Lib_XmlParser::isXml($content);
+    }
+
+    /**
+     * 判断所给内容是否为JSON格式
+     *
+     * @param $content
+     *
+     * @return bool
+     */
+    private function _isJson($content)
+    {
+        return (@json_decode($content) === false) ? false : true;
     }
 
 }

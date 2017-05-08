@@ -16,6 +16,7 @@ class Controller_Default extends Controller_Base
 
     /**
      * 应用信息
+     *
      * @var array
      */
     public $app = array();
@@ -31,44 +32,13 @@ class Controller_Default extends Controller_Base
         if (empty($this->app)) {
             exit('应用不存在！');
         }
-
-        $menus = array(
-            'index' => array(
-                'name' => '应用介绍',
-                'icon' => 'menu-icon fa fa-file',
-                'acts' => array('api', 'index'),
-                'url'  => "/app/{$appid}",
-            ),
-            'list' => array(
-                'name' => '接口列表',
-                'icon' => 'menu-icon fa fa-list',
-                'acts' => array('api', 'list'),
-                'url'  => "/list/{$appid}",
-                'subs' => array(),
-            ),
-        );
-        $this->setMenus($menus);
-        $this->assigns(array(
-            'app' => $this->app,
-        ));
+        $this->assign('app', $this->app);
     }
 
     /**
      * 接口文档.
      */
     public function index()
-    {
-        $this->assigns(array(
-            'title'   => '应用介绍',
-            'mainTpl' => 'api/index',
-        ));
-        $this->display();
-    }
-
-    /**
-     * 接口列表
-     */
-    public function apiList()
     {
         $apiList  = array();
         $catArray = Model_Api_Category::instance()->getCatArray($this->app['id']);
@@ -83,8 +53,8 @@ class Controller_Default extends Controller_Base
                 $api['content']      = json_decode($api['content'], true);
                 $api['address_prod'] = empty($this->app['address_prod']) ? $api['address'] : rtrim($this->app['address_prod'], '/').$api['address'];
                 $api['address_test'] = empty($this->app['address_test']) ? $api['address'] : rtrim($this->app['address_test'], '/').$api['address'];
-                $api['address_crossdomain_test'] = Lib_Url::getCurrentUrlWithoutUri().'test/'.$api['id'];
-                $api['address_crossdomain_prod'] = Lib_Url::getCurrentUrlWithoutUri().'prod-test/'.$api['id'];
+                $api['address_crossdomain_test'] = Lib_Url::getCurrentUrlWithoutUri().'dtest/'.$this->app['id'].$api['address'];
+                $api['address_crossdomain_prod'] = Lib_Url::getCurrentUrlWithoutUri().'ptest/'.$this->app['id'].$api['address'];
                 $catArray[$catid]['api_list'][] = $api;
             }
         }
@@ -103,7 +73,7 @@ class Controller_Default extends Controller_Base
         }
         $this->assigns(
             array(
-                'title'   => '接口列表',
+                'title'   => '接口文档',
                 'apiList' => $apiList,
                 'mainTpl' => 'api/list',
             )

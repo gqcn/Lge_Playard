@@ -70,6 +70,7 @@
         <a class="menu-toggler" id="menu-toggler" href="#">
             <span class="menu-text"></span>
         </a>
+        {if $menus}
         <div class="sidebar responsive-min" id="sidebar">
             <ul class="nav nav-list">
                 {* 一级菜单遍历 *}
@@ -137,6 +138,7 @@
                 try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
             </script>
         </div>
+        {/if}
 
         <div class="main-content">
             {if $breadCrumbs}
