@@ -294,7 +294,7 @@ return array(
             ),
         ),
     ),
-*/
+
     array(
         'name' => '用户管理',
         'icon' => 'menu-icon fa fa-group',
@@ -323,7 +323,7 @@ return array(
             ),
         ),
     ),
-/*
+
     array(
         'name' => '第三方平台',
         'icon' => 'menu-icon fa fa-external-link',
