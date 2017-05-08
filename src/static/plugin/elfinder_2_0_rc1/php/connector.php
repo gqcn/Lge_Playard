@@ -57,12 +57,15 @@ function nameValidator($name) {
 
 // 根据权限判断目录
 $dirPath   = L_ROOT_PATH."upload/";
-$dirPath   = realpath($dirPath);
-$urlPrefix = "/upload/";
-
 // 如果目录不存在，则创建
 if (!file_exists($dirPath)) {
 	@mkdir($dirPath, 0777, true);
+}
+$dirPath   = realpath($dirPath);
+$urlPrefix = "/upload/";
+if ($dirPath === false) {
+    echo "上传目录不存在！";
+    exit();
 }
 
 $opts    = array(
