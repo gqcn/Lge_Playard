@@ -26,6 +26,7 @@
             {foreach from=$list index=$index key=$key item=$item}
                 <tr item-id="{$item['id']}">
                     <td class="api-test-list-td" onclick="onClickApiTest({$item['id']})">
+                        <input type="hidden" name="ids[]"  value="{$item['id']}">
                         {$item['name']}
                     </td>
                     <td class="api-test-list-td" onclick="onClickApiTest({$item['id']})">

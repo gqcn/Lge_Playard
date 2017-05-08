@@ -9,6 +9,8 @@ if(!defined('LGE')){
  */
 class Controller_Api_Test extends AceAdmin_BaseControllerAuth
 {
+    public $bindTableName = '_api_test';
+
     public $actMap = array(
         'list' => 'testlist'
     );
@@ -84,7 +86,7 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
             'name'    => '(默认接口测试)',
             'address' => '-',
         );
-        $list = Instance::table('_api_test')->getAll('*', $condition, null, "`order` ASC,`id` ASC", null, null, 'id');
+        $list = Instance::table($this->bindTableName)->getAll('*', $condition, null, "`order` ASC,`id` ASC", null, null, 'id');
         $list = array_merge(array(0 => $defaultTestData), $list);
         $this->assigns(array(
             'list'     => $list,
@@ -108,7 +110,7 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
             'order'   => 99,
         );
         if (!empty($id)) {
-            $result = Instance::table('_api_test')->getOne("*", array('id' => $id));
+            $result = Instance::table($this->bindTableName)->getOne("*", array('id' => $id));
             if (!empty($result)) {
                 $data = array_merge($data, $result);
                 $data['request_params'] = json_decode($data['request_params'], true);
@@ -134,7 +136,7 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
         $http   = new Lib_Network_Http();
         $result = $http->send($data['address'], $params, $data['request_method']);
         if (!empty($data['uid']) && !empty($data['name'])) {
-            $testId = Instance::table('_api_test')->getValue('id', array('uid' => $data['uid'], 'name' => $data['name']));
+            $testId = Instance::table($this->bindTableName)->getValue('id', array('uid' => $data['uid'], 'name' => $data['name']));
             if (empty($testId)) {
                 $data['create_time'] = time();
             } else {
@@ -143,7 +145,7 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
             $data['request_params']   = json_encode($params);
             $data['response_content'] = $result;
             $data['update_time']      = time();
-            Instance::table('_api_test')->save($data);
+            Instance::table($this->bindTableName)->save($data);
         }
         Lib_Response::json(true, $result);
     }
@@ -172,13 +174,33 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
     }
 
     /**
+     * 异步列表排序.
+     *
+     * @return void
+     */
+    public function ajaxSort()
+    {
+        $ids = Lib_Request::getPost('ids');
+        foreach ($ids as $k => $id) {
+            Instance::table($this->bindTableName)->update(
+                array('order' => $k + 1),
+                array(
+                    'id'  => $id,
+                    'uid' => $this->_session['user']['uid']
+                )
+            );
+        }
+        Lib_Response::json(1);
+    }
+
+    /**
      * 异步删除接口测试.
      */
     public function ajaxDelete()
     {
         $id = Lib_Request::get('id', 0);
         if (!empty($id)) {
-            Instance::table('_api_test')->delete(array('id' => $id));
+            Instance::table($this->bindTableName)->delete(array('id' => $id));
         }
         Lib_Response::json(1, '', '接口删除成功');
     }
