@@ -60,6 +60,12 @@
     .CodeMirror pre.CodeMirror-placeholder {
         color: #999;
     }
+    .move-up-icon {
+        margin-bottom: 10px;
+    }
+    .move-down-icon {
+        margin-top: 10px;
+    }
 </style>
 <link rel="stylesheet" href="/static/plugin/codemirror-5.21.0/lib/codemirror.css">
 <script type="text/javascript" src="/static/plugin/codemirror-5.21.0/lib/codemirror.js"></script>
@@ -172,9 +178,21 @@
                         </td>
                         <td class="center" rowspan="2">
                             <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
-                                <a href="javascript:;" onclick="deleteParam(this)"  class="red" title="删除" data-rel="tooltip">
-                                    <i class="ace-icon fa fa-trash-o bigger-130"></i>
-                                </a>
+                                <div class="move-up-icon">
+                                    <a href="javascript:;" onclick="moveParamUp(this)" class="green" data-rel="tooltip">
+                                        <i class="ace-icon fa fa-arrow-up bigger-130"></i>
+                                    </a>
+                                </div>
+                                <div>
+                                    <a href="javascript:;" onclick="deleteParam(this)" class="red" title="删除" data-rel="tooltip">
+                                        <i class="ace-icon fa fa-trash-o bigger-130"></i>
+                                    </a>
+                                </div>
+                                <div class="move-down-icon">
+                                    <a href="javascript:;" onclick="moveParamDown(this)" class="green" data-rel="tooltip">
+                                        <i class="ace-icon fa fa-arrow-down bigger-130"></i>
+                                    </a>
+                                </div>
                             </div>
                         </td>
                     </tr>
@@ -210,9 +228,21 @@
                                 </td>
                                 <td class="center" rowspan="2">
                                     <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
-                                        <a href="javascript:;" onclick="deleteParam(this)"  class="red" title="删除" data-rel="tooltip">
-                                            <i class="ace-icon fa fa-trash-o bigger-130"></i>
-                                        </a>
+                                        <div class="move-up-icon">
+                                            <a href="javascript:;" onclick="moveParamUp(this)" class="green" data-rel="tooltip">
+                                                <i class="ace-icon fa fa-arrow-up bigger-130"></i>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <a href="javascript:;" onclick="deleteParam(this)" class="red" title="删除" data-rel="tooltip">
+                                                <i class="ace-icon fa fa-trash-o bigger-130"></i>
+                                            </a>
+                                        </div>
+                                        <div class="move-down-icon">
+                                            <a href="javascript:;" onclick="moveParamDown(this)" class="green" data-rel="tooltip">
+                                                <i class="ace-icon fa fa-arrow-down bigger-130"></i>
+                                            </a>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
@@ -322,9 +352,21 @@
                         </td>
                         <td class="center" rowspan="2">
                             <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
-                                <a href="javascript:;" onclick="deleteParam(this)" class="red" title="删除" data-rel="tooltip">
-                                    <i class="ace-icon fa fa-trash-o bigger-130"></i>
-                                </a>
+                                <div class="move-up-icon">
+                                    <a href="javascript:;" onclick="moveParamUp(this)" class="green" data-rel="tooltip">
+                                        <i class="ace-icon fa fa-arrow-up bigger-130"></i>
+                                    </a>
+                                </div>
+                                <div>
+                                    <a href="javascript:;" onclick="deleteParam(this)" class="red" title="删除" data-rel="tooltip">
+                                        <i class="ace-icon fa fa-trash-o bigger-130"></i>
+                                    </a>
+                                </div>
+                                <div class="move-down-icon">
+                                    <a href="javascript:;" onclick="moveParamDown(this)" class="green" data-rel="tooltip">
+                                        <i class="ace-icon fa fa-arrow-down bigger-130"></i>
+                                    </a>
+                                </div>
                             </div>
                         </td>
                     </tr>
@@ -333,6 +375,7 @@
                             <textarea name="content[response_params][brief][]" placeholder="请输入参数说明"></textarea>
                         </td>
                     </tr>
+
                     {if $data['content']['response_params']}
                         {foreach from=$data['content']['response_params'] index=$index key=$key item=$item}
                             <tr class="response-param-tr-values">
@@ -353,9 +396,21 @@
                                 </td>
                                 <td class="center" rowspan="2">
                                     <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
-                                        <a href="javascript:;" onclick="deleteParam(this)" class="red" title="删除" data-rel="tooltip">
-                                            <i class="ace-icon fa fa-trash-o bigger-130"></i>
-                                        </a>
+                                        <div class="move-up-icon">
+                                            <a href="javascript:;" onclick="moveParamUp(this)" class="green" data-rel="tooltip">
+                                                <i class="ace-icon fa fa-arrow-up bigger-130"></i>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <a href="javascript:;" onclick="deleteParam(this)" class="red" title="删除" data-rel="tooltip">
+                                                <i class="ace-icon fa fa-trash-o bigger-130"></i>
+                                            </a>
+                                        </div>
+                                        <div class="move-down-icon">
+                                            <a href="javascript:;" onclick="moveParamDown(this)" class="green" data-rel="tooltip">
+                                                <i class="ace-icon fa fa-arrow-down bigger-130"></i>
+                                            </a>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
@@ -366,6 +421,7 @@
                             </tr>
                         {/foreach}
                     {/if}
+
                     <tr>
                         <td colspan="4" class="add-param-td">
                             <button class="btn btn-sm btn-primary add-response-param-button" type="button"><i class="ace-icon fa fa-plus bigger-110"></i>添加参数</button>
