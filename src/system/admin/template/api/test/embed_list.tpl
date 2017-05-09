@@ -17,7 +17,7 @@
         <table id="api-test-list-table" class="table table-striped table-bordered table-hover">
             <thead>
             <tr>
-                <th style="min-width:150px;" class="center">接口测试名称</th>
+                <th class="center">接口测试名称</th>
                 <th class="center">接口地址</th>
                 <th style="width:50px;" class="center">操作</th>
             </tr>
