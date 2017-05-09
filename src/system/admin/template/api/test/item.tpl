@@ -87,6 +87,24 @@
             </div>
 
             <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-2 no-padding-right">连接超时:</label>
+                <div class="col-xs-12 col-sm-10">
+                    <div class="clearfix">
+                        <input value="{$data['connection_timeout']}" type="text" name="connection_timeout" placeholder="请输入请求连接超时时间" class="col-xs-12 col-sm-12"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-2 no-padding-right">执行超时:</label>
+                <div class="col-xs-12 col-sm-10">
+                    <div class="clearfix">
+                        <input value="{$data['timeout']}" type="text" name="timeout" placeholder="请输入请求执行超时时间" class="col-xs-12 col-sm-12"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
                 <label class="control-label col-xs-12 col-sm-2 no-padding-right">请求参数:</label>
 
                 <div class="col-xs-12 col-sm-10">
@@ -198,6 +216,7 @@
                 }
             },
             submitHandler: function(form) {
+                $("textarea[name='response_content']").val('');
                 $(form).ajaxSubmit({
                     dataType: 'json',
                     success : function(result){

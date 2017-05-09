@@ -108,6 +108,8 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
             'appid'   => $appid,
             'address' => $address,
             'order'   => 99,
+            'timeout' => 3,
+            'connection_timeout'  => 3,
         );
         if (!empty($id)) {
             $result = Instance::table($this->bindTableName)->getOne("*", array('id' => $id));
@@ -134,7 +136,13 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
         }
         $params = $this->_parseRequestParams($data['request_params']);
         $http   = new Lib_Network_Http();
-        $result = $http->send($data['address'], $params, $data['request_method']);
+        if (!empty($data['timeout'])) {
+            $http->setTimeout($data['timeout']);
+        }
+        if (!empty($data['connection_timeout'])) {
+            $http->setConnectionTimeout($data['connection_timeout']);
+        }
+        $result = $http->send($data['address'], $params, $data['request_method'], 2);
         if (!empty($data['uid']) && !empty($data['name'])) {
             $testId = Instance::table($this->bindTableName)->getValue('id', array('uid' => $data['uid'], 'name' => $data['name']));
             if (empty($testId)) {
