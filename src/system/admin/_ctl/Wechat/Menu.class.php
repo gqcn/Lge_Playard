@@ -8,7 +8,7 @@ if(!defined('LGE')){
 /**
  * 微信公众号 - 菜单管理
  */
-class Controller_WechatMenu extends AceAdmin_BaseControllerAuth
+class Controller_Wechat_Menu extends AceAdmin_BaseControllerAuth
 {
     public $menus     = array();
     public $menuKey   = '';

@@ -11,6 +11,7 @@ return array(
     'uri' => array(
         '/\/dtest\/(\d+)(\/.+)[\/\?]*/' => '__c=test&__appid=$1&__env=test&__address=$2',
         '/\/ptest\/(\d+)(\/.+)[\/\?]*/' => '__c=test&__appid=$1&__env=prod&__address=$2',
-        '/\/(\d+)[\/\?]*/'              => 'appid=$1',
+        '/\/doc\/(\d+)[\/\?]*/'         => '__c=doc&appid=$1',
+        '/\/(\d+)[\/\?]*/'              => '__c=doc&appid=$1',
     ),
 );

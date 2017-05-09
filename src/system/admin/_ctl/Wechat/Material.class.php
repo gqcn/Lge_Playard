@@ -8,7 +8,7 @@ if(!defined('LGE')){
 /**
  * 微信公众号 - 素材管理
  */
-class Controller_WechatMaterial extends AceAdmin_BaseControllerAuth
+class Controller_Wechat_Material extends AceAdmin_BaseControllerAuth
 {
     /**
      * 素材列表

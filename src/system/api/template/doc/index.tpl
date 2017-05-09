@@ -22,6 +22,7 @@
         height:160px;
         border:1px solid #eee;
         padding:10px;
+        margin:0 0 10px 10px;
     }
 
 </style>
@@ -30,7 +31,7 @@
     <div class="col-xs-12">
         <div class="app-box">
             <h2 class="header smaller lighter blue">{$app['name']}</h2>
-            <img class="app-logo" src="{$app['thumb']}" />
+            <a href="{$app['thumb']}" target="_blank"><img class="app-logo" src="{$app['thumb']}" /></a>
             <div>{$app['brief']}</div><br/>
             <div>{$app['content']}</div><br/>
         </div>
@@ -165,9 +166,7 @@
                                                 <li class="{if $api['content']['response_example']['XML']}has-example-content{/if}">
                                                     <a data-toggle="tab" href="#response-type-xml-{$catIndex}-{$apiIndex}" >XML</a>
                                                 </li>
-                                                <li class="{if $api['content']['response_example']['JSONP']}has-example-content{/if}">
-                                                    <a data-toggle="tab" href="#response-type-jsonp-{$catIndex}-{$apiIndex}" >JSONP</a>
-                                                </li>
+
                                                 <li class="{if $api['content']['response_example']['Template']}has-example-content{/if}">
                                                     <a data-toggle="tab" href="#response-type-template-{$catIndex}-{$apiIndex}">模板变量</a>
                                                 </li>
@@ -182,10 +181,6 @@
 
                                                 <div id="response-type-xml-{$catIndex}-{$apiIndex}" class="response-type-div tab-pane">
                                                     <textarea class="code-box" code-type="application/xml">{$api['content']['response_example']['XML']}</textarea>
-                                                </div>
-
-                                                <div id="response-type-jsonp-{$catIndex}-{$apiIndex}" class="response-type-div tab-pane">
-                                                    <textarea class="code-box" code-type="javascript">{$api['content']['response_example']['JSONP']}</textarea>
                                                 </div>
 
                                                 <div id="response-type-template-{$catIndex}-{$apiIndex}" class="response-type-div tab-pane">

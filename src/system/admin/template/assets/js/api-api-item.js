@@ -140,22 +140,18 @@ $(document).ready(function(){
      * 返回示例代码高亮处理
      */
     codeMirrorJson     = CodeMirror.fromTextArea($('#response-type-json textarea')[0], codeMirrorOptions);
-    codeMirrorJsonp    = CodeMirror.fromTextArea($('#response-type-jsonp textarea')[0], codeMirrorOptions);
     codeMirrorXml      = CodeMirror.fromTextArea($('#response-type-xml textarea')[0], codeMirrorOptions);
     codeMirrorTemplate = CodeMirror.fromTextArea($('#response-type-template textarea')[0], codeMirrorOptions);
     codeMirrorOther    = CodeMirror.fromTextArea($('#response-type-other textarea')[0], codeMirrorOptions);
     codeMirrorJson.setOption("extraKeys",       tabToSpaceFunction);
-    codeMirrorJsonp.setOption("extraKeys",      tabToSpaceFunction);
     codeMirrorXml.setOption("extraKeys",        tabToSpaceFunction);
     codeMirrorTemplate.setOption("extraKeys",   tabToSpaceFunction);
     codeMirrorOther.setOption("extraKeys",      tabToSpaceFunction);
     codeMirrorJson.setOption("mode",            'javascript');
-    codeMirrorJsonp.setOption("mode",           'javascript');
     codeMirrorXml.setOption("mode",             'xml');
     codeMirrorTemplate.setOption("mode",        'htmlmixed');
     codeMirrorOther.setOption("mode",           'htmlmixed');
     CodeMirror.autoLoadMode(codeMirrorJson,     'javascript');
-    CodeMirror.autoLoadMode(codeMirrorJsonp,    'javascript');
     CodeMirror.autoLoadMode(codeMirrorXml,      'xml');
     CodeMirror.autoLoadMode(codeMirrorTemplate, 'htmlmixed');
     CodeMirror.autoLoadMode(codeMirrorOther,    'htmlmixed');

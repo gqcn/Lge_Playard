@@ -56,9 +56,14 @@ class Model_Api_Api extends BaseModelTable
         $fields = 'api.*,app.address_prod,app.address_test';
         $api    = Instance::table($tables)->getOne($fields, array('api.appid' => $appid, 'api.address' => $address));
         if (!empty($api)) {
-            $api['content']      = json_decode($api['content'], true);
-            $api['address_prod'] = empty($api['address_prod']) ? $api['address'] : rtrim($api['address_prod'], '/').$api['address'];
-            $api['address_test'] = empty($api['address_test']) ? $api['address'] : rtrim($api['address_test'], '/').$api['address'];
+            $api['content'] = json_decode($api['content'], true);
+            if ($api['address'][0] == '/') {
+                $api['address_prod'] = empty($this->app['address_prod']) ? $api['address'] : rtrim($this->app['address_prod'], '/').$api['address'];
+                $api['address_test'] = empty($this->app['address_test']) ? $api['address'] : rtrim($this->app['address_test'], '/').$api['address'];
+            } else {
+                $api['address_prod'] = $api['address'];
+                $api['address_test'] = $api['address'];
+            }
         }
         return $api;
     }

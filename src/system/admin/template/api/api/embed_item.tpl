@@ -277,9 +277,6 @@
                             <a data-toggle="tab" href="#response-type-xml"  id="response-type-tab-xml">XML</a>
                         </li>
                         <li class="">
-                            <a data-toggle="tab" href="#response-type-jsonp" id="response-type-tab-jsonp">JSONP</a>
-                        </li>
-                        <li class="">
                             <a data-toggle="tab" href="#response-type-template" id="response-type-tab-template">模板变量</a>
                         </li>
                         <li class="">
@@ -296,10 +293,6 @@
 
                         <div id="response-type-xml" class="response-type-div tab-pane">
                             <textarea name="content[response_example][XML]" placeholder="请输入XML格式的返回参数示例">{$data['content']['response_example']['XML']}</textarea>
-                        </div>
-
-                        <div id="response-type-jsonp" class="response-type-div tab-pane">
-                            <textarea name="content[response_example][JSONP]" placeholder="请输入JSONP格式的返回参数示例">{$data['content']['response_example']['JSONP']}</textarea>
                         </div>
 
                         <div id="response-type-template" class="response-type-div tab-pane">

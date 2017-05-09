@@ -90,7 +90,7 @@
                 <label class="control-label col-xs-12 col-sm-2 no-padding-right">连接超时:</label>
                 <div class="col-xs-12 col-sm-10">
                     <div class="clearfix">
-                        <input value="{$data['connection_timeout']}" type="text" name="connection_timeout" placeholder="请输入请求连接超时时间" class="col-xs-12 col-sm-12"/>
+                        <input value="{$data['connection_timeout']}" type="text" style="width:200px;" name="connection_timeout" placeholder="请输入请求连接超时时间" class="col-xs-12 col-sm-12"/>
                     </div>
                 </div>
             </div>
@@ -99,7 +99,21 @@
                 <label class="control-label col-xs-12 col-sm-2 no-padding-right">执行超时:</label>
                 <div class="col-xs-12 col-sm-10">
                     <div class="clearfix">
-                        <input value="{$data['timeout']}" type="text" name="timeout" placeholder="请输入请求执行超时时间" class="col-xs-12 col-sm-12"/>
+                        <input value="{$data['timeout']}" type="text" style="width:200px;" name="timeout" placeholder="请输入请求执行超时时间" class="col-xs-12 col-sm-12"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-2 no-padding-right">会话保持:</label>
+                <div class="col-xs-12 col-sm-10">
+                    <div class="clearfix">
+                        <div class="checkbox">
+                            <label style="padding-left:0;">
+                                <input name="keep_session" value="1" type="checkbox" class="ace" {if $data['keep_session']}checked{/if}>
+                                <span class="lbl"> 每一次请求都将保持与目标服务器的SESSION状态</span>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>

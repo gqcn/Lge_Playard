@@ -109,7 +109,8 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
             'address' => $address,
             'order'   => 99,
             'timeout' => 3,
-            'connection_timeout'  => 3,
+            'connection_timeout' => 3,
+            'keep_session'       => 1,
         );
         if (!empty($id)) {
             $result = Instance::table($this->bindTableName)->getOne("*", array('id' => $id));
@@ -136,13 +137,26 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
         }
         $params = $this->_parseRequestParams($data['request_params']);
         $http   = new Lib_Network_Http();
+        $http->setBrowserMode(true);
         if (!empty($data['timeout'])) {
             $http->setTimeout($data['timeout']);
         }
         if (!empty($data['connection_timeout'])) {
             $http->setConnectionTimeout($data['connection_timeout']);
         }
+        if (!empty($this->_session['api_test']['remote'])
+            && strcmp($data['address'], $this->_session['api_test']['remote']) == 0) {
+            $http->setCookie($this->_session['api_test']['cookie']);
+        }
         $result = $http->send($data['address'], $params, $data['request_method'], 2);
+        $cookie = $http->getCookie();
+        $cookie = trim($cookie);
+        if (!empty($cookie)) {
+            $this->_session['api_test'] = array(
+                'remote' => $data['address'],
+                'cookie' => $cookie,
+            );
+        }
         if (!empty($data['uid']) && !empty($data['name'])) {
             $testId = Instance::table($this->bindTableName)->getValue('id', array('uid' => $data['uid'], 'name' => $data['name']));
             if (empty($testId)) {
@@ -153,7 +167,7 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
             $data['request_params']   = json_encode($params);
             $data['response_content'] = $result;
             $data['update_time']      = time();
-            Instance::table($this->bindTableName)->save($data);
+            Instance::table($this->bindTableName)->mysqlFiltSave($data);
         }
         Lib_Response::json(true, $result);
     }

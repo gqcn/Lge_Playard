@@ -39,7 +39,10 @@ class Controller_Test extends Controller_Base
             exception('请输入需要测试的API接口ID！');
         }
         $address = Lib_Request::get('__address');
-        $api     = Model_Api_Api::instance()->getApiInfoByAddress($address, $appid);
+        if (strpos($address, 'http://') !== false) {
+            $address = ltrim($address, '/');
+        }
+        $api = Model_Api_Api::instance()->getApiInfoByAddress($address, $appid);
         if (empty($api)) {
             exception('请求的API接口不存在！');
         }
@@ -52,7 +55,6 @@ class Controller_Test extends Controller_Base
         $remote = $api[$key];
         $method = Lib_Request::getMethod();
         $method = strtolower($method);
-        $params = array();
         switch ($method) {
             case 'get':
                 $params = $this->_get;
@@ -62,14 +64,31 @@ class Controller_Test extends Controller_Base
             case 'post':
                 $params = $this->_post;
                 break;
+
+            default:
+                $params = Lib_Request::getInput();
+                break;
         }
         if (!empty($remote)) {
             $http = new Lib_Network_Http();
-            $result = $http->send($remote, $params, $method, 0);
+            $http->setBrowserMode(true);
+            if (!empty($this->_session['api_test']['remote'])
+                && strcmp($remote, $this->_session['api_test']['remote']) == 0) {
+                $http->setCookie($this->_session['api_test']['cookie']);
+            }
+            $result = $http->send($remote, $params, $method, 1);
             if ($this->_isJson($result)) {
                 header('Content-type: application/json');
             } elseif ($this->_isXml($result)) {
                 header("Content-type: text/xml");
+            }
+            $cookie = $http->getCookie();
+            $cookie = trim($cookie);
+            if (!empty($cookie)) {
+                $this->_session['api_test'] = array(
+                    'remote' => $remote,
+                    'cookie' => $cookie,
+                );
             }
             echo $result;
         }

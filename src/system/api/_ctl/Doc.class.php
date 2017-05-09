@@ -7,7 +7,7 @@ if(!defined('LGE')){
 /**
  * 云服务 - 接口管理
  */
-class Controller_Default extends Controller_Base
+class Controller_Doc extends Controller_Base
 {
     public $bindTableName = '_api_app_api';
     public $actMap        = array(
@@ -52,14 +52,17 @@ class Controller_Default extends Controller_Base
                 }
                 $api['content'] = json_decode($api['content'], true);
                 if ($api['address'][0] == '/') {
-                    $api['address_prod'] = empty($this->app['address_prod']) ? $api['address'] : rtrim($this->app['address_prod'], '/').$api['address'];
-                    $api['address_test'] = empty($this->app['address_test']) ? $api['address'] : rtrim($this->app['address_test'], '/').$api['address'];
+                    $api['address_prod']             = empty($this->app['address_prod']) ? $api['address'] : rtrim($this->app['address_prod'], '/').$api['address'];
+                    $api['address_test']             = empty($this->app['address_test']) ? $api['address'] : rtrim($this->app['address_test'], '/').$api['address'];
+                    $api['address_crossdomain_test'] = Lib_Url::getCurrentUrlWithoutUri().'dtest/'.$this->app['id'].$api['address'];
+                    $api['address_crossdomain_prod'] = Lib_Url::getCurrentUrlWithoutUri().'ptest/'.$this->app['id'].$api['address'];
                 } else {
-                    $api['address_prod'] = $api['address'];
-                    $api['address_test'] = $api['address'];
+                    $api['address_prod']             = $api['address'];
+                    $api['address_test']             = $api['address'];
+                    $api['address_crossdomain_test'] = Lib_Url::getCurrentUrlWithoutUri().'dtest/'.$this->app['id'].'/'.$api['address'];
+                    $api['address_crossdomain_prod'] = Lib_Url::getCurrentUrlWithoutUri().'ptest/'.$this->app['id'].'/'.$api['address'];
                 }
-                $api['address_crossdomain_test'] = Lib_Url::getCurrentUrlWithoutUri().'dtest/'.$this->app['id'].$api['address'];
-                $api['address_crossdomain_prod'] = Lib_Url::getCurrentUrlWithoutUri().'ptest/'.$this->app['id'].$api['address'];
+
                 $catArray[$catid]['api_list'][] = $api;
             }
         }
@@ -80,7 +83,7 @@ class Controller_Default extends Controller_Base
             array(
                 'title'   => '接口文档',
                 'apiList' => $apiList,
-                'mainTpl' => 'api/list',
+                'mainTpl' => 'doc/index',
             )
         );
         $this->display();
