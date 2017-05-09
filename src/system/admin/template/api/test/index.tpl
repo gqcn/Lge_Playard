@@ -38,8 +38,8 @@
 
     </div>
 
-    <div id="api-test-list" class="col-xs-12 col-lg-3"></div>
-    <div id="api-test-content" class="col-xs-12 col-lg-9"></div>
+    <div id="api-test-list" class="col-xs-12 col-lg-4"></div>
+    <div id="api-test-content" class="col-xs-12 col-lg-8"></div>
 </div>
 
 
