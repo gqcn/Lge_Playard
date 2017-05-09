@@ -124,7 +124,7 @@ class Model_Category extends BaseModelTable
             'parent_id' => 'pcat_id', 
             'name'      => 'cat_name'
         ));
-        return $tree->get_tree($pCatId, '$spacer $cat_name');
+        return $tree->getTree($pCatId, '$spacer $cat_name');
     }
     
 	/**

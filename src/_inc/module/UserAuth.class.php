@@ -148,7 +148,7 @@ class Module_UserAuth extends BaseModule
             'parent_id' => 'pid',
             'name'      => 'key',
         ));
-        return $tree->get_tree($pId, '$spacer $key');
+        return $tree->getTree($pId, '$spacer $key');
     }
 
     /**

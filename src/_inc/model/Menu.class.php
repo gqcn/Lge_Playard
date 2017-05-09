@@ -62,7 +62,7 @@ class Model_Menu extends BaseModelTable
             'parent_id' => 'pmenu_id', 
             'name'      => 'menu_name'
         ));
-        return $tree->get_tree(0, '$spacer $menu_name');
+        return $tree->getTree(0, '$spacer $menu_name');
     }
     
 	/**

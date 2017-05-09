@@ -43,7 +43,7 @@ class Controller_Wechat_Menu extends AceAdmin_BaseControllerAuth
             'parent_id' => 'pid',
             'name'      => 'name'
         ));
-        $treeMenus = $tree->get_tree(0, '$spacer $name');
+        $treeMenus = $tree->getTree(0, '$spacer $name');
         $this->assigns(array(
         	'treeMenus' => $treeMenus,
         	'menuTypes' => $this->menuTypes,

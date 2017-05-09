@@ -41,8 +41,13 @@ class Controller_Doc extends Controller_Base
     public function index()
     {
         $apiList  = array();
-        $catArray = Model_Api_Category::instance()->getCatArray($this->app['id']);
-        $list     = Instance::table($this->bindTableName)->getAll('*', array('appid' => $this->app['id']), null, "`order` ASC,`id` ASC");
+        $catArray = array();
+        $treeList = Model_Api_Category::instance()->getCatTree($this->app['id']);
+        foreach ($treeList as $k => $v) {
+            $v['name']          = $v['old_name'];
+            $catArray[$v['id']] = $v;
+        }
+        $list = Instance::table($this->bindTableName)->getAll('*', array('appid' => $this->app['id']), null, "`order` ASC,`id` ASC");
         // 分类绑定接口
         foreach ($list as $api) {
             $catid = $api['cat_id'];
@@ -66,6 +71,7 @@ class Controller_Doc extends Controller_Base
                 $catArray[$catid]['api_list'][] = $api;
             }
         }
+
         // 分类处理
         foreach ($catArray as $cat) {
             if (!empty($cat['api_list'])) {

@@ -68,6 +68,6 @@ class Model_Api_Category extends BaseModelTable
             'parent_id' => 'pid',
             'name'      => 'name'
         ));
-        return $tree->get_tree(0, '$spacer $name');
+        return $tree->getTree(0, '$spacer $name');
     }
 }

@@ -30,7 +30,7 @@ class Controller_Api_Category extends AceAdmin_BaseControllerAuth
             'parent_id' => 'pid',
             'name'      => 'name'
         ));
-        $catList = $tree->get_tree(0, '$spacer $name');
+        $catList = $tree->getTree(0, '$spacer $name');
         $this->assigns(array(
             'catList' => $catList,
             'mainTpl' => 'api/category/embed_index',
