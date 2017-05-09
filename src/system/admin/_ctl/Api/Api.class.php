@@ -245,6 +245,7 @@ class Controller_Api_Api extends AceAdmin_BaseControllerAuth
             'update_time' => time(),
         ), true);
         if (empty($id)) {
+            unset($data['id']);
             $data['create_time'] = time();
         }
         // 请求参数
