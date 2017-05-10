@@ -10,6 +10,16 @@ if (!defined('LGE')) {
  */
 class Module_Api extends BaseModule
 {
+    /*
+     * 状态数组
+     *
+     * @array
+     */
+    public $statuses = array(
+        0 => '未开始',
+        1 => '进行中',
+        2 => '已完成',
+    );
 
     /**
      * 获得实例.

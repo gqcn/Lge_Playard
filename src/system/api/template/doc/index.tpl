@@ -24,7 +24,12 @@
         padding:10px;
         margin:0 0 10px 10px;
     }
-
+    .app-box pre {
+        padding:5px;
+    }
+    .status_0 {color:#808080; }
+    .status_1 {color:#d2322d; }
+    .status_2 {color:#229f24; }
 </style>
 
 <div class="row">
@@ -71,7 +76,7 @@
                                         <ul class="options">
                                             <li>
                                                 <a href="javascript:;" class="toggleOperation">
-                                                    <span class="markdown"><p>{$api['name']}</p></span></a>
+                                                    <span class="markdown"><p>{$api['name']} &nbsp; <span class="status_{$api['status']}">({$api['status_name']})</span></p></span></a>
                                             </li>
                                         </ul>
                                     </div>
@@ -206,7 +211,12 @@
         </div>
     </div>
 </div>
-
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 <script type="text/javascript">
     CodeMirror.modeURL     = "/static/plugin/codemirror-5.21.0/mode/%N/%N.js";
     var codeMirrorOptions  = {

@@ -66,6 +66,16 @@
     .move-down-icon {
         margin-top: 10px;
     }
+    #api-save-form .radio {
+        float:left;
+    }
+    #api-save-form .radio label {
+        padding-left:0;
+        padding-right:20px;
+    }
+    .status_0 {color:#808080; }
+    .status_1 {color:#d2322d; }
+    .status_2 {color:#229f24; }
 </style>
 <link rel="stylesheet" href="/static/plugin/codemirror-5.21.0/lib/codemirror.css">
 <script type="text/javascript" src="/static/plugin/codemirror-5.21.0/lib/codemirror.js"></script>
@@ -126,6 +136,22 @@
         <div class="col-xs-12 col-sm-10">
             <div class="clearfix">
                 <input value="{$data['address']}" type="text" name="address" placeholder="请填写接口的相对路径或者完整的绝对路径，相对路径以'/'开始，例如：/sms/send" class="col-xs-12 col-sm-12" />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2 no-padding-right">接口状态:</label>
+        <div class="col-xs-12 col-sm-10">
+            <div class="clearfix">
+                {foreach from=$statuses index=$index key=$status item=$name}
+                    <div class="radio status_{$status}">
+                        <label>
+                            <input name="status" value="{$status}" type="radio" class="ace" {if $data['status'] == $status }checked{/if}>
+                            <span class="lbl"> {$name}</span>
+                        </label>
+                    </div>
+                {/foreach}
             </div>
         </div>
     </div>

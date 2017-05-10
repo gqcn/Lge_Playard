@@ -55,7 +55,8 @@ class Controller_Doc extends Controller_Base
                 if (!isset($catArray[$catid]['api_list'])) {
                     $catArray[$catid]['api_list'] = array();
                 }
-                $api['content'] = json_decode($api['content'], true);
+                $api['status_name'] = Module_Api::instance()->statuses[$api['status']];
+                $api['content']     = json_decode($api['content'], true);
                 if ($api['address'][0] == '/') {
                     $api['address_prod']             = empty($this->app['address_prod']) ? $api['address'] : rtrim($this->app['address_prod'], '/').$api['address'];
                     $api['address_test']             = empty($this->app['address_test']) ? $api['address'] : rtrim($this->app['address_test'], '/').$api['address'];

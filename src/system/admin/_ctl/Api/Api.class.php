@@ -88,7 +88,8 @@ class Controller_Api_Api extends AceAdmin_BaseControllerAuth
         }
         $list      = Instance::table($tables)->getAll($fields, $condition, null, "`order` ASC,`id` ASC");
         foreach ($list as $k => $v) {
-            $list[$k]['content'] = json_decode($v['content'], true);
+            $list[$k]['status_name'] = Module_Api::instance()->statuses[$v['status']];
+            $list[$k]['content']     = json_decode($v['content'], true);
         }
         $this->assigns(array(
             'cat'      => $cat,
@@ -203,6 +204,7 @@ class Controller_Api_Api extends AceAdmin_BaseControllerAuth
                 'appid'  => $appid,
                 'cat_id' => $catid,
                 'order'  => 99,
+                'status' => 0,
             );
             if (!empty($id)) {
                 $result = Instance::table($this->bindTableName)->getOne("*", array('id' => $id));
@@ -226,6 +228,7 @@ class Controller_Api_Api extends AceAdmin_BaseControllerAuth
                 'cat'      => $cat,
                 'data'     => $data,
                 'catList'  => $catList,
+                'statuses' => Module_Api::instance()->statuses,
                 'mainTpl'  => 'api/api/embed_item',
             ));
             $this->display();

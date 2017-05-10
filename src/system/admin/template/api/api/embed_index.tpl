@@ -4,6 +4,9 @@
         border:1px solid red;
         border-style: dashed;
     }
+    .status_0 {color:#808080; }
+    .status_1 {color:#d2322d; }
+    .status_2 {color:#229f24; }
 </style>
 <script src="{$sysurl}/assets/js/common.js"></script>
 
@@ -14,6 +17,7 @@
             <thead>
             <tr>
                 <th style="width:50px;" class="center">序号</th>
+                <th style="width:70px;" class="center">状态</th>
                 <th>接口名称</th>
                 <th>所属分类</th>
                 <th>接口方式</th>
@@ -25,6 +29,7 @@
             {foreach from=$list index=$index key=$key item=$item}
                 <tr>
                     <td class="center">{$index + 1}</td>
+                    <td class="center status_{$item['status']}">{$item['status_name']}</td>
                     <td>
                         <input type="hidden" name="ids[]"  value="{$item['id']}">
                         {$_String->highlight($item['name'], $_GET['key'])}
