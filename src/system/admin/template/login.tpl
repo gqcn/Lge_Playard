@@ -150,7 +150,7 @@
             },
             submitHandler: function(form) {
                 $("input[name='password']").val(hex_md5($("input[name='password']").val()));
-                $(form).ajaxSubmit();
+                form.submit();
             },
             highlight: function (e) {
                 $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
