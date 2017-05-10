@@ -112,11 +112,9 @@
         <div class="col-xs-12 col-sm-10">
             <div class="clearfix">
                 <select class="select2" name="content[request_type]" style="width:300px;">
-                    <option value="GET" {if $data['content']['request_type'] == 'GET' }selected{/if}>GET</option>
-                    <option value="POST" {if $data['content']['request_type'] == 'POST' }selected{/if}>POST</option>
-                    <option value="PUT" {if $data['content']['request_type'] == 'PUT' }selected{/if}>PUT</option>
-                    <option value="DELETE" {if $data['content']['request_type'] == 'DELETE' }selected{/if}>DELETE</option>
-                    <option value="SOCKET" {if $data['content']['request_type'] == 'SOCKET' }selected{/if}>SOCKET</option>
+                    {foreach from=$methods index=$index key=$method item=$name}
+                        <option value="{$method}" {if $data['content']['request_type'] == $method }selected{/if}>{$name}</option>
+                    {/foreach}
                 </select>
             </div>
         </div>
@@ -186,17 +184,16 @@
                         </td>
                         <td>
                             <select name="content[request_params][type][]" style="width:130px;">
-                                <option value="string">String (字符串)</option>
-                                <option value="integer">Integer (数字)</option>
-                                <option value="binary">Binary (二进制)</option>
-                                <option value="array">Array (数组)</option>
+                                {foreach from=$paramTypes index=$index key=$type item=$name}
+                                    <option value="{$type}">{$name}</option>
+                                {/foreach}
                             </select>
                         </td>
                         <td>
                             <select name="content[request_params][status][]" style="width:130px;">
-                                <option value="required">Required (必填)</option>
-                                <option value="optional">Optional (选填)</option>
-                                <option value="constant">Constant (常量)</option>
+                                {foreach from=$paramStatuses index=$index key=$status item=$name}
+                                    <option value="{$status}">{$name}</option>
+                                {/foreach}
                             </select>
                         </td>
                         <td>
@@ -236,17 +233,16 @@
                                 </td>
                                 <td>
                                     <select name="content[request_params][type][]" style="width:130px;">
-                                        <option value="string" {if $item['type'] == 'string'}selected{/if}>String (字符串)</option>
-                                        <option value="integer" {if $item['type'] == 'integer'}selected{/if}>Integer (数字)</option>
-                                        <option value="binary" {if $item['type'] == 'binary'}selected{/if}>Binary (二进制)</option>
-                                        <option value="array" {if $item['type'] == 'array'}selected{/if}>Array (数组)</option>
+                                        {foreach from=$paramTypes index=$index key=$type item=$name}
+                                            <option value="{$type}" {if $item['type'] == $type}selected{/if}>{$name}</option>
+                                        {/foreach}
                                     </select>
                                 </td>
                                 <td>
                                     <select name="content[request_params][status][]" style="width:130px;">
-                                        <option value="required" {if $item['status'] == 'required'}selected{/if}>Required (必填)</option>
-                                        <option value="optional" {if $item['status'] == 'optional'}selected{/if}>Optional (选填)</option>
-                                        <option value="constant" {if $item['status'] == 'constant'}selected{/if}>Constant (常量)</option>
+                                        {foreach from=$paramStatuses index=$index key=$status item=$name}
+                                            <option value="{$status}" {if $item['status'] == $status}selected{/if}>{$name}</option>
+                                        {/foreach}
                                     </select>
                                 </td>
                                 <td>
@@ -359,11 +355,9 @@
                         </td>
                         <td>
                             <select name="content[response_params][type][]" style="width:130px;">
-                                <option value="string">String (字符串)</option>
-                                <option value="integer">Integer (数字)</option>
-                                <option value="binary">Binary (二进制)</option>
-                                <option value="array">Array (数组)</option>
-                                <option value="object">Object (对象)</option>
+                                {foreach from=$paramTypes index=$index key=$type item=$name}
+                                    <option value="{$type}">{$name}</option>
+                                {/foreach}
                             </select>
                         </td>
                         <td>
@@ -403,11 +397,9 @@
                                 </td>
                                 <td>
                                     <select name="content[response_params][type][]" style="width:130px;">
-                                        <option value="string" {if $item['type'] == 'string'}selected{/if}>String (字符串)</option>
-                                        <option value="integer" {if $item['type'] == 'integer'}selected{/if}>Integer (数字)</option>
-                                        <option value="binary" {if $item['type'] == 'binary'}selected{/if}>Binary (二进制)</option>
-                                        <option value="array" {if $item['type'] == 'array'}selected{/if}>Array (数组)</option>
-                                        <option value="object" {if $item['type'] == 'object'}selected{/if}>Object (对象)</option>
+                                        {foreach from=$paramTypes index=$index key=$type item=$name}
+                                            <option value="{$type}" {if $item['type'] == $type}selected{/if}>{$name}</option>
+                                        {/foreach}
                                     </select>
                                 </td>
                                 <td>

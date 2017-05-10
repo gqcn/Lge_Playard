@@ -225,11 +225,14 @@ class Controller_Api_Api extends AceAdmin_BaseControllerAuth
                 $data['name'] .= ' (复制)';
             }
             $this->assigns(array(
-                'cat'      => $cat,
-                'data'     => $data,
-                'catList'  => $catList,
-                'statuses' => Module_Api::instance()->statuses,
-                'mainTpl'  => 'api/api/embed_item',
+                'cat'           => $cat,
+                'data'          => $data,
+                'catList'       => $catList,
+                'methods'       => Module_Api::instance()->methods,
+                'statuses'      => Module_Api::instance()->statuses,
+                'paramTypes'    => Module_Api::instance()->paramTypes,
+                'paramStatuses' => Module_Api::instance()->paramStatuses,
+                'mainTpl'       => 'api/api/embed_item',
             ));
             $this->display();
         }
