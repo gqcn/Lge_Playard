@@ -102,6 +102,7 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
     {
         $id      = Lib_Request::get('id');
         $appid   = Lib_Request::get('appid');
+        $apiid   = Lib_Request::get('apiid');
         $address = Lib_Request::get('address');
         $data    = array(
             'id'      => 0,
@@ -111,6 +112,7 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
             'timeout' => 3,
             'connection_timeout' => 3,
             'keep_session'       => 1,
+            'request_params'     => array(),
         );
         if (!empty($id)) {
             $result = Instance::table($this->bindTableName)->getOne("*", array('id' => $id));
@@ -118,9 +120,24 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
                 $data = array_merge($data, $result);
                 $data['request_params'] = json_decode($data['request_params'], true);
             }
+        } elseif (!empty($apiid)) {
+            $api = Model_Api_Api::instance()->getApiInfoById($apiid);
+            if (!empty($api)) {
+                $data['name'] = "{$api['name']} 的测试";
+                if (!empty($api['content']['request_params'])) {
+                    foreach ($api['content']['request_params'] as $k => $v) {
+                        $data['request_params'][] = array(
+                            'name'    => $v['name'],
+                            'content' => $v['example'],
+                        );
+                    }
+                }
+                $this->assign('api', $api);
+            }
         }
         $this->assigns(array(
-            'data'     => $data,
+            'data'    => $data,
+            'methods' => Module_Api::instance()->methods,
             'mainTpl' => 'api/test/item',
         ));
         $this->display();

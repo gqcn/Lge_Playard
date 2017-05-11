@@ -4,6 +4,9 @@ if (!defined('LGE')) {
 	exit('Include Permission Denied!');
 }
 
+/**
+ * 碎片管理
+ */
 class Controller_Frag extends AceAdmin_BaseControllerAuth
 {
     public $catType = 5;

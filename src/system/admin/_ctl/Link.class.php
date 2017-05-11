@@ -4,6 +4,9 @@ if (!defined('LGE')) {
 	exit('Include Permission Denied!');
 }
 
+/**
+ * 友情链接
+ */
 class Controller_Link extends AceAdmin_BaseControllerAuth
 {
     public $catType = 4;

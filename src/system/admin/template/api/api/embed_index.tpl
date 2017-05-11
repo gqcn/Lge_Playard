@@ -22,7 +22,7 @@
                 <th>所属分类</th>
                 <th>接口方式</th>
                 <th>接口地址</th>
-                <th style="width:90px;" class="center">操作</th>
+                <th style="width:120px;" class="center">操作</th>
             </tr>
             </thead>
             <tbody>
@@ -39,12 +39,18 @@
                     <td>{$item['address']}</td>
                     <td class="center">
                         <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons" style="margin-top:10px;">
+                            <a href="/api.test?appid={$item['appid']}&apiid={$item['id']}" class="" title="测试" data-rel="tooltip">
+                                <i class="ace-icon fa fa-exchange bigger-130"></i>
+                            </a>
+
                             <a href="javascript:editApiInfo({$item['id']});" class="green" title="修改" data-rel="tooltip">
                                 <i class="ace-icon fa fa-pencil bigger-130"></i>
                             </a>
-                            <a href="javascript:copyApiInfo({$item['id']});" class="blue" title="复制" data-rel="tooltip">
+
+                            <a href="javascript:copyApiInfo({$item['id']});" class="orange" title="复制" data-rel="tooltip">
                                 <i class="ace-icon fa fa-copy bigger-130"></i>
                             </a>
+
                             <a href="javascript:ajaxDeleteApi('/api.api/ajaxDelete?id={$item['id']}');" class="red ButtonDelete" title="删除" data-rel="tooltip">
                                 <i class="ace-icon fa fa-trash-o bigger-130"></i>
                             </a>

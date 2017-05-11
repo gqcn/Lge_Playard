@@ -41,7 +41,9 @@
         font-weight: normal;
         　　
     }
-
+    #request-loading {
+        display: none;
+    }
 </style>
 
 <script src="{$sysurl}/assets/js/common.js"></script>
@@ -53,16 +55,13 @@
                 <input value="{$data['id']}" type="hidden" name="id"/>
                 <input value="{$data['appid']}" type="hidden" name="appid"/>
 
-
                 <label class="control-label col-xs-12 col-sm-2 no-padding-right required">请求方式:</label>
                 <div class="col-xs-12 col-sm-8">
                     <div class="clearfix">
                         <select class="select2" name="request_method" style="width:300px;">
-                            <option value="GET" {if $data['request_method'] == 'GET' }selected{/if}>GET</option>
-                            <option value="POST" {if $data['request_method'] == 'POST' }selected{/if}>POST</option>
-                            <option value="PUT" {if $data['request_method'] == 'PUT' }selected{/if}>PUT</option>
-                            <option value="DELETE" {if $data['request_method'] == 'DELETE' }selected{/if}>DELETE</option>
-                            {*<option value="SOCKET" {if $data['request_method'] == 'SOCKET' }selected{/if}>SOCKET</option>*}
+                            {foreach from=$methods index=$index key=$method item=$name}
+                                <option value="{$method}" {if $data['request_method'] == $method }selected{/if}>{$name}</option>
+                            {/foreach}
                         </select>
                     </div>
                 </div>
@@ -81,7 +80,14 @@
                 <label class="control-label col-xs-12 col-sm-2 no-padding-right required">接口地址:</label>
                 <div class="col-xs-12 col-sm-10">
                     <div class="clearfix">
-                        <input value="{$data['address']}" type="text" name="address" placeholder="请填写接口的完整绝对路径地址" class="col-xs-12 col-sm-12"/>
+                        {if $api['address_test'] || $api['address_prod']}
+                            <select class="select2 col-sm-12" name="address" style="padding:0;">
+                                <option value="{$api['address_test']}">测试地址：{$api['address_test']}</option>
+                                <option value="{$api['address_prod']}">生产地址：{$api['address_prod']}</option>
+                            </select>
+                        {else}
+                            <input value="{$data['address']}" type="text" name="address" placeholder="请填写接口的完整绝对路径地址" class="col-xs-12 col-sm-12"/>
+                        {/if}
                     </div>
                 </div>
             </div>
@@ -148,6 +154,24 @@
                                     </div>
                                 </td>
                             </tr>
+                            {foreach from=$data['request_params'] index=$index key=$key item=$item}
+                                <tr>
+                                    <td>
+                                        <input value="{$item['name']}" class="param-name" type="text" name="request_params[name][]" placeholder="请输入参数名称"/>
+                                    </td>
+                                    <td>
+                                        <input value="{$item['content']}" type="text" name="request_params[content][]" placeholder="请输入参数内容"/>
+                                    </td>
+                                    <td class="center">
+                                        <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+                                            <a href="javascript:;" onclick="deleteParam(this)" class="red" title="删除"
+                                               data-rel="tooltip">
+                                                <i class="ace-icon fa fa-trash-o bigger-130"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {/foreach}
                             <tr>
                                 <td colspan="3" class="add-param-td">
                                     <button class="btn btn-sm btn-primary add-request-param-button" type="button"><i class="ace-icon fa fa-plus bigger-110"></i>添加参数</button>
@@ -163,6 +187,7 @@
                 <label class="control-label col-xs-12 col-sm-2 no-padding-right">返回结果:</label>
                 <div class="col-xs-12 col-sm-10">
                     <div class="clearfix">
+                        <div id="request-loading"><i class="ace-icon fa fa-spinner fa-spin orange bigger-130"></i> 请求中...</div>
                         <textarea name="response_content" placeholder="接口的执行结果将会显示在这里" class="col-xs-12 col-sm-12" style="height:300px;">{$data['response_content']}</textarea>
                     </div>
                 </div>
@@ -180,6 +205,9 @@
                     </div>
                 </div>
             </div>
+            <br />
+            <br />
+            <br />
         </form>
     </div>
 </div>
@@ -233,6 +261,12 @@
                 $("textarea[name='response_content']").val('');
                 $(form).ajaxSubmit({
                     dataType: 'json',
+                    beforeSend: function() {
+                        $('#request-loading').show();
+                    },
+                    complete: function(XMLHttpRequest, status){
+                        $('#request-loading').hide();
+                    },
                     success : function(result){
                         if (result.result) {
                             $("textarea[name='response_content']").val(result.data);

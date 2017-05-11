@@ -4,6 +4,9 @@ if (!defined('LGE')) {
 	exit('Include Permission Denied!');
 }
 
+/**
+ * 笔记管理
+ */
 class Controller_Note extends AceAdmin_BaseControllerAuth
 {
     public $catType = 6;

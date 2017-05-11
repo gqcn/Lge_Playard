@@ -74,7 +74,6 @@
     // 展示测试接口
     function showApiTestByApiId(id)
     {
-        currentTestid = id;
         $('#api-test-content').load('/api.test/item?appid={$_GET['appid']}&apiid='+id+'&__content=1');
     }
 
@@ -93,7 +92,11 @@
             onAppSelectionChange($(this).val());
         });
         reloadApiTestList();
-        showApiTest(0);
+        {if $_GET['apiid']}
+            showApiTestByApiId({$_GET['apiid']});
+        {else}
+            showApiTest(0);
+        {/if}
     });
 
 </script>

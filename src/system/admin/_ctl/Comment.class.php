@@ -4,11 +4,14 @@ if (!defined('LGE')) {
 	exit('Include Permission Denied!');
 }
 
+/**
+ * 评论管理
+ */
 class Controller_Comment extends AceAdmin_BaseControllerAuth
 {
     
     /**
-     * 主页面展示
+     * 页面展示
      */
     public function index()
     {
@@ -22,4 +25,3 @@ class Controller_Comment extends AceAdmin_BaseControllerAuth
         $this->display('index');
     }
 }
-?>

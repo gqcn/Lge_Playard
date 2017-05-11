@@ -4,12 +4,15 @@ if (!defined('LGE')) {
 	exit('Include Permission Denied!');
 }
 
+/**
+ * 菜单管理
+ */
 class Controller_Menu extends AceAdmin_BaseControllerAuth
 {
     public $catType = 3;
     
     /**
-     * 菜单管理
+     * 菜单列表
      */
     public function index()
     {

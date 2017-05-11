@@ -6,7 +6,7 @@ if(!defined('LGE')){
 }
 
 /**
- * 操作日志管理.
+ * 日志管理.
  */
 class Controller_AdminLog extends AceAdmin_BaseControllerAuth
 {

@@ -31,8 +31,8 @@
     <link rel="stylesheet" href="/static/plugin/ace-admin/assets/css/colorpicker.css" />
 
     <script type="text/javascript">
-        // window.jQuery || document.write("<script src='/static/plugin/ace-admin/assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
-        window.jQuery || document.write("<script src='//cdn.bootcss.com/jquery/3.1.1/jquery.min.js'>"+"<"+"/script>");
+        window.jQuery || document.write("<script src='/static/plugin/ace-admin/assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
+        // window.jQuery || document.write("<script src='//cdn.bootcss.com/jquery/3.1.1/jquery.min.js'>"+"<"+"/script>");
     </script>
 
 

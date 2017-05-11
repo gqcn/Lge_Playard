@@ -7,8 +7,6 @@ if(!defined('LGE')){
 /**
  *
  * 用户组管理
- * @author john
- *
  */
 class Controller_UserGroup extends AceAdmin_BaseControllerAuth
 {

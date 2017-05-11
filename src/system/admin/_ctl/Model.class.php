@@ -4,6 +4,9 @@ if (!defined('LGE')) {
 	exit('Include Permission Denied!');
 }
 
+/**
+ * 自定义模型管理
+ */
 class Controller_Model extends AceAdmin_BaseControllerAuth
 {
     /**

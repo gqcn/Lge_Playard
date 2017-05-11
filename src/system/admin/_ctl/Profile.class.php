@@ -4,6 +4,9 @@ if (!defined('LGE')) {
 	exit('Include Permission Denied!');
 }
 
+/**
+ * 个人信息管理
+ */
 class Controller_Profile extends AceAdmin_BaseControllerAuth
 {
     /**

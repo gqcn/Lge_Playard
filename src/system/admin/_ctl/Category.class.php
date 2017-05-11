@@ -4,10 +4,7 @@ if (!defined('LGE')) {
 	exit('Include Permission Denied!');
 }
 /**
- * 
- * @todo 分类key重复异步判断.
- * @author john
- *
+ * 分类管理
  */
 class Controller_Category extends AceAdmin_BaseControllerAuth
 {
@@ -20,7 +17,7 @@ class Controller_Category extends AceAdmin_BaseControllerAuth
     }
     
     /**
-     * 分类 排序.
+     * 分类排序.
      * 
      * @return void
      */

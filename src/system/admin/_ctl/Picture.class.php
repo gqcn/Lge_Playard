@@ -4,6 +4,9 @@ if (!defined('LGE')) {
 	exit('Include Permission Denied!');
 }
 
+/**
+ * 图片管理
+ */
 class Controller_Picture extends AceAdmin_BaseControllerAuth
 {
     public $catType = 2;

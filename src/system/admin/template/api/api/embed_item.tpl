@@ -246,7 +246,7 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <input value="{$item['example']}" type="text" name="content[request_params][example][]" placeholder="请输入参数示例值"/>
+                                    <input value="{$_String->escape($item['example'])}" type="text" name="content[request_params][example][]" placeholder="请输入参数示例值"/>
                                 </td>
                                 <td class="center" rowspan="2">
                                     <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
@@ -270,7 +270,7 @@
                             </tr>
                             <tr>
                                 <td colspan="4">
-                                    <textarea name="content[request_params][brief][]" placeholder="请输入参数说明">{$item['brief']}</textarea>
+                                    <textarea name="content[request_params][brief][]" placeholder="请输入参数说明">{$_String->escape($item['brief'])}</textarea>
                                 </td>
                             </tr>
                         {/foreach}
@@ -403,7 +403,7 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <input value="{$item['example']}" type="text" name="content[response_params][example][]" placeholder="请输入参数示例值"/>
+                                    <input value="{$_String->escape($item['example'])}" type="text" name="content[response_params][example][]" placeholder="请输入参数示例值"/>
                                 </td>
                                 <td class="center" rowspan="2">
                                     <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
@@ -427,7 +427,7 @@
                             </tr>
                             <tr class="response-param-tr-brief">
                                 <td colspan="3">
-                                    <textarea name="content[response_params][brief][]" placeholder="请输入参数说明">{$item['brief']}</textarea>
+                                    <textarea name="content[response_params][brief][]" placeholder="请输入参数说明">{$_String->escape($item['brief'])}</textarea>
                                 </td>
                             </tr>
                         {/foreach}
