@@ -82,7 +82,7 @@
                                     </div>
                                     <div class="content">
                                         <h4>接口说明</h4>
-                                        <div><p>{$api['brief']}</p></div>
+                                        <div><p>{$_String->nl2br($api['brief'])}</p></div>
                                         <div><p>{$api['detail']}</p></div>
                                         <h4>接口地址</h4>
                                         <div><p>生产环境地址：<b><a href="{$api['address_prod']}" target="_blank">{$api['address_prod']}</a></b></p></div>
@@ -119,7 +119,7 @@
                                                             <td class="param-name">{$param['type']}</td>
                                                             <td>{$param['status']}</td>
                                                             <td>{$param['example']}</td>
-                                                            <td>{$param['brief']}</td>
+                                                            <td>{$_String->nl2br($param['brief'])}</td>
                                                         </tr>
                                                     {/foreach}
                                                 </tbody>
@@ -153,7 +153,7 @@
                                                         <td>{$param['name']}</td>
                                                         <td>{$param['type']}</td>
                                                         <td>{$param['example']}</td>
-                                                        <td>{$param['brief']}</td>
+                                                        <td>{$_String->nl2br($param['brief'])}</td>
                                                     </tr>
                                                 {/foreach}
                                                 </tbody>
