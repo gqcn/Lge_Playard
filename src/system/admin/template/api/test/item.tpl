@@ -55,6 +55,23 @@
                 <input value="{$data['id']}" type="hidden" name="id"/>
                 <input value="{$data['appid']}" type="hidden" name="appid"/>
 
+                <label class="control-label col-xs-12 col-sm-2 no-padding-right">请求接口:</label>
+                <div class="col-xs-12 col-sm-10">
+                    <div class="clearfix">
+                        <select class="select2 col-sm-12" name="api_id" style="padding:0;" onchange="onApiChange(this.value)">
+                            <option value="0">可选择当前应用的接口进行测试</option>
+                            {foreach from=$apiList index=$index key=$key item=$cat}
+                                <optgroup label="{$cat['ancestor_names']}"></optgroup>
+                                {foreach from=$cat['api_list'] index=$index key=$k item=$v}
+                                    <option value="{$v['id']}" {if $data['api_id'] == $v['id'] }selected{/if}>{$cat['ancestor_names']}：{$v['address']}&nbsp;&nbsp;({$v['name']})</option>
+                                {/foreach}
+                            {/foreach}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
                 <label class="control-label col-xs-12 col-sm-2 no-padding-right required">请求方式:</label>
                 <div class="col-xs-12 col-sm-8">
                     <div class="clearfix">
@@ -214,6 +231,11 @@
 
 
 <script type="text/javascript">
+    function onApiChange(apiId)
+    {
+        window.location.href='/api.test/?appid={$_GET['appid']}&apiid='+apiId;
+    }
+
     // 删除参数(请求或者返回)
     function deleteParam(obj)
     {

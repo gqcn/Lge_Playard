@@ -40,56 +40,10 @@ class Controller_Doc extends Controller_Base
      */
     public function index()
     {
-        $apiList  = array();
-        $catArray = array();
-        $treeList = Model_Api_Category::instance()->getCatTree($this->app['id']);
-        foreach ($treeList as $k => $v) {
-            $v['name']          = $v['old_name'];
-            $catArray[$v['id']] = $v;
-        }
-        $list = Instance::table($this->bindTableName)->getAll('*', array('appid' => $this->app['id']), null, "`order` ASC,`id` ASC");
-        // 分类绑定接口
-        foreach ($list as $api) {
-            $catid = $api['cat_id'];
-            if (isset($catArray[$catid])) {
-                if (!isset($catArray[$catid]['api_list'])) {
-                    $catArray[$catid]['api_list'] = array();
-                }
-                $api['status_name'] = Module_Api::instance()->statuses[$api['status']];
-                $api['content']     = json_decode($api['content'], true);
-                if ($api['address'][0] == '/') {
-                    $api['address_prod']             = empty($this->app['address_prod']) ? $api['address'] : rtrim($this->app['address_prod'], '/').$api['address'];
-                    $api['address_test']             = empty($this->app['address_test']) ? $api['address'] : rtrim($this->app['address_test'], '/').$api['address'];
-                    $api['address_crossdomain_test'] = Lib_Url::getCurrentUrlWithoutUri().'dtest/'.$this->app['id'].$api['address'];
-                    $api['address_crossdomain_prod'] = Lib_Url::getCurrentUrlWithoutUri().'ptest/'.$this->app['id'].$api['address'];
-                } else {
-                    $api['address_prod']             = $api['address'];
-                    $api['address_test']             = $api['address'];
-                    $api['address_crossdomain_test'] = Lib_Url::getCurrentUrlWithoutUri().'dtest/'.$this->app['id'].'/'.$api['address'];
-                    $api['address_crossdomain_prod'] = Lib_Url::getCurrentUrlWithoutUri().'ptest/'.$this->app['id'].'/'.$api['address'];
-                }
-
-                $catArray[$catid]['api_list'][] = $api;
-            }
-        }
-
-        // 分类处理
-        foreach ($catArray as $cat) {
-            if (!empty($cat['api_list'])) {
-                $pid           = $cat['pid'];
-                $ancestorNames = array($cat['name']);
-                while (isset($catArray[$pid])) {
-                    $ancestorNames[] = $catArray[$pid]['name'];
-                    $pid             = $catArray[$pid]['pid'];
-                }
-                $cat['ancestor_names'] = implode(' - ', array_reverse($ancestorNames));
-                $apiList[] = $cat;
-            }
-        }
         $this->assigns(
             array(
                 'title'   => '接口文档',
-                'apiList' => $apiList,
+                'apiList' => Model_Api_Api::instance()->getApiTreeByAppId($this->app['id']),
                 'mainTpl' => 'doc/index',
             )
         );

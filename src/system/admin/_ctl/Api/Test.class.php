@@ -107,6 +107,7 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
         $data    = array(
             'id'      => 0,
             'appid'   => $appid,
+            'api_id'  => intval($apiid),
             'address' => $address,
             'order'   => 99,
             'timeout' => 3,
@@ -123,7 +124,8 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
         } elseif (!empty($apiid)) {
             $api = Model_Api_Api::instance()->getApiInfoById($apiid);
             if (!empty($api)) {
-                $data['name'] = "{$api['name']} 的测试";
+                $data['name']           = "{$api['name']} 的测试";
+                $data['request_method'] = $api['content']['request_type'];
                 if (!empty($api['content']['request_params'])) {
                     foreach ($api['content']['request_params'] as $k => $v) {
                         $data['request_params'][] = array(
@@ -137,6 +139,7 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
         }
         $this->assigns(array(
             'data'    => $data,
+            'apiList' => Model_Api_Api::instance()->getApiTreeByAppId($appid),
             'methods' => Module_Api::instance()->methods,
             'mainTpl' => 'api/test/item',
         ));
