@@ -45,6 +45,7 @@ class Module_Api extends BaseModule
         'binary'   => 'Binary (二进制)',
         'array'    => 'Array (数组)',
         'object'   => 'Object (对象)',
+        'mixed'    => 'Mixed (可变类型)',
     );
 
     /*

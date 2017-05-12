@@ -59,7 +59,7 @@
                 <div class="col-xs-12 col-sm-10">
                     <div class="clearfix">
                         <select class="select2 col-sm-12" name="api_id" style="padding:0;" onchange="onApiChange(this.value)">
-                            <option value="0">可选择当前应用的接口进行测试</option>
+                            <option value="0">可搜索当前应用的接口进行测试，选择可自动补充测试参数</option>
                             {foreach from=$apiList index=$index key=$key item=$cat}
                                 <optgroup label="{$cat['ancestor_names']}"></optgroup>
                                 {foreach from=$cat['api_list'] index=$index key=$k item=$v}

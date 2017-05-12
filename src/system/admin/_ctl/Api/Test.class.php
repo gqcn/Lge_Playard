@@ -164,8 +164,7 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
         if (!empty($data['connection_timeout'])) {
             $http->setConnectionTimeout($data['connection_timeout']);
         }
-        if (!empty($this->_session['api_test']['remote'])
-            && strcmp($data['address'], $this->_session['api_test']['remote']) == 0) {
+        if (!empty($this->_session['api_test']['cookie'])) {
             $http->setCookie($this->_session['api_test']['cookie']);
         }
         $result = $http->send($data['address'], $params, $data['request_method'], 2);
@@ -173,7 +172,6 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
         $cookie = trim($cookie);
         if (!empty($cookie)) {
             $this->_session['api_test'] = array(
-                'remote' => $data['address'],
                 'cookie' => $cookie,
             );
         }
@@ -189,6 +187,7 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
             $data['update_time']      = time();
             Instance::table($this->bindTableName)->mysqlFiltSave($data);
         }
+
         Lib_Response::json(true, $result);
     }
 
