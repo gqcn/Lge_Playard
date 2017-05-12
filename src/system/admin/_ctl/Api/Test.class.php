@@ -190,7 +190,7 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
             'response_content'     => $data['response_content'],
         );
         // 将json中的unicode转换为中文
-        if (Lib_Validator::checkRule($response['response_content'], 'json')) {
+        if (!Lib_Validator::checkRule($response['response_content'], 'json')) {
             $response['response_content'] = json_encode(json_decode($response['response_content'], true), JSON_UNESCAPED_UNICODE);
         }
         Lib_Response::json(true, $response);
