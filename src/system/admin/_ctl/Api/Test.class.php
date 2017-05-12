@@ -128,10 +128,7 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
                 $data['request_method'] = $api['content']['request_type'];
                 if (!empty($api['content']['request_params'])) {
                     foreach ($api['content']['request_params'] as $k => $v) {
-                        $data['request_params'][] = array(
-                            'name'    => $v['name'],
-                            'content' => $v['example'],
-                        );
+                        $data['request_params'][$v['name']] = $v['example'];
                     }
                 }
                 $this->assign('api', $api);

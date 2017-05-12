@@ -171,13 +171,13 @@
                                     </div>
                                 </td>
                             </tr>
-                            {foreach from=$data['request_params'] index=$index key=$key item=$item}
+                            {foreach from=$data['request_params'] index=$index key=$key item=$value}
                                 <tr>
                                     <td>
-                                        <input value="{$item['name']}" class="param-name" type="text" name="request_params[name][]" placeholder="请输入参数名称"/>
+                                        <input value="{$key}" class="param-name" type="text" name="request_params[name][]" placeholder="请输入参数名称"/>
                                     </td>
                                     <td>
-                                        <input value="{$item['content']}" type="text" name="request_params[content][]" placeholder="请输入参数内容"/>
+                                        <input value="{$value}" type="text" name="request_params[content][]" placeholder="请输入参数内容"/>
                                     </td>
                                     <td class="center">
                                         <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
