@@ -1,5 +1,4 @@
 var codeMirrorJson     = null;
-var codeMirrorJsonp    = null;
 var codeMirrorXml      = null;
 var codeMirrorTemplate = null;
 var codeMirrorOther    = null;

@@ -45,7 +45,6 @@
         display: none;
     }
 </style>
-
 <script src="{$sysurl}/assets/js/common.js"></script>
 
 <div class="row">
@@ -205,7 +204,16 @@
                 <div class="col-xs-12 col-sm-10">
                     <div class="clearfix">
                         <div id="request-loading"><i class="ace-icon fa fa-spinner fa-spin orange bigger-130"></i> 请求中...</div>
-                        <textarea name="response_content" placeholder="接口的执行结果将会显示在这里" class="col-xs-12 col-sm-12" style="height:300px;">{$data['response_content']}</textarea>
+                        <textarea name="response_content_raw" placeholder="接口的原始输出信息将会显示在这里" class="col-xs-12 col-sm-12" style="height:200px;">{$data['response_content_raw']}</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-2 no-padding-right"></label>
+                <div class="col-xs-12 col-sm-10">
+                    <div class="clearfix">
+                        <textarea name="response_content" placeholder="接口的执行结果将会显示在这里" class="col-xs-12 col-sm-12" style="height:200px;">{$data['response_content']}</textarea>
                     </div>
                 </div>
             </div>
@@ -231,6 +239,7 @@
 
 
 <script type="text/javascript">
+    // 选择api进行测试
     function onApiChange(apiId)
     {
         window.location.href='/api.test/?appid={$_GET['appid']}&apiid='+apiId;
@@ -280,6 +289,7 @@
                 }
             },
             submitHandler: function(form) {
+                $("textarea[name='response_content_raw']").val('');
                 $("textarea[name='response_content']").val('');
                 $(form).ajaxSubmit({
                     dataType: 'json',
@@ -291,7 +301,8 @@
                     },
                     success : function(result){
                         if (result.result) {
-                            $("textarea[name='response_content']").val(result.data);
+                            $("textarea[name='response_content_raw']").val(result.data.response_content_raw);
+                            $("textarea[name='response_content']").val(result.data.response_content);
                             reloadApiTestList();
                         }
                     }

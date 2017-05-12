@@ -164,7 +164,7 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
         if (!empty($this->_session['api_test']['cookie'])) {
             $http->setCookie($this->_session['api_test']['cookie']);
         }
-        $result = $http->send($data['address'], $params, $data['request_method'], 2);
+        $result = $http->send($data['address'], $params, $data['request_method'], 1);
         $cookie = $http->getCookie();
         $cookie = trim($cookie);
         if (!empty($cookie)) {
@@ -172,6 +172,8 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
                 'cookie' => $cookie,
             );
         }
+        $data['response_content_raw'] = $http->httpHeaderContent.$result;
+        $data['response_content']     = $result;
         if (!empty($data['uid']) && !empty($data['name'])) {
             $testId = Instance::table($this->bindTableName)->getValue('id', array('uid' => $data['uid'], 'name' => $data['name']));
             if (empty($testId)) {
@@ -179,13 +181,19 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
             } else {
                 $data['id'] = $testId;
             }
-            $data['request_params']   = json_encode($params);
-            $data['response_content'] = $result;
-            $data['update_time']      = time();
+            $data['request_params'] = json_encode($params);
+            $data['update_time']    = time();
             Instance::table($this->bindTableName)->mysqlFiltSave($data);
         }
-
-        Lib_Response::json(true, $result);
+        $response = array(
+            'response_content_raw' => $data['response_content_raw'],
+            'response_content'     => $data['response_content'],
+        );
+        // 将json中的unicode转换为中文
+        if (Lib_Validator::checkRule($response['response_content'], 'json')) {
+            $response['response_content'] = json_encode(json_decode($response['response_content'], true), JSON_UNESCAPED_UNICODE);
+        }
+        Lib_Response::json(true, $response);
     }
 
     /**
