@@ -72,12 +72,14 @@ class Controller_Test extends Controller_Base
         if (!empty($remote)) {
             $session   = array();
             $sessionid = Lib_Request::getRequest('__sessionid');
-            if (!empty($sessionid)) {
+            if (!empty($this->_session['api_test'])) {
+                $session = $this->_session['api_test'];
+            } elseif (!empty($sessionid)) {
                 $session = $this->_getSession($sessionid);
             }
             $http = new Lib_Network_Http();
             $http->setBrowserMode(true);
-            if (!empty($sessionid) && !empty($session['cookie'])) {
+            if (!empty($session['cookie'])) {
                 $http->setCookie($session['cookie']);
             }
             $result = $http->send($remote, $params, $method, 1);
@@ -88,11 +90,14 @@ class Controller_Test extends Controller_Base
             }
             $cookie = $http->getCookie();
             $cookie = trim($cookie);
-            if (!empty($sessionid) && !empty($cookie)) {
+            if (!empty($cookie)) {
                 $session = array(
                     'cookie' => $cookie,
                 );
-                $this->_saveSession($sessionid, $session);
+                $this->_session['api_test'] = $session;
+                if (!empty($sessionid)) {
+                    $this->_saveSession($sessionid, $session);
+                }
             }
             echo $result;
         }
