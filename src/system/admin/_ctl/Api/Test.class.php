@@ -22,9 +22,11 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
     {
         $appid = Lib_Request::get('appid');
         $appid = intval($appid);
-        $app   = Instance::table('_api_app')->getOne('*', array('id' => $appid, 'uid' => $this->_session['user']['uid']));
+        // $app   = Instance::table('_api_app')->getOne('*', array('id' => $appid, 'uid' => $this->_session['user']['uid']));
+        $app = Instance::table('_api_app')->getOne('*', array('id' => $appid));
         if (empty($app)) {
-            $app = Instance::table('_api_app')->getOne('*', array('uid' => $this->_session['user']['uid']), null, "`order` ASC,`id` ASC");
+            // $app = Instance::table('_api_app')->getOne('*', array('uid' => $this->_session['user']['uid']), null, "`order` ASC,`id` ASC");
+            $app = Instance::table('_api_app')->getOne('*', null, null, "`order` ASC,`id` ASC");
             if (empty($app)) {
                 $this->addMessage('您当前没有任何应用信息，请先添加应用后进行操作', 'info');
                 Lib_Redirecter::redirectExit('/api.app');
@@ -58,7 +60,7 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
         $this->assigns(
             array(
                 'app'      => Instance::table('_api_app')->getOne('*', array('id' => $appid)),
-                'apps'     => Model_Api_App::instance()->getMyApps(),
+                'apps'     => Model_Api_App::instance()->getAllApps(),
                 'catList'  => Model_Api_Category::instance()->getCatTree($appid),
                 'mainTpl' => 'api/test/index',
             )
@@ -76,10 +78,10 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
         $condition   = array();
         $condition[] = array("uid = {$this->_session['user']['uid']}");
         if (!empty($appid)) {
-            $condition[] = array("and appid={$appid}");
+            $condition[] = array("appid={$appid}");
         }
         if (!empty($key)) {
-            $condition[] = array("and name like '%{$key}%'");
+            $condition[] = array("name like '%{$key}%'");
         }
         $defaultTestData = array(
             'id'      => 0,

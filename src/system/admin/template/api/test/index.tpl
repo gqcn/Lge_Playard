@@ -54,7 +54,7 @@
     // 应用选择切换
     function onAppSelectionChange(appid)
     {
-        window.location.href = '/api.api?appid=' + appid
+        window.location.href = '/api.test?appid=' + appid
     }
 
     // 重新加载接口测试列表

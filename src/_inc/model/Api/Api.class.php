@@ -120,8 +120,8 @@ class Model_Api_Api extends BaseModelTable
         if (!empty($api)) {
             $api['content'] = json_decode($api['content'], true);
             if ($api['address'][0] == '/') {
-                $api['address_prod'] = empty($app['address_prod']) ? $api['address'] : rtrim($app['address_prod'], '/').$api['address'];
-                $api['address_test'] = empty($app['address_test']) ? $api['address'] : rtrim($app['address_test'], '/').$api['address'];
+                $api['address_prod'] = empty($api['address_prod']) ? $api['address'] : rtrim($api['address_prod'], '/').$api['address'];
+                $api['address_test'] = empty($api['address_test']) ? $api['address'] : rtrim($api['address_test'], '/').$api['address'];
             } else {
                 $api['address_prod'] = $api['address'];
                 $api['address_test'] = $api['address'];

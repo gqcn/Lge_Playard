@@ -36,4 +36,20 @@ class Model_Api_App extends BaseModelTable
             '`order` asc, id asc'
         );
     }
+
+    /**
+     * 获取当前系统所有的应用列表.
+     *
+     * @return array
+     */
+    public function getAllApps()
+    {
+        return $this->getAll(
+            '*',
+            null,
+            null,
+            '`order` asc, id asc'
+        );
+    }
+
 }
