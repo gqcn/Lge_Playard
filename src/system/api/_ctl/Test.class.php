@@ -70,11 +70,15 @@ class Controller_Test extends Controller_Base
                 break;
         }
         if (!empty($remote)) {
+            $session   = array();
+            $sessionid = Lib_Request::getRequest('__sessionid');
+            if (!empty($sessionid)) {
+                $session = $this->_getSession($sessionid);
+            }
             $http = new Lib_Network_Http();
             $http->setBrowserMode(true);
-            if (!empty($this->_session['api_test']['remote'])
-                && strcmp($remote, $this->_session['api_test']['remote']) == 0) {
-                $http->setCookie($this->_session['api_test']['cookie']);
+            if (!empty($sessionid) && !empty($session['cookie'])) {
+                $http->setCookie($session['cookie']);
             }
             $result = $http->send($remote, $params, $method, 1);
             if ($this->_isJson($result)) {
@@ -84,14 +88,48 @@ class Controller_Test extends Controller_Base
             }
             $cookie = $http->getCookie();
             $cookie = trim($cookie);
-            if (!empty($cookie)) {
-                $this->_session['api_test'] = array(
-                    'remote' => $remote,
+            if (!empty($sessionid) && !empty($cookie)) {
+                $session = array(
                     'cookie' => $cookie,
                 );
+                $this->_saveSession($sessionid, $session);
             }
             echo $result;
         }
+    }
+
+    /**
+     * 保存自定义session数据
+     *
+     * @param string $sessionid
+     * @param mixed  $data
+     *
+     * @return void
+     */
+    private function _saveSession($sessionid, $data)
+    {
+        if (!file_exists('/tmp/lge-api-test')) {
+            mkdir('/tmp/lge-api-test', 0777);
+        }
+        file_put_contents("/tmp/lge-api-test/{$sessionid}", json_encode($data));
+    }
+
+    /**
+     * 获得session值.
+     *
+     * @param string $sessionid
+     *
+     * @return mixed|string
+     */
+    private function _getSession($sessionid)
+    {
+        $result = '';
+        $path   = "/tmp/lge-api-test/{$sessionid}";
+        if (file_exists($path)) {
+            $content = file_get_contents($path);
+            $result  = json_decode($content, true);
+        }
+        return $result;
     }
 
     /**
