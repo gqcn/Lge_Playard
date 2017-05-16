@@ -176,6 +176,10 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
         }
         $data['response_content_raw'] = $http->httpHeaderContent.$result;
         $data['response_content']     = $result;
+        // 将json中的unicode转换为中文
+        if (!Lib_Validator::checkRule($data['response_content'], 'json')) {
+            $data['response_content'] = json_encode(json_decode($data['response_content'], true), JSON_UNESCAPED_UNICODE);
+        }
         if (!empty($data['uid']) && !empty($data['name'])) {
             $testId = Instance::table($this->bindTableName)->getValue('id', array('uid' => $data['uid'], 'name' => $data['name']));
             if (empty($testId)) {
@@ -191,10 +195,7 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
             'response_content_raw' => $data['response_content_raw'],
             'response_content'     => $data['response_content'],
         );
-        // 将json中的unicode转换为中文
-        if (!Lib_Validator::checkRule($response['response_content'], 'json')) {
-            $response['response_content'] = json_encode(json_decode($response['response_content'], true), JSON_UNESCAPED_UNICODE);
-        }
+
         Lib_Response::json(true, $response);
     }
 
