@@ -9,6 +9,9 @@ class Controller_Test extends BaseController
 {
     public function index()
     {
+        $file           = 'doc_ment.sql.bz2';
+        $fileNamePrefix = 'docment';
+        var_dump(preg_match("/^{$fileNamePrefix}.+\.bz2/", $file));exit();
         var_dump(basename('/home/john/temp/test/127.0.0.1/data/'));
         exit();
         $files = array(
