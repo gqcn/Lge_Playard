@@ -78,6 +78,7 @@ class Controller_Backupper extends Controller_Base
                         @mkdir($fileBackupDir, 0777, true);
                     }
                     foreach ($fileConfig['folders'] as $folderPath => $keepDays) {
+                        Logger::log("Backing up folder: {$folderPath}", $this->logCategory);
                         $host = $clientConfig['host'];
                         $port = $clientConfig['port'];
                         $user = $clientConfig['user'];
@@ -97,13 +98,14 @@ class Controller_Backupper extends Controller_Base
                             // 先判断有没有安装sshpass工具，没有则自动安装
                             $result = $ssh->checkCmd('sshpass');
                             if (empty($result)) {
-                                $issueInfo = $ssh->syncCmd('cat /etc/issue');
-                                if (stripos($issueInfo, 'ubuntu') !== false) {
+                                if (!empty($ssh->checkCmd('apt-get'))) {
                                     // Debian/Ubuntu 系统
                                     $ssh->syncCmd("echo \"{$pass}\" | sudo -S apt-get install -y sshpass");
-                                } else {
+                                } else if (!empty($ssh->checkCmd('yum'))) {
                                     // CentOS/RedHat 系统，注意这个时候只有root用户才能执行该命令
                                     $ssh->syncCmd("yum install -y sshpass");
+                                } else {
+                                    Logger::log("sshpass not installed, break", $this->logCategory);
                                 }
                             }
                             $ssh->syncCmd("rsync -aurvz --delete -e 'sshpass -p {$pass} ssh -p {$port}' {$folderPath} {$user}@{$host}:{$fileBackupDir}");
