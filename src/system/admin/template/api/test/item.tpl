@@ -71,6 +71,15 @@
             </div>
 
             <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-2 no-padding-right">测试名称:</label>
+                <div class="col-xs-12 col-sm-10">
+                    <div class="clearfix">
+                        <input value="{$data['name']}" type="text" name="name" placeholder="用以保存当前测试接口的设置" class="col-xs-12 col-sm-12"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
                 <label class="control-label col-xs-12 col-sm-2 no-padding-right required">请求方式:</label>
                 <div class="col-xs-12 col-sm-8">
                     <div class="clearfix">
@@ -79,15 +88,6 @@
                                 <option value="{$method}" {if $data['request_method'] == $method }selected{/if}>{$name}</option>
                             {/foreach}
                         </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="control-label col-xs-12 col-sm-2 no-padding-right required">测试名称:</label>
-                <div class="col-xs-12 col-sm-10">
-                    <div class="clearfix">
-                        <input value="{$data['name']}" type="text" name="name" placeholder="用以保存当前测试接口的设置" class="col-xs-12 col-sm-12"/>
                     </div>
                 </div>
             </div>
@@ -273,17 +273,11 @@
             errorClass  : 'help-block',
             focusInvalid: true,
             rules       : {
-                name: {
-                    required: true
-                },
                 address: {
                     required: true
                 }
             },
             messages    : {
-                name: {
-                    required: "测试名称不能为空"
-                },
                 address: {
                     required: "接口地址不能为空"
                 }

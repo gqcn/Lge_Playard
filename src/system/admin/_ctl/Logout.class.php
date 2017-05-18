@@ -9,7 +9,7 @@ if(!defined('LGE')){
  * 注销管理.
  *
  */
-class Controller_Logout extends AceAdmin_BaseControllerAuth
+class Controller_Logout extends AceAdmin_BaseController
 {
 
     /**

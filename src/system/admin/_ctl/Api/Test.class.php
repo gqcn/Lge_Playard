@@ -76,9 +76,9 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
         $key         = Lib_Request::get('key');
         $appid       = Lib_Request::get('appid');
         $condition   = array();
-        $condition[] = array("uid = {$this->_session['user']['uid']}");
+        $condition[] = array("uid" => $this->_session['user']['uid']);
         if (!empty($appid)) {
-            $condition[] = array("appid={$appid}");
+            $condition[] = array("appid" => $appid);
         }
         if (!empty($key)) {
             $condition[] = array("name like '%{$key}%'");
@@ -88,7 +88,7 @@ class Controller_Api_Test extends AceAdmin_BaseControllerAuth
             'name'    => '(默认接口测试)',
             'address' => '-',
         );
-        $list = Instance::table($this->bindTableName)->getAll('*', $condition, null, "`order` ASC,`id` ASC", null, null, 'id');
+        $list = Instance::table($this->bindTableName)->getAll('*', $condition, null, "`order` ASC,`id` DESC", null, null, 'id');
         $list = array_merge(array(0 => $defaultTestData), $list);
         $this->assigns(array(
             'list'     => $list,

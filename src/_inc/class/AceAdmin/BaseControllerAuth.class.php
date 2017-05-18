@@ -21,9 +21,27 @@ class AceAdmin_BaseControllerAuth extends AceAdmin_BaseController
     public function __init()
     {
         // 判断用户自动登录
+        $idLogined = true;
         if (empty($this->_session['user'])) {
             $result = Module_User::instance()->checkAutoLoginByCookie();
             if (empty($result)) {
+                $idLogined = false;
+            }
+        }
+        if ($idLogined) {
+            $authChecked = Module_UserAuth::instance()->checkAuthByKey();
+            if (!$authChecked) {
+                $msg = '您没有访问该页面的权限';
+                if ($this->_isAjaxRequest()) {
+                    Lib_Response::json(0, null, $msg);
+                } else {
+                    exception($msg);
+                }
+            }
+        } else {
+            if ($this->_isAjaxRequest()) {
+                Lib_Response::json(0, null, '请重新登录');
+            } else {
                 Lib_Redirecter::redirectExit('/login');
             }
         }
@@ -145,6 +163,17 @@ class AceAdmin_BaseControllerAuth extends AceAdmin_BaseController
             }
         }
         Lib_Redirecter::redirectExit();
+    }
+
+    /**
+     * 判断当前是否是ajax请求
+     *
+     * @return boolean
+     */
+    private function _isAjaxRequest()
+    {
+        return preg_match('/^ajax.+/', Core::$act) ? true : false;
+
     }
 
 }

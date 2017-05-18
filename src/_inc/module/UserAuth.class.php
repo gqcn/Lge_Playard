@@ -26,9 +26,38 @@ class Module_UserAuth extends BaseModule
     }
 
     /**
+     * 通过当前用户的session及给定的用户权限key判断用户是否有权限，可以是URI，也可以自己组织格式传入，形如：/user.info/edit@admin
+     * 注意：如果$userKey为空，或者$userKey不包含子站点信息(@部分)，那么系统将自动获取当前访问的页面及子站点信息进行判断。
+     *
+     * @param string $userKey 用户权限key
+     *
+     * @return boolean
+     */
+    public function checkAuthByKey($userKey = '')
+    {
+        $result = false;
+        if (!empty($this->_session['user'])) {
+            switch ($this->_session['user']['group']['group_key']) {
+                case 'super_admin':
+                    $result = true;
+                    break;
+
+                default:
+                    if (empty($userKey)) {
+                        $userKey = Core::$ctl.'/'.Core::$act.'@'.Core::$sys;
+                    }
+                    $userKey = $this->formatKey($userKey);
+                    $result  = isset($this->_session['user']['auths'][$userKey]);
+                    break;
+            }
+        }
+        return $result;
+    }
+
+    /**
      * 检查用户组是否有key的权限.
      *
-     * @param string $userKey 用户组key.
+     * @param string $userKey 用户组key，形如：/user/editInfo@admin.
      * @param mixed  $gid     用户组ID.
      *
      * @return bool
@@ -40,7 +69,7 @@ class Module_UserAuth extends BaseModule
         }
 
         if (empty($this->_userGroupKeys[$gid]) && $gid !== '') {
-            $this->_userGroupKeys[$gid] = Instance::table('_user_group')->getValue('group_key', array('id=?', $gid));
+            $this->_userGroupKeys[$gid] = Instance::table('_user_group')->getValue('group_key', array('id' => $gid));
         }
         $key = isset($this->_userGroupKeys[$gid]) ? $this->_userGroupKeys[$gid] : '';
         switch ($key) {
@@ -239,13 +268,15 @@ class Module_UserAuth extends BaseModule
     }
 
     /**
-     * 处理key的格式.
+     * 处理key的格式，统一将符号替换为#方便比较.
+     *
      * @param $key
      * @return mixed|string
      */
     public function formatKey($key)
     {
         $key = str_replace(array('-', '.', '_', '/'), '#', $key);
+        $key = trim($key, '#');
         $key = strtolower($key);
         return $key;
     }
