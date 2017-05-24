@@ -1,6 +1,7 @@
 <?php
 /**
- * 接口跨域测试控制器
+ * 接口跨域测试控制器。
+ * 注意该服务不支持跨域文件上传。
  *
  * @author john
  */
@@ -146,7 +147,7 @@ class Controller_Test extends Controller_Base
      */
     private function _isXml($content)
     {
-        return Lib_XmlParser::isXml($content);
+        return empty(Lib_Validator::checkRule($content, 'xml'));
     }
 
     /**
@@ -158,7 +159,7 @@ class Controller_Test extends Controller_Base
      */
     private function _isJson($content)
     {
-        return (@json_decode($content) === false) ? false : true;
+        return empty(Lib_Validator::checkRule($content, 'json'));
     }
 
 }
