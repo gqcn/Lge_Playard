@@ -37,4 +37,5 @@
             rewrite ^/.*$ /index.php?__s=default&__c=image&__a=auto&src=$uri&dst=$dst&w=$w&h=$h;
             expires 1d;
         }
+        # try_files
     }
