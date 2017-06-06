@@ -15,3 +15,26 @@
         ├── demo          示例站点，包含一些示例代码
         ├── tool          管理工具(目前包含一个数据库字典生成工具和一个项目SQL初始化工具)
         └── wechat        微信前台
+
+## 自动缩略图脚本，需要增加Nginx重写规则支持
+    location ~* \.(png|jpg|jpeg|gif)$ {
+        set $w    0;
+        set $h    0;
+        set $dst  "";
+        set $path "";
+        if ($request_uri ~* "\.(png|jpg|jpeg|gif)\?(\d+)_(\d+)") {
+            set $t    $1;
+            set $w    $2;
+            set $h    $3;
+            set $dst  "${uri}.${w}x${h}.${t}";
+            set $path "${document_root}${dst}";
+        }
+        if ( -f $path) {
+            rewrite ^/.*$ $dst;
+            break;
+        }
+        if ($w != 0) {
+            rewrite ^/.*$ /index.php?__s=default&__c=image&__a=auto&src=$uri&dst=$dst&w=$w&h=$h;
+            expires 1d;
+        }
+    }
